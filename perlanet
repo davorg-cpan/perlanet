@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use URI;
+use XML::Feed;
+use Template;
+use DateTime;
+use YAML 'LoadFile';
+
+my $cfg_file = shift || './perlanetrc';
+
+my $cfg = LoadFile($cfg_file);
+
+my @entries;
+
+foreach my $f (@{$cfg->{feeds}}) {
+  my $feed = XML::Feed->parse(URI->new($f->{url}));
+  $feed = $feed->convert($cfg->{feed}{format});
+
+  unless (defined $f->{title}) {
+    $f->{title} = $feed->title;
+  }
+
+  push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
+                       $feed->entries;
+}
+
+@entries = sort { $b->issued <=> $a->issued } @entries;
+
+my $f = XML::Feed->new('Atom');
+$f->title($cfg->{title});
+$f->link($cfg->{url});
+$f->description($cfg->{description});
+$f->author($cfg->{author});
+$f->modified(DateTime->now);
+foreach (1 .. $cfg->{entries}) {
+  $f->add_entry($entries[$_ - 1]);
+}
+
+open my $feedfile, '>', $cfg->{feed}{file} or die $!;
+print $feedfile $f->as_xml;
+close $feedfile;
+
+my $tt = Template->new;
+
+$tt->process($cfg->{page}{template},
+             { feed => $f },
+             $cfg->{page}{file})
+  or die $tt->error;

@@ -1,0 +1,21 @@
+title: planet davorg
+description: Aggregating Dave's stuff
+url: http://davorg.theplanetarium.org/
+author: Dave Cross <dave@dave.org.uk>
+entries: 20
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: atom.xml
+  format: Atom
+feeds:
+  - url: http://blog.dave.org.uk/atom.xml
+  - url: http://api.flickr.com/services/feeds/photos_public.gne?id=39021241@N00&lang=en-us&format=rss_200
+    title: flickr
+  - url: http://twitter.com/statuses/user_timeline/14753.rss
+    title: twitter
+  - url: http://del.icio.us/rss/davorg
+    title: delicious
+  - url: http://use.perl.org/~davorg/journal/rss
+    title: use.perl
