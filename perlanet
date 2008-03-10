@@ -27,9 +27,15 @@ foreach my $f (@{$cfg->{feeds}}) {
                        $feed->entries;
 }
 
-@entries = sort { $b->issued <=> $a->issued } @entries;
+my $day_zero = DateTime->from_epoch(epoch=>0);
 
-my $f = XML::Feed->new('Atom');
+@entries = sort {
+                  ($b->issued || $b->modified || $day_zero)
+                   <=>
+                  ($a->issued || $b->modified || $day_zero)
+                } @entries;
+
+my $f = XML::Feed->new($cfg->{feed}{format});
 $f->title($cfg->{title});
 $f->link($cfg->{url});
 $f->description($cfg->{description});
