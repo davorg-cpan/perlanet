@@ -17,6 +17,7 @@ my @entries;
 
 foreach my $f (@{$cfg->{feeds}}) {
   my $feed = XML::Feed->parse(URI->new($f->{url}));
+  next unless $feed;
   $feed = $feed->convert($cfg->{feed}{format});
 
   unless (defined $f->{title}) {
