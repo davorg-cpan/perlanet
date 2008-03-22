@@ -8,6 +8,7 @@ use XML::Feed;
 use Template;
 use DateTime;
 use YAML 'LoadFile';
+use HTML::Tidy;
 
 my $cfg_file = shift || './perlanetrc';
 
@@ -46,6 +47,20 @@ my $day_zero = DateTime->from_epoch(epoch=>0);
                   ($a->issued || $b->modified || $day_zero)
                 } @entries;
 
+my %tidy = (
+  doctype      => 'omit',
+  output_xhtml => 1,
+  wrap         => 0,
+  break_before_br => 0,
+  input_encoding => 'utf8',
+  output_encoding => 'utf8',
+  tidy_mark => 0,
+  show_body_only => 1,
+);
+
+my $tidy = HTML::Tidy->new(\%tidy);
+$tidy->ignore( type => TIDY_WARNING );
+
 my $f = XML::Feed->new($cfg->{feed}{format});
 $f->title($cfg->{title});
 $f->link($cfg->{url});
@@ -53,7 +68,14 @@ $f->description($cfg->{description});
 $f->author($cfg->{author});
 $f->modified(DateTime->now);
 foreach (1 .. $cfg->{entries}) {
-  $f->add_entry($entries[$_ - 1]);
+  my $entry = $entries[$_ - 1];
+
+  if ($entry->content->type eq 'text/html') {
+    my $clean = $tidy->clean($entry->content->body);
+    $entry->content->body($clean);
+  }
+
+  $f->add_entry($entry);
 }
 
 open my $feedfile, '>', $cfg->{feed}{file} or die $!;
