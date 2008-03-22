@@ -51,6 +51,7 @@ my %tidy = (
   doctype      => 'omit',
   output_xhtml => 1,
   wrap         => 0,
+  alt_text     => '',
   break_before_br => 0,
   input_encoding => 'utf8',
   output_encoding => 'utf8',
@@ -72,7 +73,7 @@ foreach (1 .. $cfg->{entries}) {
 
   if ($entry->content->type eq 'text/html') {
     my $clean = $tidy->clean($entry->content->body);
-    $entry->content->body($clean);
+    $entry->content($clean);
   }
 
   $f->add_entry($entry);
