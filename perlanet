@@ -3,13 +3,14 @@
 use strict;
 use warnings;
 
-use List::Util;
+use List::Util 'min';
 use URI;
 use XML::Feed;
 use Template;
 use DateTime;
 use YAML 'LoadFile';
 use HTML::Tidy;
+use HTML::Scrubber;
 
 my $cfg_file = shift || './perlanetrc';
 
@@ -40,7 +41,7 @@ foreach my $f (@{$cfg->{feeds}}) {
                        $feed->entries;
 }
 
-my $entries = max(scalar @entries, $cfg->{entries});
+my $entries = min(scalar @entries, $cfg->{entries});
 
 my $day_zero = DateTime->from_epoch(epoch=>0);
 
@@ -62,8 +63,54 @@ my %tidy = (
   show_body_only => 1,
 );
 
+my %scrub_rules = (
+  img => {
+    src => qr{^http://},    # only URL with http://
+    alt => 1,               # alt attributes allowed
+    '*' => 0,               # deny all others
+  },
+  style  => 0,
+  script => 0,
+);
+
+my %scrub_def = (
+  '*'           => 1,
+  'href'        => qr{^(?!(?:java)?script)}i,
+  'src'         => qr{^(?!(?:java)?script)}i,
+  'cite'        => '(?i-xsm:^(?!(?:java)?script))',
+  'language'    => 0,
+  'name'        => 1,
+  'value'       => 1,
+  'onblur'      => 0,
+  'onchange'    => 0,
+  'onclick'     => 0,
+  'ondblclick'  => 0,
+  'onerror'     => 0,
+  'onfocus'     => 0,
+  'onkeydown'   => 0,
+  'onkeypress'  => 0,
+  'onkeyup'     => 0,
+  'onload'      => 0,
+  'onmousedown' => 0,
+  'onmousemove' => 0,
+  'onmouseout'  => 0,
+  'onmouseover' => 0,
+  'onmouseup'   => 0,
+  'onreset'     => 0,
+  'onselect'    => 0,
+  'onsubmit'    => 0,
+  'onunload'    => 0,
+  'src'         => 1,
+  'type'        => 1,
+  'style'       => 0,
+);
+
 my $tidy = HTML::Tidy->new(\%tidy);
 $tidy->ignore( type => TIDY_WARNING );
+
+my $scrub = HTML::Scrubber->new;
+$scrub->rules(%scrub_rules);
+$scrub->default(1, \%scrub_def);
 
 my $f = XML::Feed->new($cfg->{feed}{format});
 $f->title($cfg->{title});
@@ -76,7 +123,8 @@ foreach (1 .. $entries) {
 
   if ($entry->content->type eq 'text/html') {
     my $clean = $tidy->clean($entry->content->body);
-    $entry->content($clean);
+    my $scrubbed = $scrub->scrub($clean);
+    $entry->content($scrubbed);
   }
 
   $f->add_entry($entry);
