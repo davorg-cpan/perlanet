@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use List::Util;
 use URI;
 use XML::Feed;
 use Template;
@@ -39,6 +40,8 @@ foreach my $f (@{$cfg->{feeds}}) {
                        $feed->entries;
 }
 
+my $entries = max(scalar @entries, $cfg->{entries});
+
 my $day_zero = DateTime->from_epoch(epoch=>0);
 
 @entries = sort {
@@ -68,7 +71,7 @@ $f->link($cfg->{url});
 $f->description($cfg->{description});
 $f->author($cfg->{author});
 $f->modified(DateTime->now);
-foreach (1 .. $cfg->{entries}) {
+foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
 
   if ($entry->content->type eq 'text/html') {
