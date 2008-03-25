@@ -121,7 +121,7 @@ $f->modified(DateTime->now);
 foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
 
-  if ($entry->content->type eq 'text/html') {
+  if ($entry->content->type && $entry->content->type eq 'text/html') {
     my $clean = $tidy->clean($entry->content->body);
     my $scrubbed = $scrub->scrub($clean);
     $entry->content($scrubbed);
