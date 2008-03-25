@@ -138,5 +138,6 @@ my $tt = Template->new;
 
 $tt->process($cfg->{page}{template},
              { feed => $f },
-             $cfg->{page}{file})
+             $cfg->{page}{file},
+             { binmode => ':utf8' })
   or die $tt->error;
