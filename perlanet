@@ -8,6 +8,7 @@ use URI;
 use XML::Feed;
 use Template;
 use DateTime;
+use DateTime::Duration;
 use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
@@ -50,6 +51,11 @@ my $day_zero = DateTime->from_epoch(epoch=>0);
                    <=>
                   ($a->issued || $b->modified || $day_zero)
                 } @entries;
+
+my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
+@entries =
+  grep { ($_->issued || $_->modified || $day_zero) < $week_in_future }
+  @entries;
 
 my %tidy = (
   doctype      => 'omit',
