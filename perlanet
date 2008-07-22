@@ -71,9 +71,10 @@ my %tidy = (
 
 my %scrub_rules = (
   img => {
-    src => qr{^http://},    # only URL with http://
-    alt => 1,               # alt attributes allowed
-    '*' => 0,               # deny all others
+    src   => qr{^http://},    # only URL with http://
+    alt   => 1,               # alt attributes allowed
+    align => 1,               # allow align on images
+    '*'   => 0,               # deny all others
   },
   style  => 0,
   script => 0,
