@@ -145,7 +145,7 @@ close $feedfile;
 my $tt = Template->new;
 
 $tt->process($cfg->{page}{template},
-             { feed => $f },
+             { feed => $f, cfg => $cfg },
              $cfg->{page}{file},
              { binmode => ':utf8' })
   or die $tt->error;
