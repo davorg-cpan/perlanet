@@ -74,6 +74,7 @@ my %scrub_rules = (
     src   => qr{^http://},    # only URL with http://
     alt   => 1,               # alt attributes allowed
     align => 1,               # allow align on images
+    style => 1,
     '*'   => 0,               # deny all others
   },
   style  => 0,
@@ -109,7 +110,7 @@ my %scrub_def = (
   'onunload'    => 0,
   'src'         => 1,
   'type'        => 1,
-  'style'       => 0,
+  'style'       => 1,
 );
 
 my $tidy = HTML::Tidy->new(\%tidy);
