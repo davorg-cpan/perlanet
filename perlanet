@@ -130,9 +130,9 @@ foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
 
   if ($entry->content->type && $entry->content->type eq 'text/html') {
-    my $clean = $tidy->clean($entry->content->body);
-    my $scrubbed = $scrub->scrub($clean);
-    $entry->content($scrubbed);
+    my $scrubbed = $scrub->scrub($entry->content->body);
+    my $clean = $tidy->clean($scrubbed);
+    $entry->content($clean);
   }
 
   $f->add_entry($entry);
