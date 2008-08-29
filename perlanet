@@ -132,6 +132,8 @@ foreach (1 .. $entries) {
   if ($entry->content->type && $entry->content->type eq 'text/html') {
     my $scrubbed = $scrub->scrub($entry->content->body);
     my $clean = $tidy->clean($scrubbed);
+    # hack to remove a particularly nasty piece of blogspot HTML
+    $clean =~ s|<div align="justify"></div>||;
     $entry->content($clean);
   }
 
