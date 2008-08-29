@@ -133,7 +133,7 @@ foreach (1 .. $entries) {
     my $scrubbed = $scrub->scrub($entry->content->body);
     my $clean = $tidy->clean($scrubbed);
     # hack to remove a particularly nasty piece of blogspot HTML
-    $clean =~ s|<div align="justify"></div>||;
+    $clean =~ s|<div align="justify"></div>||g;
     $entry->content($clean);
   }
 
