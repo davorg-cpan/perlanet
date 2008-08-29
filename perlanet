@@ -10,6 +10,7 @@ use Template;
 use DateTime;
 use DateTime::Duration;
 use YAML 'LoadFile';
+use XML::OPML::SimpleGen;
 use HTML::Tidy;
 use HTML::Scrubber;
 
@@ -18,6 +19,14 @@ my $cfg_file = shift || './perlanetrc';
 my $cfg = LoadFile($cfg_file);
 
 my @entries;
+
+my $opml;
+if ($cfg->{opml}) {
+  $opml = XML::OPML::SimpleGen->new;
+  $opml->head(
+    title => $cfg->{title},
+  );
+}
 
 foreach my $f (@{$cfg->{feeds}}) {
   my $feed = eval { XML::Feed->parse(URI->new($f->{url})) };
@@ -40,6 +49,18 @@ foreach my $f (@{$cfg->{feeds}}) {
 
   push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                        $feed->entries;
+
+  if ($cfg->{opml}) {
+    $opml->insert_outline(
+      text    => $f->{title},
+      xmlUrl  => $f->{url},
+      htmlUrl => $f->{web},
+    );
+  }
+}
+
+if ($cfg->{opml}) {
+  $opml->save($cfg->{opml});
 }
 
 my $entries = min(scalar @entries, $cfg->{entries});
