@@ -1,7 +1,9 @@
 title: planet davorg
 description: Aggregating Dave's stuff
 url: http://davorg.theplanetarium.org/
-author: Dave Cross <dave@dave.org.uk>
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
 entries: 20
 page:
   file: index.html
