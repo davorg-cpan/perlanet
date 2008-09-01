@@ -3,8 +3,10 @@
 use strict;
 use warnings;
 
+use Encode;
+use Encode::Detect;
 use List::Util 'min';
-use URI;
+use LWP::Simple;
 use XML::Feed;
 use Template;
 use DateTime;
@@ -29,7 +31,8 @@ if ($cfg->{opml}) {
 }
 
 foreach my $f (@{$cfg->{feeds}}) {
-  my $feed = eval { XML::Feed->parse(URI->new($f->{url})) };
+  my $data = decode('Detect', get($f->{url}));
+  my $feed = eval { XML::Feed->parse(\$data) };
 
   if ($@) {
     warn "$f->{url}\n$@\n";
