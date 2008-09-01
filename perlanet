@@ -151,7 +151,11 @@ my $f = XML::Feed->new($cfg->{feed}{format});
 $f->title($cfg->{title});
 $f->link($cfg->{url});
 $f->description($cfg->{description});
-$f->author($cfg->{author});
+$f->author($cfg->{author}{name});
+if ($cfg->{feed}{format} eq 'Atom') {
+  my $p = $f->{atom}->author;
+  $p->email($cfg->{author}{email});
+}
 $f->modified(DateTime->now);
 foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
