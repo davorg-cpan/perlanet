@@ -91,7 +91,7 @@ my %tidy = (
 );
 
 my %scrub_rules = (
-  img => {
+  img    => {
     src   => qr{^http://},    # only URL with http://
     alt   => 1,               # alt attributes allowed
     align => 1,               # allow align on images
@@ -100,6 +100,9 @@ my %scrub_rules = (
   },
   style  => 0,
   script => 0,
+  span   => {
+    id    => 0,               # blogger(?) includes spans with id attribute
+  },
 );
 
 my %scrub_def = (
