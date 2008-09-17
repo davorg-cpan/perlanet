@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use open ':encoding(utf8)';
 use Encode;
 use Encode::Detect;
 use List::Util 'min';
@@ -182,3 +183,9 @@ $tt->process($cfg->{page}{template},
              $cfg->{page}{file},
              { binmode => ':utf8' })
   or die $tt->error;
+
+sub decode {
+  my $data = shift;
+
+  
+}
