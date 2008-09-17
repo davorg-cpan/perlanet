@@ -184,8 +184,3 @@ $tt->process($cfg->{page}{template},
              { binmode => ':utf8' })
   or die $tt->error;
 
-sub decode {
-  my $data = shift;
-
-  
-}
