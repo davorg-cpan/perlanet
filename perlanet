@@ -32,7 +32,7 @@ if ($cfg->{opml}) {
 }
 
 foreach my $f (@{$cfg->{feeds}}) {
-  my $data = decode('Detect', get($f->{url}));
+  my $data = get($f->{url});
   my $feed = eval { XML::Feed->parse(\$data) };
 
   if ($@) {
