@@ -1,0 +1,19 @@
+title: planet test
+description: Testing stuff
+url: http://theplanetarium.org/
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
+entries: 20
+opml: opml.xml
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: atom.xml
+  format: Atom
+feeds:
+  - url: http://feeds.feedburner.com/JohnRedwoodsDiary
+    title: con: john redwood
+    web: http://www.johnredwoodsdiary.com/
+
