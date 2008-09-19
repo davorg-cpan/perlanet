@@ -1,0 +1,42 @@
+title: Planet Skeptic
+description: Question Everything
+url: http://skeptic.theplanetarium.org/
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
+entries: 50
+opml: opml.xml
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: atom.xml
+  format: Atom
+feeds:
+  - url: http://www.badscience.net/?feed=atom
+    title: Bad Science
+    web: http://www.badscience.net/
+  - url: http://cectic.com/rss.xml
+    title: Cectic
+    web: http://cectic.com/
+  - url: http://www.climate-resistance.org/feed
+    title: Climate Resistance
+    web: http://www.climate-resistance.org/
+  - url: http://teenatheist.wordpress.com/feed/
+    title: Diary of a Teenage Atheist
+    web: http://teenatheist.wordpress.com
+  - url: http://www.mediawatchwatch.org.uk/wp-rss.php
+    title: Media Watch Watch
+    web: http://www.mediawatchwatch.org.uk/
+  - url: http://blog.newhumanist.org.uk/feeds/posts/default
+    title: New Humanist Blog
+    web: http://blog.newhumanist.org.uk/
+  - url: http://feeds.feedburner.com/scienceblogs/pharyngula
+    title: Pharyngula
+    web: http://scienceblogs.com/pharyngula/
+  - url: http://richarddawkins.net/feed.php
+    title: Richard Dawkins Foundation
+    web: http://richarddawkins.net/
+  - url: http://feeds.feedburner.com/SamHarris
+    title: Sam Harris
+    web: http://www.samharris.org/
