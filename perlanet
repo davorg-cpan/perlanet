@@ -1,9 +1,9 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
 
-use open ':encoding(utf8)';
+use open ':utf8';
 use Encode;
 use Encode::Detect;
 use List::Util 'min';
@@ -13,9 +13,27 @@ use Template;
 use DateTime;
 use DateTime::Duration;
 use YAML 'LoadFile';
-use XML::OPML::SimpleGen;
 use HTML::Tidy;
 use HTML::Scrubber;
+
+require XML::OPML::SimpleGen;
+
+use vars qw{$VERSION};
+BEGIN {
+  $VERSION = '0.01';
+}
+
+=head1 NAME
+
+Perlanet - A program for creating web pages that aggregate web feeds (both RSS and Atom).
+
+=head1 SYNOPSIS
+
+Perlanet is a program for creating web pages that aggregate web feeds (both RSS and Atom). Web pages like this are often called "Planets" after the Python software which originally popularised them. Perlanet is a planet builder written in Perl - hence "Perlanet".
+
+The emphasis on Perlanet is firmly on simplicity. It reads web feeds, merges them and publishes the merged feed as a web page and as a new feed. That's all it is intended to do. If you want to do more with your feeds (create feeds from inputs that don't publish feeds, filter or transform them in complex ways or publish them in interesting ways) then Perlanet isn't the right software for you. In that case I recommend that you take a look at Plagger - which is another feed aggregator, but one that is far more complex and, therefore, far more flexible.
+
+=cut
 
 my $cfg_file = shift || './perlanetrc';
 
@@ -82,6 +100,7 @@ my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
   grep { ($_->issued || $_->modified || $day_zero) < $week_in_future }
   @entries;
 
+# Preferences for HTML::Tidy
 my %tidy = (
   doctype      => 'omit',
   output_xhtml => 1,
@@ -94,6 +113,7 @@ my %tidy = (
   show_body_only => 1,
 );
 
+# Rules for HTML::Scrub
 my %scrub_rules = (
   img    => {
     src   => qr{^http://},    # only URL with http://
@@ -109,6 +129,7 @@ my %scrub_rules = (
   },
 );
 
+# Definitions for HTML::Scrub
 my %scrub_def = (
   '*'           => 1,
   'href'        => qr{^(?!(?:java)?script)}i,
@@ -160,10 +181,10 @@ if ($cfg->{feed}{format} eq 'Atom') {
 $f->modified(DateTime->now);
 foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
-
   if ($entry->content->type && $entry->content->type eq 'text/html') {
     my $scrubbed = $scrub->scrub($entry->content->body);
     my $clean = $tidy->clean($scrubbed);
+
     # hack to remove a particularly nasty piece of blogspot HTML
     $clean =~ s|<div align="justify"></div>||g;
     $entry->content($clean);
@@ -184,3 +205,21 @@ $tt->process($cfg->{page}{template},
              { binmode => ':utf8' })
   or die $tt->error;
 
+
+=head1 TO DO
+
+See http://trac.mag-sol.com/perlanet/wiki
+
+=head1 AUTHOR
+
+Dave Cross, <dave@mag-sol.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2008 by Magnum Solutions Ltd.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
