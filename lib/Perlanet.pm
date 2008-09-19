@@ -42,6 +42,13 @@ for you. In that case I recommend that you take a look at Plagger - which is
 another feed aggregator, but one that is far more complex and, therefore, far
 more flexible.
 
+=head1 METHODS
+
+=head2 new
+
+The constructor method. One optional argument which is the configuration file.
+If not given, this defaults to C<./perlanetrc>.
+
 =cut
 
 sub new {
@@ -53,6 +60,12 @@ sub new {
 
   return bless { cfg => $cfg }, $class;
 }
+
+=head2 run
+
+The main method which runs the perlanet process.
+
+=cut
 
 sub run {
   my $self = shift;
