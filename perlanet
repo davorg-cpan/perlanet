@@ -3,9 +3,7 @@
 use strict;
 use warnings;
 
-use open ':utf8';
 use Encode;
-use Encode::Detect;
 use List::Util 'min';
 use LWP::Simple;
 use XML::Feed;
@@ -107,8 +105,7 @@ my %tidy = (
   wrap         => 0,
   alt_text     => '',
   break_before_br => 0,
-  input_encoding => 'utf8',
-  output_encoding => 'utf8',
+  char_encoding => 'raw',
   tidy_mark => 0,
   show_body_only => 1,
 );
@@ -183,7 +180,9 @@ foreach (1 .. $entries) {
   my $entry = $entries[$_ - 1];
   if ($entry->content->type && $entry->content->type eq 'text/html') {
     my $scrubbed = $scrub->scrub($entry->content->body);
-    my $clean = $tidy->clean($scrubbed);
+    my $clean = $tidy->clean(utf8::is_utf8($scrubbed) ?
+                               $scrubbed :
+                               decode('utf8', $scrubbed));
 
     # hack to remove a particularly nasty piece of blogspot HTML
     $clean =~ s|<div align="justify"></div>||g;
@@ -201,8 +200,7 @@ my $tt = Template->new;
 
 $tt->process($cfg->{page}{template},
              { feed => $f, cfg => $cfg },
-             $cfg->{page}{file},
-             { binmode => ':utf8' })
+             $cfg->{page}{file})
   or die $tt->error;
 
 
