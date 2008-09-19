@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Perlanet;
+
+use vars qw{$VERSION};
+BEGIN {
+  $VERSION = '0.01';
+}
+
+my $p = Perlanet->new(shift || './perlanetrc');
+
+$p->run;
