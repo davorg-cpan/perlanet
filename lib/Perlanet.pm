@@ -28,6 +28,11 @@ RSS and Atom).
 
 =head1 SYNOPSIS
 
+  my $perlanet = Perlanet->new;
+  $perlanet->run;
+
+=head1 DESCRIPTION
+
 Perlanet is a program for creating web pages that aggregate web feeds (both
 RSS and Atom). Web pages like this are often called "Planets" after the Python
 software which originally popularised them. Perlanet is a planet builder
@@ -41,6 +46,9 @@ or publish them in interesting ways) then Perlanet isn't the right software
 for you. In that case I recommend that you take a look at Plagger - which is
 another feed aggregator, but one that is far more complex and, therefore, far
 more flexible.
+
+For most uses, you probably don't want to use the Perlanet module. The
+L<perlanet> command line program is far more likely to be useful.
 
 =head1 METHODS
 
@@ -240,6 +248,32 @@ sub run {
 =head1 TO DO
 
 See http://trac.mag-sol.com/perlanet/wiki
+
+=head1 SUPPORT
+
+There is a mailing list which acts as both a place for developers to talk
+about maintaining and improving Perlanet and also for users to get support.
+You can sign up to this list at
+L<http://lists.mag-sol.com/mailman/listinfo/perlanet>
+
+To report bugs in Perlanet, please use the CPAN request tracker. You can
+either use the web page at
+L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet> or send an email
+to bug-Perlanet@rt.cpan.org.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item *
+
+L<perlanent>
+
+=item *
+
+L<Plagger>
+
+=back
 
 =head1 AUTHOR
 
