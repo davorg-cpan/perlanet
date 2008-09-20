@@ -13,3 +13,227 @@ BEGIN {
 my $p = Perlanet->new(shift || './perlanetrc');
 
 $p->run;
+
+=head1 NAME
+
+perlanet - command line interface to Perlanet.pm
+
+=head1 SYNOPSIS
+
+  $ perlanet
+
+Or
+
+  $ perlanet config_file
+
+=head1 DESCRIPTION
+
+C<perlanet> is a command line program for aggregating web feeds (both Atom
+and RSS) and publishing a new web page and a new web feed containing the
+results of that aggregation.
+
+=head1 COMMAND LINE ARGUMENTS
+
+C<perlanet> takes one optional command line argument, which is the name of
+a configuration file to use. If no filename is given then the program looks
+for a file called C<perlanetrc> in the current directory.
+
+=head1 CONFIGURATION FILE
+
+C<perlanet> requires a configuration file which contains details of which
+feeds to aggregate and what to do with the results of the aggregation. By
+default, C<perlanet> looks for a file called C<perlanetrc> in the current
+directory, but this name can be overridden by passing the name of a different
+file when calling the program.
+
+The configuration file is in YAML format. YAML is a simple text-based file
+format. See L<http://yaml.org/> for further details.
+
+=head2 Configuration Options
+
+The configuration file can contain the following options.
+
+=over 4
+
+=item title
+
+The title of the resulting page and web feed. This option is mandatory.
+
+=item description
+
+The description of the resulting page and web feed. This option is mandatory.
+
+=item url
+
+A URL which will be associated with the resulting page and web feed. This will
+usually be the address where the web page will be published. This option is
+mandatory.
+
+=item author
+
+The name and email address of the author of the aggregated content. This
+item has two sub-items - one each for the name and email address. This option
+is mandatory.
+
+=item entries
+
+The maximum number of entries to include in the aggregated content. This option
+is mandatory.
+
+=item opml
+
+The system can optionally create an OPML file containing details of the
+feeds which are being aggregated. This optional option controls whether or not
+this file is created. If it exists, it should be the name of the OPML file
+to be created. If an OPML file is being created, then the C<feeds> options
+(described below) will all require a C<web> sub-option.
+
+=item page
+
+This mandatory option contains the details of the web page to be created.
+There are two sub-options - C<file> gives the name of the file to be created
+and C<template> gives the name of a Template Toolkit template which will be
+processed in order to create this file. See the section L<Output Template>
+for more details on this template, and the web site L<http://tt2.org/> for
+more information about the Template Toolkit.
+
+=item feed
+
+This mandatory option contains the details of the web feed to be created.
+There are two sub-options - C<file> gives the name of the file to be created
+and C<format> gives the format of the output (currently 'Atom' or 'RSS').
+
+=item feeds
+
+This mandatory option gives details of the web feeds to be aggregated. Each
+item on the list has one mandatory sub-option and two optional sub-options.
+The mandatory sub-option is C<url> which gives the URL of the feed. The
+optional sub-option C<title> gives a title which will be prepended to all of
+the entry titles taken from that feed. If no title is given, then the title
+will be taken from the feed title. The optional C<web> sub-option gives a
+web site URL associated with the feed (often the address of the web site that
+the feed comes from). This can be used to create a list of the aggregated
+sites. The C<web> sub-option becomes mandatory if you are creating an OPML
+file.
+
+=back
+
+=head2 Example Configuration File
+
+  title: planet test
+  description: A Test Planet
+  url: http://planet.example.com/
+  author:
+    name: Dave Cross
+    email: dave@dave.org.uk
+  entries: 20
+  opml: opml.xml
+  page:
+    file: index.html
+    template: index.tt
+  feed:
+    file: atom.xml
+    format: Atom
+  feeds:
+    - url: http://blog.dave.org.uk/atom.xml
+      title: Dave's Blog
+      web: http://blog.dave.org.uk/
+    - url: http://use.perl.org/~davorg/journal/rss
+      title: Dave's use.perl Journal
+      web: http://use.perl.org/~davorg/journal/
+    - url: http://www.oreillynet.com/pub/feed/31?au=2607
+      title: Dave on O'Reillynet
+      web: http://www.oreillynet.com/pub/au/2607
+
+=head2 Output Template
+
+The web page is created from a Template Toolkit template. This template is
+passed two variables.
+
+=over 4
+
+=item feed
+
+This is the XML::Feed object which has been used to create the aggregated
+feed. See the L<XML::Feed> documentation for details of the data that is
+held in this object.
+
+=item cfg
+
+This is the contents of the configuration file, converted to a (nested)
+Perl hash.
+
+=back
+
+=head2 Example Output Template
+
+This is a simple template which uses the C<feed> variable to display details
+of the aggregated feeds.
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>[% feed.title %]</title>
+    </head>
+    <body>
+      <h1>[% feed.title | html %]</h1>
+      <p>[% feed.description | html %]</p>
+  [% FOREACH entry IN feed.entries %]
+      <h2><a href="[% entry.link | url | html %]">[% entry.title | html %]</h2></a>
+      [% entry.content.body %]
+  [% IF entry.author OR entry.issued %]
+      <p>Published[% IF entry.author %] by [% entry.author | html; END %]
+      [% IF entry.issued %] on [% entry.issued | html; END %]</p>
+  [% END %]
+  [% END %]
+      <hr />
+      <address>[% feed.author | html %] / [% feed.modified | html %]</address>
+    </body>
+  </html>
+
+In the future, the Perlanet wiki at L<http://trac.mag-sol.com/perlanet/> will
+contain a cookbook of useful ideas to include in the output template.
+
+=head1 SUPPORT
+
+There is a mailing list which acts as both a place for developers to talk
+about maintaining and improving Perlanet and also for users to get support.
+You can sign up to this list at
+L<http://lists.mag-sol.com/mailman/listinfo/perlanet>
+
+To report bugs in Perlanet, please use the CPAN request tracker. You can
+either use the web page at
+L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet> or send an email
+to bug-Perlanet@rt.cpan.org.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item *
+
+L<perlanent>
+
+=item *
+
+L<Plagger>
+
+=back
+
+=head1 AUTHOR
+
+Dave Cross, <dave@mag-sol.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2008 by Magnum Solutions Ltd.
+
+This progam library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
+
