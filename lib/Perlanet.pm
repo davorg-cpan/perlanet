@@ -113,6 +113,7 @@ sub run {
 
     if ($self->{cfg}{opml}) {
       $opml->insert_outline(
+        title   => $f->{title},
         text    => $f->{title},
         xmlUrl  => $f->{url},
         htmlUrl => $f->{web},
@@ -149,6 +150,7 @@ sub run {
     char_encoding => 'raw',
     tidy_mark => 0,
     show_body_only => 1,
+    preserve_entities => 1,
   );
 
   # Rules for HTML::Scrub
