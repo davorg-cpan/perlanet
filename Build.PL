@@ -2,7 +2,7 @@ use Module::Build;
 
 my $build = Module::Build->new(
 	license            => 'perl',
-	dist_version       => '0.07',
+	dist_version       => '0.08',
 	dist_author        => 'Dave Cross <dave@mag-sol.com>',
         module_name        => 'Perlanet',
 	requires           => {
