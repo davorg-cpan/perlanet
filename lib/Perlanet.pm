@@ -219,6 +219,10 @@ sub run {
     $p->email($self->{cfg}{author}{email});
   }
   $f->modified(DateTime->now);
+  my $self_url = $self->{cfg}{self_link} ||
+                "$self->{cfg}{url}$self->{cfg}{feed}{file}";
+  $f->self_link($self_url);
+  $f->id($self_url);
   foreach (1 .. $entries) {
     my $entry = $entries[$_ - 1];
     if ($entry->content->type && $entry->content->type eq 'text/html') {
@@ -230,6 +234,11 @@ sub run {
       # hack to remove a particularly nasty piece of blogspot HTML
       $clean =~ s|<div align="justify"></div>||g;
       $entry->content($clean);
+    }
+
+    # Problem with XML::Feed's conversion of RSS to Atom
+    if ($entry->issued && ! $entry->modified) {
+      $entry->modified($entry->issued);
     }
 
     $f->add_entry($entry);
