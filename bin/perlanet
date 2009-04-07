@@ -75,6 +75,15 @@ The name and email address of the author of the aggregated content. This
 item has two sub-items - one each for the name and email address. This option
 is mandatory.
 
+=item agent
+
+This optional entry defines the agent string that perlanet will use when
+requesting data from web sites. It's the name of the program that site owners
+will see in their web site access logs. Although it is optional, it is strongly
+recommended that you give a value for this configuration option and that the
+value you use includes contact details so that web site owners can get in 
+touch with you if they have any concerns about your use of their site.
+
 =item entries
 
 The maximum number of entries to include in the aggregated content. This option
