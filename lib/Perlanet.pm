@@ -5,7 +5,7 @@ use warnings;
 
 use Encode;
 use List::Util 'min';
-use LWP::Simple;
+use LWP::UserAgent;
 use XML::Feed;
 use Template;
 use DateTime;
@@ -18,7 +18,7 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.01';
+  $VERSION = '0.09';
 }
 
 =head1 NAME
@@ -88,8 +88,19 @@ sub run {
     );
   }
 
+  my $ua = LWP::UserAgent->new;
+  $ua->agent($self->{cfg}{agent} || "Perlanet/$VERSION");
+
   foreach my $f (@{$self->{cfg}{feeds}}) {
-    my $data = get($f->{url});
+    my $response = $ua->get($f->{url});
+
+    if ($response->is_error) {
+      warn "$f->{url}:\n" . $response->status_line;
+      next;
+    }
+
+    my $data = $response->content;
+
     my $feed = eval { XML::Feed->parse(\$data) };
 
     if ($@) {
@@ -102,7 +113,9 @@ sub run {
       next;
     }
 
-    $feed = $feed->convert($self->{cfg}{feed}{format});
+    if ($feed->format ne $self->{cfg}{feed}{format}) {
+      $feed = $feed->convert($self->{cfg}{feed}{format});
+    }
 
     unless (defined $f->{title}) {
       $f->{title} = $feed->title;
