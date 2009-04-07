@@ -1,6 +1,7 @@
 title: planet test
 description: Testing stuff
 url: http://theplanetarium.org/
+agent: Testing Perlanet
 author:
   name: Dave Cross
   email: dave@dave.org.uk
