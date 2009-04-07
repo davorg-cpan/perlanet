@@ -2,14 +2,13 @@ use Module::Build;
 
 my $build = Module::Build->new(
 	license            => 'perl',
-	dist_version       => '0.08',
 	dist_author        => 'Dave Cross <dave@mag-sol.com>',
         module_name        => 'Perlanet',
 	requires           => {
                 perl                 => '5.6.0',
                 Encode               => 0,
                 List::Util           => 0,
-                LWP::Simple          => 0,
+                LWP::UserAgent       => 0,
                 XML::Feed            => '0.22',
                 Template             => 0,
                 DateTime             => 0,
