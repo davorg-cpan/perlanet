@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[% feed.title %]</title>
+  </head>
+  <body>
+    <h1>[% feed.title %]</h1>
+    <p>[% feed.description %]</p>
+[% FOREACH entry IN feed.entries %]
+    <h2><a href="[% entry.link | url | html %]">[% entry.title | html %]</h2></a>
+    [% entry.content.body %]
+[% IF entry.author OR entry.issued %]
+    <p>Published[% IF entry.author %] by [% entry.author | html; END %]
+    [% IF entry.issued %] on [% entry.issued | html; END %]</p>
+[% END %]
+[% END %]
+    <hr />
+    <address>[% feed.author | html %] / [% feed.modified | html %]</address>
+  </body>
+</html>
