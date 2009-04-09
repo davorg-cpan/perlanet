@@ -69,7 +69,15 @@ sub new {
   my $ua = LWP::UserAgent->new;
   $ua->agent($cfg->{agent} || "Perlanet/$VERSION");
 
-  return bless { cfg => $cfg, ua => $ua }, $class;
+  my $opml;
+  if ($cfg->{opml}) {
+    $opml = XML::OPML::SimpleGen->new;
+    $opml->head(
+      title => $cfg->{title},
+    );
+  }
+
+  return bless { cfg => $cfg, ua => $ua, opml => $opml }, $class;
 }
 
 =head2 run
@@ -82,14 +90,6 @@ sub run {
   my $self = shift;
 
   my @entries;
-
-  my $opml;
-  if ($self->{cfg}{opml}) {
-    $opml = XML::OPML::SimpleGen->new;
-    $opml->head(
-      title => $self->{cfg}{title},
-    );
-  }
 
   foreach my $f (@{$self->{cfg}{feeds}}) {
     my $response = $self->{ua}->get($f->{url});
@@ -124,8 +124,8 @@ sub run {
     push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                          $feed->entries;
 
-    if ($self->{cfg}{opml}) {
-      $opml->insert_outline(
+    if ($self->{opml}) {
+      $self->{opml}->insert_outline(
         title   => $f->{title},
         text    => $f->{title},
         xmlUrl  => $f->{url},
@@ -134,8 +134,8 @@ sub run {
     }
   }
 
-  if ($self->{cfg}{opml}) {
-    $opml->save($self->{cfg}{opml});
+  if ($self->{opml}) {
+    $self->{opml}->save($self->{cfg}{opml});
   }
 
   my $day_zero = DateTime->from_epoch(epoch=>0);
