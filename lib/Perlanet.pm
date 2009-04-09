@@ -66,7 +66,10 @@ sub new {
 
   my $cfg = LoadFile($cfg_file);
 
-  return bless { cfg => $cfg }, $class;
+  my $ua = LWP::UserAgent->new;
+  $ua->agent($cfg->{agent} || "Perlanet/$VERSION");
+
+  return bless { cfg => $cfg, ua => $ua }, $class;
 }
 
 =head2 run
@@ -88,11 +91,8 @@ sub run {
     );
   }
 
-  my $ua = LWP::UserAgent->new;
-  $ua->agent($self->{cfg}{agent} || "Perlanet/$VERSION");
-
   foreach my $f (@{$self->{cfg}{feeds}}) {
-    my $response = $ua->get($f->{url});
+    my $response = $self->{ua}->get($f->{url});
 
     if ($response->is_error) {
       warn "$f->{url}:\n" . $response->status_line;
