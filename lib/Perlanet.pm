@@ -138,8 +138,6 @@ sub run {
     $opml->save($self->{cfg}{opml});
   }
 
-  my $entries = min(scalar @entries, $self->{cfg}{entries});
-
   my $day_zero = DateTime->from_epoch(epoch=>0);
 
   @entries = sort {
@@ -152,6 +150,11 @@ sub run {
   @entries =
     grep { ($_->issued || $_->modified || $day_zero) < $week_in_future }
     @entries;
+
+  # Only need so many entries
+  if (@entries > $self->{cfg}{entries}) {
+    $#entries = $self->{cfg}{entries};
+  }
 
   # Preferences for HTML::Tidy
   my %tidy = (
@@ -236,8 +239,8 @@ sub run {
                 "$self->{cfg}{url}$self->{cfg}{feed}{file}";
   $f->self_link($self_url);
   $f->id($self_url);
-  foreach (1 .. $entries) {
-    my $entry = $entries[$_ - 1];
+
+  foreach my $entry (@entries) {
     if ($entry->content->type && $entry->content->type eq 'text/html') {
       my $scrubbed = $scrub->scrub($entry->content->body);
       my $clean = $tidy->clean(utf8::is_utf8($scrubbed) ?
