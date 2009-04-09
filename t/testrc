@@ -6,12 +6,12 @@ author:
   name: Dave Cross
   email: dave@dave.org.uk
 entries: 20
-opml: opml.xml
+opml: t/opml.xml
 page:
-  file: index.html
-  template: index.tt
+  file: t/index.html
+  template: t/index.tt
 feed:
-  file: atom.xml
+  file: t/atom.xml
   format: Atom
 feeds:
   - url: http://feeds.feedburner.com/JohnRedwoodsDiary
