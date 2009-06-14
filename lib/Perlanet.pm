@@ -274,7 +274,7 @@ sub run {
 
 =head1 TO DO
 
-See http://trac.mag-sol.com/perlanet/wiki
+See http://wiki.github.com/davorg/perlanet
 
 =head1 SUPPORT
 
