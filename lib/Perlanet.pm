@@ -294,7 +294,7 @@ to bug-Perlanet@rt.cpan.org.
 
 =item *
 
-L<perlanent>
+L<perlanet>
 
 =item *
 
