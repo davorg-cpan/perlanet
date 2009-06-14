@@ -18,7 +18,7 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.09';
+  $VERSION = '0.10';
 }
 
 =head1 NAME
