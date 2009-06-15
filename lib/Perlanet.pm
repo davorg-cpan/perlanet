@@ -268,7 +268,8 @@ sub run {
 
   $tt->process($self->{cfg}{page}{template},
                { feed => $f, cfg => $self->{cfg} },
-               $self->{cfg}{page}{file})
+               $self->{cfg}{page}{file},
+               { binmode => ':utf8'})
     or die $tt->error;
 }
 
