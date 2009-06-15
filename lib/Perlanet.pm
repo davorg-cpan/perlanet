@@ -18,7 +18,7 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.09';
+  $VERSION = '0.10';
 }
 
 =head1 NAME
@@ -274,7 +274,7 @@ sub run {
 
 =head1 TO DO
 
-See http://trac.mag-sol.com/perlanet/wiki
+See http://wiki.github.com/davorg/perlanet
 
 =head1 SUPPORT
 
@@ -294,7 +294,7 @@ to bug-Perlanet@rt.cpan.org.
 
 =item *
 
-L<perlanent>
+L<perlanet>
 
 =item *
 

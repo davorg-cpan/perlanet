@@ -5,7 +5,6 @@ Makefile.PL
 Perlanet-*/
 Perlanet-*.tar.gz
 Perlanet/
-README
 _build/
 blib/
 cover_db/
