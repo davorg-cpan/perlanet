@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use Module::Build;
 
 my $build = Module::Build->new(
@@ -5,18 +8,18 @@ my $build = Module::Build->new(
 	dist_author        => 'Dave Cross <dave@mag-sol.com>',
         module_name        => 'Perlanet',
 	requires           => {
-                perl                 => '5.6.0',
-                Encode               => 0,
-                List::Util           => 0,
-                LWP::UserAgent       => 0,
-                XML::Feed            => '0.22',
-                Template             => 0,
-                DateTime             => 0,
-                DateTime::Duration   => 0,
-                YAML                 => 0,
-                XML::OPML::SimpleGen => 0,
-                HTML::Tidy           => 0,
-                HTML::Scrubber       => 0,
+                "perl"                 => '5.6.0',
+                "Encode"               => 0,
+                "List::Util"           => 0,
+                "LWP::UserAgent"       => 0,
+                "XML::Feed"            => '0.22',
+                "Template"             => 0,
+                "DateTime"             => 0,
+                "DateTime::Duration"   => 0,
+                "YAML"                 => 0,
+                "XML::OPML::SimpleGen" => 0,
+                "HTML::Tidy"           => 0,
+                "HTML::Scrubber"       => 0,
 	},
         build_requires     => {
         	'Test::More'          => 0,
