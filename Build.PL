@@ -30,6 +30,26 @@ my $build = Module::Build->new(
 	},
         create_makefile_pl => 'traditional',
         script_files       => [ 'bin/perlanet' ],
+        meta_merge => {
+            resources =>
+            {
+                repository => "git://github.com/davorg/perlanet.git",
+                homepage => "http://code.mag-sol.com/Perlanet/",
+                MailingList => "http://lists.mag-sol.com/mailman/listinfo/perlanet",
+            },
+            keywords =>
+            [
+            qw(
+            aggregate
+            aggregator
+            atom
+            feed
+            planet
+            rss
+            xml
+            ),
+            ],
+        },
 );
 
 $build->create_build_script;
