@@ -3,6 +3,7 @@ package Perlanet;
 use strict;
 use warnings;
 
+use Moose;
 use Encode;
 use List::Util 'min';
 use LWP::UserAgent;
@@ -18,8 +19,12 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.10';
+  $VERSION = '0.20';
 }
+
+has 'cfg'  => ( is => 'rw', isa => 'HashRef' );
+has 'ua'   => ( is => 'rw', isa => 'LWP::UserAgent' );
+has 'opml' => ( is => 'rw', isa => 'XML::OPML::SimpleGen');
 
 =head1 NAME
 
@@ -59,25 +64,33 @@ If not given, this defaults to C<./perlanetrc>.
 
 =cut
 
-sub new {
+sub BUILDARGS {
   my $class = shift;
 
-  my $cfg_file = shift || './perlanetrc';
+  @_ or @_ = ('./perlanetrc');
 
-  my $cfg = LoadFile($cfg_file);
+  if ( @_ == 1 && ! ref $_[0] ) {
+    return { cfg => LoadFile($_[0]) };
+  } else {
+    return $class->SUPER::BUILDARGS(@_);
+  }
+}
 
-  my $ua = LWP::UserAgent->new;
-  $ua->agent($cfg->{agent} || "Perlanet/$VERSION");
+sub BUILD {
+  my $self = shift;
+
+  $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||
+                                           "Perlanet/$VERSION" ));
 
   my $opml;
-  if ($cfg->{opml}) {
+  if ($self->cfg->{opml}) {
     $opml = XML::OPML::SimpleGen->new;
     $opml->head(
-      title => $cfg->{title},
+      title => $self->cfg->{title},
     );
   }
 
-  return bless { cfg => $cfg, ua => $ua, opml => $opml }, $class;
+  $self->opml($opml);
 }
 
 =head2 run
@@ -91,8 +104,8 @@ sub run {
 
   my @entries;
 
-  foreach my $f (@{$self->{cfg}{feeds}}) {
-    my $response = $self->{ua}->get($f->{url});
+  foreach my $f (@{$self->cfg->{feeds}}) {
+    my $response = $self->ua->get($f->{url});
 
     if ($response->is_error) {
       warn "$f->{url}:\n" . $response->status_line;
@@ -124,8 +137,8 @@ sub run {
     push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                          $feed->entries;
 
-    if ($self->{opml}) {
-      $self->{opml}->insert_outline(
+    if ($self->opml) {
+      $self->opml->insert_outline(
         title   => $f->{title},
         text    => $f->{title},
         xmlUrl  => $f->{url},
@@ -134,8 +147,8 @@ sub run {
     }
   }
 
-  if ($self->{opml}) {
-    $self->{opml}->save($self->{cfg}{opml});
+  if ($self->opml) {
+    $self->opml->save($self->cfg->{opml});
   }
 
   my $day_zero = DateTime->from_epoch(epoch=>0);
@@ -152,8 +165,8 @@ sub run {
     @entries;
 
   # Only need so many entries
-  if (@entries > $self->{cfg}{entries}) {
-    $#entries = $self->{cfg}{entries};
+  if (@entries > $self->cfg->{entries}) {
+    $#entries = $self->cfg->{entries};
   }
 
   # Preferences for HTML::Tidy
@@ -225,18 +238,18 @@ sub run {
   $scrub->rules(%scrub_rules);
   $scrub->default(1, \%scrub_def);
 
-  my $f = XML::Feed->new($self->{cfg}{feed}{format});
-  $f->title($self->{cfg}{title});
-  $f->link($self->{cfg}{url});
-  $f->description($self->{cfg}{description});
-  $f->author($self->{cfg}{author}{name});
-  if ($self->{cfg}{feed}{format} eq 'Atom') {
+  my $f = XML::Feed->new($self->cfg->{feed}{format});
+  $f->title($self->cfg->{title});
+  $f->link($self->cfg->{url});
+  $f->description($self->cfg->{description});
+  $f->author($self->cfg->{author}{name});
+  if ($self->cfg->{feed}{format} eq 'Atom') {
     my $p = $f->{atom}->author;
-    $p->email($self->{cfg}{author}{email});
+    $p->email($self->cfg->{author}{email});
   }
   $f->modified(DateTime->now);
-  my $self_url = $self->{cfg}{self_link} ||
-                "$self->{cfg}{url}$self->{cfg}{feed}{file}";
+  my $self_url = $self->cfg->{self_link} ||
+                "$self->cfg->{url}$self->cfg->{feed}{file}";
   $f->self_link($self_url);
   $f->id($self_url);
 
@@ -260,15 +273,15 @@ sub run {
     $f->add_entry($entry);
   }
 
-  open my $feedfile, '>', $self->{cfg}{feed}{file} or die $!;
+  open my $feedfile, '>', $self->cfg->{feed}{file} or die $!;
   print $feedfile $f->as_xml;
   close $feedfile;
 
   my $tt = Template->new;
 
-  $tt->process($self->{cfg}{page}{template},
-               { feed => $f, cfg => $self->{cfg} },
-               $self->{cfg}{page}{file},
+  $tt->process($self->cfg->{page}{template},
+               { feed => $f, cfg => $self->cfg },
+               $self->cfg->{page}{file},
                { binmode => ':utf8'})
     or die $tt->error;
 }
@@ -316,3 +329,5 @@ it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
 
 =cut
+
+1;
