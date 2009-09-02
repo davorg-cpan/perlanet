@@ -10,5 +10,6 @@ t/01_basic.t
 t/pod.t
 t/pod_coverage.t
 t/testrc
+t/index.tt
 README
 Changes
