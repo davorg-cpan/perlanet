@@ -100,9 +100,9 @@ sub BUILD {
     $opml->head(
       title => $self->cfg->{title},
     );
-  }
 
-  $self->opml($opml);
+    $self->opml($opml);
+  }
 }
 
 =head2 run
