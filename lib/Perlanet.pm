@@ -6,7 +6,7 @@ use warnings;
 use Moose;
 use Encode;
 use List::Util 'min';
-use LWP::UserAgent;
+use URI::Fetch;
 use XML::Feed;
 use Template;
 use DateTime;
@@ -14,6 +14,7 @@ use DateTime::Duration;
 use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
+use CHI;
 
 require XML::OPML::SimpleGen;
 
@@ -27,6 +28,7 @@ $XML::Atom::ForceUnicode = 1;
 has 'cfg'  => ( is => 'rw', isa => 'HashRef' );
 has 'ua'   => ( is => 'rw', isa => 'LWP::UserAgent' );
 has 'opml' => ( is => 'rw', isa => 'XML::OPML::SimpleGen');
+has 'cache'=> ( is => 'rw' );
 
 =head1 NAME
 
@@ -81,8 +83,16 @@ sub BUILDARGS {
 sub BUILD {
   my $self = shift;
 
-  $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||
+  $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||=
                                            "Perlanet/$VERSION" ));
+  $self->ua->show_progress(1);
+
+  $self->cfg->{cache_dir}
+    and $self->cache(CHI->new(
+      driver     => 'File',
+      root_dir   => $self->cfg->{cache_dir},
+      expires_in => 60 * 60 * 24 * 30,
+  ));
 
   my $opml;
   if ($self->cfg->{opml}) {
@@ -107,10 +117,14 @@ sub run {
   my @entries;
 
   foreach my $f (@{$self->cfg->{feeds}}) {
-    my $response = $self->ua->get($f->{url});
+    my $response = URI::Fetch->fetch($f->{url},
+      UserAgent     => $self->ua,
+      Cache         => $self->cache || undef,
+      ForceResponse => 1,
+    );
 
     if ($response->is_error) {
-      warn "$f->{url}:\n" . $response->status_line;
+      warn "$f->{url}:\n" . $response->http_response->status_line;
       next;
     }
 
@@ -182,6 +196,7 @@ sub run {
     tidy_mark => 0,
     show_body_only => 1,
     preserve_entities => 1,
+    show_warnings => 0,
   );
 
   # Rules for HTML::Scrub
@@ -197,6 +212,10 @@ sub run {
     script => 0,
     span   => {
       id    => 0,               # blogger(?) includes spans with id attribute
+    },
+    a      => {
+      href  => 1,
+      '*'   => 0,
     },
   );
 
@@ -231,6 +250,8 @@ sub run {
     'src'         => 1,
     'type'        => 1,
     'style'       => 1,
+    'class'       => 0,
+    'id'          => 0,
   );
 
   my $tidy = HTML::Tidy->new(\%tidy);
@@ -250,8 +271,8 @@ sub run {
     $p->email($self->cfg->{author}{email});
   }
   $f->modified(DateTime->now);
-  my $self_url = $self->cfg->{self_link} ||
-                "$self->cfg->{url}$self->cfg->{feed}{file}";
+  my $self_url = $self->cfg->{self_link} || $self->cfg->{feed}{url} ||
+                $self->cfg->{url} . $self->cfg->{feed}{file};
   $f->self_link($self_url);
   $f->id($self_url);
 
