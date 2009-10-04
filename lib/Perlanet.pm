@@ -22,6 +22,8 @@ BEGIN {
   $VERSION = '0.21';
 }
 
+$XML::Atom::ForceUnicode = 1;
+
 has 'cfg'  => ( is => 'rw', isa => 'HashRef' );
 has 'ua'   => ( is => 'rw', isa => 'LWP::UserAgent' );
 has 'opml' => ( is => 'rw', isa => 'XML::OPML::SimpleGen');
