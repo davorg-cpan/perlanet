@@ -19,7 +19,7 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.21';
+  $VERSION = '0.22';
 }
 
 $XML::Atom::ForceUnicode = 1;
