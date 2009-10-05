@@ -20,7 +20,7 @@ require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.30';
+  $VERSION = '0.31';
 }
 
 $XML::Atom::ForceUnicode = 1;
@@ -85,7 +85,7 @@ sub BUILD {
 
   $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||=
                                            "Perlanet/$VERSION" ));
-  $self->ua->show_progress(1);
+  $self->ua->show_progress(1) if -t STDOUT;
 
   $self->cfg->{cache_dir}
     and $self->cache(CHI->new(
@@ -117,13 +117,14 @@ sub run {
   my @entries;
 
   foreach my $f (@{$self->cfg->{feeds}}) {
+
     my $response = URI::Fetch->fetch($f->{url},
       UserAgent     => $self->ua,
       Cache         => $self->cache || undef,
       ForceResponse => 1,
     );
 
-    if ($response->is_error) {
+    unless ($response->is_success) {
       warn "$f->{url}:\n" . $response->http_response->status_line;
       next;
     }
