@@ -125,7 +125,7 @@ sub run {
     );
 
     unless ($response->is_success) {
-      warn "$f->{url}:\n" . $response->http_response->status_line;
+      warn "$f->{url}:\n" . $response->http_response->status_line . "\n";
       next;
     }
 
