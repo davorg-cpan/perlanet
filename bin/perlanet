@@ -4,15 +4,45 @@ use strict;
 use warnings;
 
 use Perlanet;
+use Getopt::Std;
+use File::Basename;
 
 use vars qw{$VERSION};
 BEGIN {
-  $VERSION = '0.01';
+  $VERSION = $Perlanet::VERSION;
 }
+
+my %opts;
+getopts('hv', \%opts);
+
+version() if $opts{v} || $opts{h};
+help()    if $opts{h};
+exit      if $opts{v} || $opts{h};
 
 my $p = Perlanet->new(shift || './perlanetrc');
 
 $p->run;
+
+sub version {
+  my ($me) = fileparse $0;
+
+  print "\n$me, version $VERSION\n\n";
+}
+
+sub help {
+  my ($me) = fileparse $0;
+
+  print <<EOTEXT;
+Usage: $me [-h] [-v] [config_file]
+
+  -h Display this help message
+  -v Display version information
+
+  config_file
+     Name of configuration file (defaults to perlanetrc)
+
+EOTEXT
+}
 
 =head1 NAME
 
