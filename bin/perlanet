@@ -112,6 +112,12 @@ This mandatory option contains the details of the web feed to be created.
 There are two sub-options - C<file> gives the name of the file to be created
 and C<format> gives the format of the output (currently 'Atom' or 'RSS').
 
+=item cache_dir
+
+This if you give a directory name in this option then perlanet will use the
+cache facility of URI::Fetch. This means that web feeds will only be downloaded
+when they change.
+
 =item feeds
 
 This mandatory option gives details of the web feeds to be aggregated. Each
@@ -143,6 +149,7 @@ file.
   feed:
     file: atom.xml
     format: Atom
+  cache_dir: /tmp/feeds
   feeds:
     - url: http://blog.dave.org.uk/atom.xml
       title: Dave's Blog
