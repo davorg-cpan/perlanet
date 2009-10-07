@@ -12,7 +12,6 @@ my $build = Module::Build->new(
                 "Encode"               => 0,
                 "List::Util"           => 0,
                 "URI::Fetch"           => 0,
-                "Compress::Zlib"       => 0,
                 "XML::Feed"            => '0.22',
                 "Template"             => 0,
                 "DateTime"             => 0,
@@ -22,6 +21,10 @@ my $build = Module::Build->new(
                 "HTML::Tidy"           => 0,
                 "HTML::Scrubber"       => 0,
 	},
+        recommends         => {
+                'CHI'                 => 0,
+                'Compress::Zlib'      => 0,
+        },
         build_requires     => {
         	'Test::More'          => 0,
         },
