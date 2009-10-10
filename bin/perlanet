@@ -8,6 +8,7 @@ use Getopt::Std;
 use File::Basename;
 
 use vars qw{$VERSION};
+
 BEGIN {
   $VERSION = $Perlanet::VERSION;
 }
