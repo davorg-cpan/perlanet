@@ -299,7 +299,7 @@ sub run {
   }
 
   open my $feedfile, '>', $self->cfg->{feed}{file}
-    or croak 'Cannot open ' . $self->cfg->{feed}{file}  " for writing: $!";
+    or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
   print $feedfile $f->as_xml;
   close $feedfile;
 
