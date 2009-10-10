@@ -21,8 +21,9 @@ use CHI;
 require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
+
 BEGIN {
-  $VERSION = '0.31';
+  $VERSION = '0.32';
 }
 
 $XML::Atom::ForceUnicode = 1;
