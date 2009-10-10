@@ -3,6 +3,7 @@ package Perlanet;
 use strict;
 use warnings;
 
+use Carp;
 use Moose;
 use Encode;
 use List::Util 'min';
@@ -297,7 +298,8 @@ sub run {
     $f->add_entry($entry);
   }
 
-  open my $feedfile, '>', $self->cfg->{feed}{file} or die $!;
+  open my $feedfile, '>', $self->cfg->{feed}{file}
+    or croak 'Cannot open ' . $self->cfg->{feed}{file}  " for writing: $!";
   print $feedfile $f->as_xml;
   close $feedfile;
 
@@ -307,7 +309,7 @@ sub run {
                { feed => $f, cfg => $self->cfg },
                $self->cfg->{page}{file},
                { binmode => ':utf8'})
-    or die $tt->error;
+    or croak $tt->error;
 }
 
 =head1 TO DO
