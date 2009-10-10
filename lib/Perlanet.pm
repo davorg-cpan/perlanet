@@ -7,6 +7,7 @@ use Carp;
 use Moose;
 use Encode;
 use List::Util 'min';
+use POSIX qw(setlocale LC_ALL);
 use URI::Fetch;
 use XML::Feed;
 use Template;
@@ -99,7 +100,9 @@ sub BUILD {
 
   my $opml;
   if ($self->cfg->{opml}) {
+    my $loc = setlocale(LC_ALL, 'C');
     $opml = XML::OPML::SimpleGen->new;
+    setlocale(LC_ALL, $loc);
     $opml->head(
       title => $self->cfg->{title},
     );
