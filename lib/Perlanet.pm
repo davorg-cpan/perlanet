@@ -171,9 +171,9 @@ sub run {
   my $day_zero = DateTime->from_epoch(epoch=>0);
 
   @entries = sort {
-                    ($b->issued || $b->modified || $day_zero)
+                    ($b->modified || $b->issued || $day_zero)
                      <=>
-                    ($a->issued || $b->modified || $day_zero)
+                    ($a->modified || $b->issued || $day_zero)
                   } @entries;
 
   my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
