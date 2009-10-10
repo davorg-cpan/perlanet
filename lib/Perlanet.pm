@@ -75,7 +75,9 @@ sub BUILDARGS {
   @_ or @_ = ('./perlanetrc');
 
   if ( @_ == 1 && ! ref $_[0] ) {
-    return { cfg => LoadFile($_[0]) };
+    open my $cfg_file, '<:utf8', $_[0]
+      or croak "Cannot open file $_[0]: $!";
+    return { cfg => LoadFile($cfg_file) };
   } else {
     return $class->SUPER::BUILDARGS(@_);
   }
