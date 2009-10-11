@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>davblog</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/" />
+    <link rel="self" type="application/atom+xml" href="http://blog.dave.org.uk/atom.xml" />
+    <id>tag:blog.dave.org.uk,2008-05-16://1</id>
+    <updated>2009-10-08T12:43:58Z</updated>
+    <subtitle>In which someone you&apos;ve never heard of writes about things you have no interest in</subtitle>
+    <generator uri="http://www.sixapart.com/movabletype/">Movable Type 4.32-en</generator>
+
+<entry>
+    <title>Updates from Jesusistan</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/10/updates-from-jesusistan.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1564</id>
+
+    <published>2009-10-08T12:16:05Z</published>
+    <updated>2009-10-08T12:43:58Z</updated>
+
+    <summary>Time for a couple of snippets of news from those lovable nutters on the American religious right.Firstly, take a look at this. The artist has created a &quot;work of art&quot; which sums up his view of contemporary America. And it&apos;s...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="religion" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="bible" label="bible" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="conservapedia" label="conservapedia" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="jesusistan" label="jesusistan" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="religion" label="religion" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[Time for a couple of snippets of news from those lovable nutters on the American religious right.<br /><br />Firstly, <a href="http://www.mcnaughtonart.com/artwork/view_zoom/?artpiece_id=353">take a look at this</a>. The artist has created a "work of art" which sums up his view of contemporary America. And it's a pretty weird view. Well, perhaps it's not so weird if you're looking through American Taliban glasses. But for sane people there are some pretty... er... interesting things there. Be sure to move your mouse over each person in the picture to see the artist's descriptions. I particularly enjoyed the college lecturer clutching at his copy of "On The Origin of Species". Oh, and what is Thomas Paine (a confirmed Deist) doing worshipping Jesus?<br /><br />[<b>Note:</b> Whilst writing this piece, I haven't been able to get a response from this web site. This picture has been the subject of much discussion on the web over the last few days. I think the web server isn't quite up to this level of interest.]<br /><br />Secondly, let's all have a good laugh at the latest project from the intellectual powerhouses behind <a href="http://conservapedia.com/">Conservapedia</a>. They've decided that they don't like the bible much. Well, it's not the bible that they don't like, so much as every available translation of it. You see people keep quoting inconvenient bits of it at them. Bits that make Jesus seem like a hippy. All that "love thy neighbour" nonsense and stuff about "turning the other cheek" - it's not really what a good conservative wants to read in his holy book.<br /><br />So when your holy book seems to be at odds with your ideals, what do you do? Changing your ideals is obviously out of the question. And you can't really start saying that your holy book is wrong, can you? They've picked on the weak link in the chain and have decided that all current translations are the results of liberal bias and are not to be trusted. And they've set up the <a href="http://conservapedia.com/Conservative_Bible_Project">Conservative Bible Project</a> to produce their own translation of the bible. They're starting with the King James Version correcting the bits that contradict their philosophy. You can keep up with their <a href="http://conservapedia.com/Conservative_Bible">work online</a>.<br /><br />I'm following closely. I'm particularly looking forward to <a href="http://conservapedia.com/Matthew_10-19_%28Translated%29#Chapter_19">their translation</a> of <a href="http://www.biblegateway.com/passage/?search=Matthew+19:24&amp;version=KJV">Matthew 19:24</a>. It's not there yet.<br /><br />I wish them luck with the project. I'm sure it will be a ripe seam of comedy in the coming months.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Ernest Marples Closed Down</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/10/ernest-marples-closed-down.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1563</id>
+
+    <updated>2009-10-07T12:23:53Z</updated>
+
+    <summary>The Ernest Marples web site has been closed down following threats of legal action from the Royal Mail. The web site had been providing a free postcode lookup service - you give them a postcode and they return the latitude...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="tech" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="ernestmarples" label="ernestmarples" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="geography" label="geography" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="postcode" label="postcode" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="royalmail" label="royal mail" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="uk" label="uk" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="webapi" label="web. api" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[The <a href="http://ernestmarples.com/">Ernest Marples web site</a> has been <a href="http://ernestmarples.com/blog/2009/10/ernest-marples-postcodes-has-been-threatened-by-the-royal-mail/">closed down following threats of legal action from the Royal Mail</a>. The web site had been providing a free postcode lookup service - you give them a postcode and they return the latitude and longitude of a point within that postcode. This can be used in things like a "find your nearest..." service.<br /><br />Unfortunately, use this data is controlled by the Royal Mail and they like to charge exorbitant fees for it. The people behind Ernest Marples haven't said where their data comes from but the Royal Mail are acting under the assumption that it's an unlicensed copy of their database and have threatened to take legal action if the service continues.<br /><br />It's ridiculous that in the UK postcode data can be subject to usage restrictions like this. There have been a number of campaigns to free data like this but, so far, progress has been slow. I don't the people behind the Ernest Marples site, but I suspect that they knew it was just a matter of time before the Royal Mail came after them and I also suspect that they are hoping to shine a little light on the absurdity of the situation.<br /><br />There are a couple of things you can do to help the situation. Firstly, <a href="http://petitions.number10.gov.uk/nfppostcodes/">sign the petition</a> asking for free access to postcode data for non-profit web sites. Secondly, go to the <a href="http://www.freethepostcode.org/">Free The Postcode web site</a> and give them your current postcode and location. They're trying to build up a list of postcodes and locations which doesn't rely on any data from the Royal Mail. Currently they have about 8,000 postcodes in their database There are about 1,800,000 in the country. So there is a long way to go. But every little helps. Please do your bit today.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Does God Exist?</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/10/does-god-exist.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1562</id>
+
+    <published>2009-10-06T18:48:04Z</published>
+
+    <summary>If you&apos;ve travelled much on London Transport over the last few weeks, you&apos;ll have seen the new Alpha Course poster pictured on the left.If you&apos;re anything like me, you&apos;ll have experienced an almost irresistible urge to fill in the survey...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="religion" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="advert" label="advert" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="alphacourse" label="alpha course" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="poster" label="poster" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="religion" label="religion" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="vandalism" label="vandalism" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[<img alt="alpha.jpg" src="http://blog.dave.org.uk/images/alpha.jpg" class="mt-image-left" style="margin: 0pt 20px 20px 0pt; float: left;" height="500" width="375" />If you've travelled much on London Transport over the last few weeks, you'll have seen the new Alpha Course poster pictured on the left.<br /><br />If you're anything like me, you'll have experienced an almost irresistible urge to fill in the survey by ticking the 'no' box. It appears that doing so might be a somewhat dangerous proposition.<br /><br />There's a <a href="http://badscience.net/forum/viewtopic.php?t=12245">discussion over on the Bad Science forum</a> about someone who took that obvious action and was arrested by the London Transport Police for criminal damage. Apparently six police officers were present at the arrest.<br /><br />It all seems rather an overreaction to a piece of harmless vandalism.<br /><br />I mean, the poster asks a question. How can they object if someone gives them an answer?<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>1970 Calling</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/10/1970-calling.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1561</id>
+
+    <summary>Nadine Dorries seems to be writing her blog today from about forty years ago. She&apos;s talking about single mothers.I like the idea that we can introduce a structure that will capture 16 and 17 year old girls and teach them...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="health" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="dorries" label="dorries" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="health" label="health" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="idiocy" label="idiocy" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="pregnancy" label="pregnancy" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="school" label="school" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="sexeducation" label="sex education" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="sexism" label="sexism" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="society" label="society" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[Nadine Dorries seems to be writing her blog today from <a href="http://blog.dorries.org/id-1503-2009_9_Home_Alone.aspx">about forty years ago</a>. She's talking about single mothers.<br /><br /><blockquote>I like the idea that we can introduce a structure that will capture 16 and 17 year old girls and teach them parenting skills, help them to acquire the knowledge which will enable them to run a home, manage a budget, cook meals, feed
+and nurture a baby and learn to value and respect themselves.<br /></blockquote>How you got that? Parenting skills, running a home, cooking meals and looking after babies - that's all woman's work. Presumably the men are all too busy off hunting mammoths.<br /><br />Oh, she mentions boys too. But only insofar as we should stop them getting young girls pregnant. Of course the whole thing is driven by Dorries' belief that the way to stop children having sex is to stop sex education classes in school. Because, of course, without measured and practical advice from school children would never get the idea to experiment with sex. I mean they'd never get that idea from, oh pretty much anywhere they look in society.<br /><br />The people of Mid Beds elected her to represent her. If she's at all representative, then I'm really glad I don't live in Mid Beds.<br /><br />Oh look. Now I've gone and got all angry.<br /><br /><b>Update:</b> <a href="http://sarabedford.com/blog/2009/10/new-tory-policy-bananas-make-our-daughters-randy/">A far more measured dissection from Sara Bedford</a>.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Building Web Sites is Easy</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/building-web-sites.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1560</id>
+
+    <published>2009-09-29T20:37:11Z</published>
+    <updated>2009-09-30T09:27:27Z</updated>
+
+    <summary>The geek shall inherit the Earth. But the semi-geek won&apos;t be far behind.Back in April I wrote a piece about MPs&apos; web sites. I came to the conclusion that a large number of MPs have web sites that are over-complex...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="tech" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="bengoldacre" label="ben goldacre" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="billthompson" label="bill thompson" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="charity" label="charity" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="fransainsbury" label="fran sainsbury" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="lloydshepherd" label="lloyd shepherd" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="school" label="school" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="semigeek" label="semigeek" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="tech" label="tech" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="web" label="web" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="website" label="web site" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="willperrin" label="will perrin" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[The geek shall inherit the Earth. But the semi-geek won't be far behind.<br /><br />Back in April I wrote <a href="http://blog.dave.org.uk/2009/04/overcomplicating-matters.html">a piece about MPs' web sites</a>. I came to the conclusion that a large number of MPs have web sites that are over-complex and therefore cost more money to build and maintain than they should have done. They also fail in supplying basic functionality to users (for example, many have invalid web feeds) because they are often written from scratch by people who don't really understand the web. I made the point that a real geek would have not written a new system, but would use some of the excellent open source or hosted services that are available.<br /><br />I was reminded of this at the <a href="http://blog.dave.org.uk/2009/07/opentech-overview.html">Open Tech conference</a> in July[1]. There were a few talks that touched on this issue. In his <a href="http://vimeo.com/5471283">"10 Cultures" talk</a>, Bill Thompson discussed the differences between the geeks and the rest of the world and how the rest of the world is becoming dependent on the geeks. Immediately after Bill, <a href="http://vimeo.com/5482150">Ben Goldacre's talk</a> touched on many of his usual subjects (the dearth of good science journalism and the lack of scientific literacy in the general population) before coming back round to echo some of Bill's themes. Ben knows what tools he needs to build in order to fight his battles effectively and he knows that he's not geek enough to build them. He therefore put out a call for a "geek posse" to help him to build the tools that he wants.<br /><br />Both of these talks got me thinking about the geek/non-geek divide, but it wasn't until I saw Will Perrin and Fran Sainsbury's talk <a href="http://www.slideshare.net/bill_per/spread-the-web-opentech-2009">"Spread the Web"</a> that I started to draw comparisons with the MPs' sites that I'd written about earlier. Will and Fran talked about the problem of organisations who paid for expensive web sites many years ago and who are now left with a hard to maintainable system that doesn't give them a good presence on the web. This is exactly the same problem as I had recognised, but in a far wider context. It's not just MPs who spend too much money on crap web sites. Anyone can do it. And many organisations do. Will and Fran aren't hard-core geeks, but they know enough about Wordpress and other similar systems to help organisations to replace their nasty old web sites with some newer and simpler which works.<br /><br />Two weeks ago <a href="http://www.lllj.net/blog/?p=863">Lloyd Shepherd wrote</a> about how he had set up a web site for his wife's school using Wordpress. Like Will and Fran, Lloyd is no geek (as he freely admits) but he knows enough about the technology to identify the best technology for the job and wrangle it into a web site which is probably more usable than the majority of school web sites. In his article, Lloyd asked why more people don't do this and a really interesting discussion followed in the comments.<br /><br />So here's what we know:<br /><br /><ul><li>There are many organisations out there who want web sites but don't have the technical knowledge to decide how best to do it.</li><li>Many of these organisations (schools, charities and local groups would be good examples) are short of money.</li><li>The most effective way for these organisations to build web sites is often by using tools like Wordpress and Drupal.</li><li>The IT professionals that most of these organisations approach for advice don't seem to know about these solutions and end up proposing expensive proprietary monstrosities.</li><li>You don't need to be total geek to build these sites, "semi geeks" like Lloyd, Will and Fran are perfectly capable of doing it.</li></ul>I think that the problem is that knowledge of the Wordpress or Drupal approach is pretty sparse outside of the geek (and semi geek) circles that I and most of my readers move in. Even most of the IT industry still seems unaware (or, perhaps, untrusting) of these open source solutions.<br /><br />I don't have a solution. I'm just pointing out obvious problems here. I suppose there's some kind of education gap that needs to be filled. I'm considering asking my local council if I can run some kind of "building web sites" evening class to try to spread this knowledge.<br /><br />But I think we also just need to offer to help. Do you know a cash-strapped charity or local school that could do with a bit of help rebuilding their web site? You don't need to be an expert. This stuff really isn't hard. And you'll be helping to make the world (well, the web at least) a better place.<br /><br />If you're not a hard-core geek can you become a semi geek?<br /><br />[1] I said I'd discuss it in more detail later - I didn't expect it would be almost three months!]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>The Atheist&apos;s Guide to Christmas</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/the-atheists-guide-to.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1559</id>
+
+    <published>2009-09-27T10:55:14Z</published>
+    <updated>2009-09-29T15:17:22Z</updated>
+
+    <summary>I&apos;m usually a big fan of keeping christmas in December, but I&apos;m quite happy to make exceptions for a good cause. And this is a really good cause.Remember, the Atheist Bus Campaign? Well the people behind that campaign haven&apos;t stopped...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="books" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="atheism" label="atheism" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="books" label="books" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="christmas" label="christmas" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="religion" label="religion" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[<span class="mt-enclosure mt-enclosure-image" style="display: inline;"><a href="http://www.amazon.co.uk/exec/obidos/ASIN/0007322615/davblog-21"><img alt="The Atheists Guide to Christmas" src="http://blog.dave.org.uk/images/atheists_xmas.jpg" class="mt-image-center" style="margin: 0pt auto 20px; text-align: center; display: block;" height="60" width="468" /></a>I'm usually a big fan of keeping christmas in December, but I'm quite happy to make exceptions for a good cause. And this is a really good cause.<br /><br /></span>Remember, the <a href="http://blog.dave.org.uk/2008/10/non-magic-bus.html">Atheist Bus Campaign</a>? Well the people behind that campaign haven't stopped campaigning and their book <a href="http://www.amazon.co.uk/exec/obidos/ASIN/0007322615/davblog-21">The Atheist's Guide to Christmas</a> is published this week. Ariane Sherine has gathered together contributions from dozens of well-known atheists. Contributors include Richard Dawkins, Ben Goldacre, Simon Singh, Charlie Brooker and Richard Herring. All proceeds from the book will go to the Terrance Higgins Trust.<br /><br />Looks like it will be a great christmas present for all of your friends and family. But don't wait until December - buy your presents now.<br /><br />Remember - there's <strike>probably</strike> almost certainly no god.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>SW12 Social Network</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/sw12-social-network.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1558</id>
+
+    <published>2009-09-17T18:29:27Z</published>
+    <updated>2009-09-17T19:02:17Z</updated>
+
+    <summary>One of the themes I picked up on at this year&apos;s Opentech conference was that of local social media. More and more people are using open source tools to build local online communities and this movement seems likely to grow....</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="tech" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="balham" label="balham" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="local" label="local" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="ning" label="ning" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="social" label="social" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="sw12" label="sw12" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="tech" label="tech" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[One of the themes I picked up on at this year's <a href="http://www.ukuug.org/events/opentech2009/">Opentech conference</a> was that of local social media. More and more people are using open source tools to build local online communities and this movement seems likely to grow. I was particularly impressed with the work that Will Perrin and friends are doing over at <a href="http://talkaboutlocal.org/">TalkAboutLocal</a>. I confess that Lloyd had <a href="http://www.lllj.net/blog/?p=799">mentioned the project to me</a> some months ago, but I had forgotten about it until I saw Will <a href="http://www.slideshare.net/wperrin/talk-about-local-pcw09">speak at Opentech</a>.<br /><br />I've written about my interest in local sites before. You might remember me introducing <a href="http://planetbalham.org.uk/">Planet Balham</a> and <a href="http://balhamtwits.co.uk/">Balham Twits</a>. I still think that both of those sites are useful, but they aren't very interactive. What I wanted was something that the local community would find more useful. I spent a few hours playing with <a href="http://drupal.org/">Drupal</a>. I think that Drupal would be a great tool, for building local sites, but I didn't have the time to spare learning how to get the best out of it, so in the end I went back to an earlier experiment.<br /><br />A couple of years ago, I used <a href="http://nign.com/">Ning</a> to build a simple social networking site for Balham. At the time I didn't have many local contacts so the site atrophied through lack of use. But this lunchtime I went back to have another look at the project.<br /><br />And after only twenty minutes or so of fiddling, <a href="http://www.sw12.org/">SW12.org</a> was ready to go. The great thing about Ning is that it has all of the standard social networking features already available as modules that you can just drop into the site. As a start, I've picked a pretty standard-looking set of features (user profiles, blogs, disscussion forums, photos and videos) and have seeded the site with a few entries of my own. I'm sure things will grow and change if the site becomes popular.<br /><br />Through my other web experiments (particulalry through Balham Twits) I've made contact with some Balham-based internet users, so hopefully this time the site will get a little more use. I'm planning to put in some work to promote it locally as well. Even if it means dropping leaflets through every door in Balham (ok, perhaps I won't go quite that far!)<br /><br />It looks to me as though Ning is a great way to get a social network site up and running really quickly. I expect I'll be using it again for other similar sites in the future. If you're thinking of doing something similar then I recommend talking a look at it.<br /><br />And if you're in or around Balham, <a href="http://www.sw12.org/">please join up to the site</a>.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Creation</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/creation.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1557</id>
+
+    <published>2009-09-13T10:51:15Z</published>
+    <updated>2009-09-13T11:30:39Z</updated>
+
+    <summary>According to the Sydney Morning Herald, a new film about Charles Darwin has failed to find a distribution deal in the US. The article suggests that this is because Darwin&apos;s work is still a rather contentious subject in the US....</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="film" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="creationism" label="creationism" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="darwin" label="darwin" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="evolution" label="evolution" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="film" label="film" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="religion" label="religion" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="science" label="science" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[<a href="http://www.smh.com.au/world/us-snubs-film-on-theory-of-evolution-20090912-flkx.html">According to the Sydney Morning Herald</a>, a new film about Charles Darwin has failed to find a distribution deal in the US. The article suggests that this is because Darwin's work is still a rather contentious subject in the US. They quote the christian film review site <a href="http://www.movieguide.org/">MovieGuide</a> describing Darwin as "a racist, a bigot and 1800's naturalist whose legacy is mass murder" (although they don't point out that the quotation is taken from <a href="http://www.movieguide.org/articles/1/463/book-review-darwins-racists-yesterday-today-and-tomorrow">a book review</a> and was not written in reference to this film).<br /><br />On Pharyngula, PZ Myers has <a href="http://scienceblogs.com/pharyngula/2009/09/im_not_surprised.php">a slightly different theory</a>. He says that the US's antipathy to evolution is only part of the story and suggests:<br /><br /><blockquote>One reason it probably isn't getting picked up is that it isn't a
+blockbuster story &#8212; it's a small film with a personal story. That's not
+to say it's a bad movie, but it's not a Michael Bay noisemaker with car
+chases and explosions, or giant robots, or a remake of a 1970s cheesy
+TV show. That makes it a tougher sell.<br /></blockquote>Whilst I usually agree with PZ, I think he's wrong here. It's obvious that the film isn't a blockbuster and I agree that the blockbusters are what the US (and, indeed, much of the rest of the world) audiences want to see. But films still win distribution deals if they're not blockbusters. And I think that this film would have found a deal had it not been for the subject matter. Oh, and the title. I haven't mentioned the title yet. And I think the title is a direct attempt by the film-makers to grab some publicity by annoying the American creationist movement.<br /><br />The film is called <a href="http://en.wikipedia.org/wiki/Creation_%282009_film%29">Creation</a>.<br /><br />I mean, come on. Nothing could have been more calculated to garner publicity in the US. It's not even an appropriate title for a film about Darwin. Darwin's ideas say nothing at all about creation, they only cover the creation of new species of life. Darwin had nothing to say about how life originally came into existence.<br /><br />There's a common creationist misunderstanding about evolution. When they talk about "Darwinism" (as they like to call it) they are usually covering a far larger area of knowledge than the one that Darwin wrote about. Because they see Darwin's work as an opposing theory creationism, they assume that it must cover the same ground as their nonsense. They therefore assume that "Darwinism" tries to explain the creation of the universe, the creation of the solar system, the creation of the Earth, the beginnings of life on Earth and the diversity of life found on Earth. And, of course, it doesn't.<br /><br />Obviously people who agree with Darwin's Theory of Evolution by Natural Selection will tend to also hold non-biblical views on the rest of the subjects in my list, Darwin's work only ever covered the last item on&nbsp; the list. So to say that something you're calling "Darwinism" addresses all of these subjects is nonsense. So to call a film about Darwin's life and work "Creation" is equally nonsensical.<br /><br />I don't know if Darwin ever did any research into the earlier items on my list. I've certainly never read anything by him where he discusses the origin of either the universe or the Earth. But creationists like to bundle all of these topics together so that "Darwinism" can be seen as being in direct opposition to their fairy stories.<br /><br />This new film sounds very interesting to me. It looks at how Darwin's realised that his work explained the existence of so many different species on Earth without the need for divine intervention. It also examines how that knowledge effected his relationship with his deeply religious wife. I think that if more people in the US saw this film then it would help people to see that Darwin was a just a man doing his best to explain the natural world rather than the antichrist that creationist groups like to portray him as.<br /><br />So it's a shame that more people in the US won't see this film. As I said before, I feel sure that the film-makers deliberately chose the title to court controversy. There's no other explanation - the title makes no sense. It seems that their scheme has backfired on them. They might have gained some more publicity for the film (although notice that the original story I linked to was from Australia), but appears that very few people in the US will get the chance to see their film.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Not A Broadcast Medium</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/not-a-broadcast-medium.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1556</id>
+
+    <published>2009-09-08T11:52:46Z</published>
+    <updated>2009-09-08T12:33:04Z</updated>
+
+    <summary>How do you use Twitter? Do you see it as a tool for interacting with people, or do you simply use it as a broadcast medium? Is it a place for dialogue or monologue?I started thinking about this over the...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="tech" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="dorries" label="dorries" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="mps" label="mps" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="social" label="social" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="twitter" label="twitter" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[How do you use <a href="http://twitter.com/">Twitter</a>? Do you see it as a tool for interacting with people, or do you simply use it as a broadcast medium? Is it a place for dialogue or monologue?<br /><br />I started thinking about this over the weekend whilst thinking about <a href="http://en.wikipedia.org/wiki/Nadine_Dorries">Nadine Dorries</a>, the MP for Middle England. Back in May, Dorries had a very strong opinion on Twitter. <a href="http://blog.dorries.org/id-1349-2009_5_Twitters.aspx">She wrote</a>:<br /><br /><blockquote>In discussion over
+lunch today the conclusion was reached that twitters use twittering, by
+and large, to moan and complain. It&#8217;s a virtual gnashing of the teeth,
+or beating of the chest. A cyberspace &#8216;well I never&#8217;.<br /></blockquote>And:<br /><br /><blockquote>Twittering has to be a symptom of a dysfunctional society.<br /></blockquote>Before reaching the conclusion:<br /><br /><blockquote>Anyway, safe to say, I shan&#8217;t be joining the legions of twitters any day soon.<br /></blockquote>It was therefore surprising, to say the least, to see <a href="http://twitter.com/NadineDorriesMP">@NadineDorriesMP</a> appear on Twitter late last week. She did, however, <a href="http://blog.dorries.org/id-1484-2009_9_Twitter.aspx">acknowledge her change of heart</a>:<br /><br /><blockquote>I did attack Twitter
+initially and for that I do eat humble pie, however, you will never
+know when the milk in my fridge is out of date or I've run out of tea
+bags, of that you can be sure.:)<br /></blockquote>Whether she'll be true to her word this time, only time will tell. But it's interesting to watch how she uses Twitter. Out of almost thirty tweets, only two of them have been replies to people. A few more mention other Twitter users. But the vast majority of her tweets are just a broadcast message and there's no evidence of her actually engaging in discussion with anyone over her opinions. Twitter search shows that there are <a href="http://search.twitter.com/search?q=@nadinedorriesmp">plenty of people</a> trying to engage with her, but she has so far chosen to ignore them.<br /><br />You can also look at the number of people who she follows on Twitter. As I write, that's eleven. There are close three hundred people following her, but she's only interested in reading what eleven twitterers have to say. That's not a ratio which makes me think she's interested in hearing other points of view or getting involved in conversations.<br /><br />That's when I realised that there are two different ways that people use Twitter. Most people (or, at least, most people I follow) see it as a powerful way to interact with people. Even people who have huge numbers of followers engage with at least some of their followers. Take, for example, three people who I follow who have huge followings - <a href="http://twitter.com/timoreilly">Tim O'Reilly</a>, <a href="http://twitter.com/stephenfry">Stephen Fry</a> and <a href="http://twitter.com/neilhimself">Neil Gaiman</a>. If you look at their tweets, you'll see that they're full of replies and retweets. These are people who are using Twitter to build and deepen the relationships they have with their followers. You'll also notice that they all follow large numbers of people. They all know that the more people tweets that you read, the more interesting stuff you'll find and the more useful Twitter will become to you.<br /><br />On the other hand, there are the people who see Twitter as just a broadcast medium. People who just speak and don't listen. People who only like the sound of their own voice - or, at least, don't mind giving that impression. These people (and Dorries is only the most recent example I've found - I won't embarrass any others by naming them) seem to only be using Twitter because it's the newest platform for getting their message out there. They seem to have no interest in talking about their ideas. They aren't interested in what we have to say in reply. That may not be a true representation of how they feel, but by not talking to people on Twitter that's the impression they are giving.<br /><br />It's something that can be measured. I think there are three ways that you can measure someone's "socialability" on Twitter.<br /><br /><ul><li>The ratio of the number of people they follow to the number of people who follow them</li><li>The percentage of their tweets that contain references to other twitterers</li><li>The percentage of their tweets that are retweets</li></ul>Twitter makes it easy to get this data for all accounts. I think it would be an interesting project to rank Twitter users by how socialable they are. But like all good ideas, I'm sure that someone else has beaten me to it. I've done a quick bit of Googling, but I can't find anything obvious, so if anyone knows of a site that produces these stats, please let me know in the comments.<br /><br />And to Nadine Dorries (if she ever reads this), please interact more.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Misunderstanding Time Travel</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/09/misunderstanding-time-travel.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1555</id>
+
+    <published>2009-09-04T12:33:52Z</published>
+    <updated>2009-09-04T13:24:50Z</updated>
+
+    <summary>I promise I&apos;ll get round to a longer blog entry over the weekend, but I couldn&apos;t resist commenting briefly on this paragraph from Peter Bradshaw&apos;s review of The Time Traveler&apos;s Wife.It is very silly and of course cannot submit to...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="film" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[I promise I'll get round to a longer blog entry over the weekend, but I couldn't resist commenting briefly on this paragraph from Peter Bradshaw's <a href="http://www.guardian.co.uk/film/2009/aug/13/the-time-travelers-wife-review">review of The Time Traveler's Wife</a>.<br /><br /><blockquote>It is very silly and of course cannot submit to close inspection.
+Making brief visits to an unalterable past is one thing, but how about
+that pesky butterfly effect? Why doesn't he recognise Clare on their
+first meeting in the "present" - and why can't he "remember" his future
+journeys into the past?<br /></blockquote>Now I know that I've spent longer than most people either reading or watching stories about time travel. But I can't believe that anyone seriously doesn't know the answers to those questions. Why doesn't Henry recognise Clare when they first meet in the present? Because those meetings haven't yet taken place for him. Why can't he remember his future journeys into the past? The big clue is in the word "future".<br /><br />Without understanding that, you're missing the fundamental paradox in the plot of the Time Traveler's Wife. If you really find it that confusing, I can understand why you would only give it two stars.<br /><br />Do many people find basic time travel concepts like this hard to follow?<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Not Dead</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/08/not-dead.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1554</id>
+
+    <published>2009-08-27T08:20:24Z</published>
+    <updated>2009-08-27T08:22:58Z</updated>
+
+    <summary>I know it&apos;s been very quiet round here, but I&apos;m still here. I&apos;ve just been off on holiday for a couple of weeks. I was cruising around the Baltic. There will be stories and photos arriving soon. I just need...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="life" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="holiday" label="holiday" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="life" label="life" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[I know it's been very quiet round here, but I'm still here. I've just been off on holiday for a couple of weeks. I was cruising around the <a href="http://en.wikipedia.org/wiki/Baltic_Sea">Baltic</a>. There will be stories and photos arriving soon. I just need a couple of days to get a bit more organised.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Support From The Internet</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/08/support-from-the-internet.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1553</id>
+
+    <published>2009-08-03T19:18:53Z</published>
+    <updated>2009-08-03T20:31:28Z</updated>
+
+    <summary>I&apos;m currently in Lisbon for YAPC Europe. I very nearly didn&apos;t make it. I flew out on Friday and on Friday morning, about three hours before I was supposed to leave the house, I discovered that my passport was missing.I...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="travel" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="facebook" label="facebook" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="passport" label="passport" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="support" label="support" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="travel" label="travel" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="twitter" label="twitter" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="web" label="web" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[I'm currently in Lisbon for <a href="http://yapceurope2009.org/">YAPC Europe</a>. I very nearly didn't make it. I flew out on Friday and on Friday morning, about three hours before I was supposed to leave the house, I discovered that my passport was missing.<br /><br />I realise, of course, that looking for your passport on the day that you are planning to travel is a rather stupid way to organise your life. But that's not what I did. I made sure that I knew where my passport was two weeks before that. Except it turns out that wasn't my current passport. That was an old expired passport which, for reasons too boring to go into, hasn't had the corner cut off in the way that expired passports are supposed to.<br /><br />Just before 9am, I <a href="http://twitter.com/davorg/status/2947683074">twittered my predicament</a>.<br /><br /><blockquote><span class="status-body"><span class="entry-content">Hmmm... I appear to be having some slight difficulty tracking down my passport *FX: Mild panic*</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">An hour and a half later, <a href="http://twitter.com/davorg/status/2948564154">I still sound calm</a> (almost joking), but internally the panic was rising.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">If I was a passport, where would I be hiding?</span></span><br /></blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content">At that point I think that some of my Twitter followers realised that I was serious and started to send helpful suggestions.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> in the cupboard where the cereals are [<a href="http://twitter.com/davecampbell/status/2948574383">@davecampbell</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Old suit or jacket pockets? Maybe in a suitcase? [<a href="http://twitter.com/OvidPerl/status/2948577493">@OvidPerl</a>]</span></span><br /></blockquote><span class="status-body"></span><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Even reading that has me moving to check that mine is where I think it is.  Hope it doesn't stay hidden for long! [<a href="http://twitter.com/keiosu/status/2948594401">@keiosu</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> I found mine hiding under a stack of dirty dishes. [<a href="http://twitter.com/__Abigail__/status/2948600770">@__Abigail__</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> sock drawer at ours usually [<a href="http://twitter.com/gellyfish/status/2948622119">@gellyfish</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote>Every time I went back to Twitter, there were three or four new encouraging messages.<br /><br /><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> odds are you've packed it already [<a href="http://twitter.com/SeanClarke/status/2948630473">@SeanClarke</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> My passport is in my dressing-gown pocket, but I suppose that's unlikely to help you. [<a href="http://twitter.com/robinhouston/status/2948637948">@robinhouston</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> sock drawer? bedside table? [<a href="http://twitter.com/davehodg/status/2948639997">@davehodg</a>]</span></span><br /></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> I remember a Perlmonks user finding his passport in a slipper [<a href="http://twitter.com/larsen/status/2948648984">@larsen</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> When did you last use your passport? Is it tucked in the carry-on bag you were using? Filing cabinet? Safe? [<a href="http://twitter.com/rozallin/status/2948668146">@rozallin</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> buried in the middle of a pile of filing/paperwork .. or is that just my wifey that does that? [<a href="http://twitter.com/chiselwright/status/2948695930">@chiselwright</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> The trousers you were wearing when you last entered the country? [<a href="http://twitter.com/theorbtwo/status/2948709903">@theorbtwo</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">A lot of the suggestions weren't particularly helpful, but by about 11am the support I was getting from Twitter was about the only thing that was keeping me sane. My stress is <a href="http://twitter.com/davorg/status/2948747574">starting to show in typos</a>.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">Thanks for all
+the advice. The passport remains elusive, but I'm sure I@m getting
+closer. And I don't need to leave for an hour or so :-/</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">The advice kept on coming.</span></span><span class="status-body"><span class="entry-content"><br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Drawer. Bedside table? [<a href="http://twitter.com/antoniojl/status/2948793943">@antoniojl</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> If I was a passport I would hide in a suitcase, ready to go. [<a href="http://twitter.com/anniemaggiemay/status/2948851312">@anniemaggiemay</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">And then it started to take a different tack.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> if we had id cards, you wouldn't need a passport :&gt; [<a href="http://twitter.com/pfig/status/2948900329">@pfig</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> You're an EU citizen. Showing your ID isn't enough? My girlfriend says she can travel to Portugal on her French ID. [<a href="http://twitter.com/OvidPerl/status/2949094485">@OvidPerl</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> you don't need passport to come to Portugal! I believe you are EU citizen :) [<a href="http://twitter.com/braceta/status/2949144903">@braceta</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">Unfortunately, I'd <a href="http://twitter.com/davorg/status/2949083757">already eliminated</a> that option.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">Phoned Passport Agency and BA to see if there is any chance of travelling without it. Of course not.</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">Then, <a href="http://twitter.com/davorg/status/2949568127">at 12:33</a>:<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">Found it. It was in the scanner!!!</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">One day perhaps I'll find time to explain exactly why it was in the scanner. But for now I'll just say that I only found it because I was looking in random places that I knew it couldn't possibly be.<br /><br />My Twitter followers were as happy as I was.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Hooray! [<a href="http://twitter.com/mrvaidya/status/2949585095">@mrvaidya</a></span></span><strong>]</strong><br /><strong></strong></blockquote><strong></strong><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> heh and yay! [<a href="http://twitter.com/chiselwright/status/2949593238">@chiselwright</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content"></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Of course! Bloody identity thieves! [<a href="http://twitter.com/antoniojl/status/2949607697">@antoniojl</a>]</span></span><br /></blockquote><span class="status-body"><span class="entry-content">Of course, the drama wasn't completely over. I still had to get to the airport in time for my plane. <a href="http://twitter.com/davorg/status/2949810660">At 12:59, I wrote</a>:<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">Inna taxi to LHR. Hurrah! Excitment not over yet. Might not get there in time.</span></span><br /></blockquote><span class="status-body"><span class="entry-content">Still more encouragement from Twitter.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> i fel the sonic boom as you whizzed past :) [<a href="http://twitter.com/rjw1/status/2950068142">@rjw1</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">I was too busy to tweet for a while, but finally at 14:35 I found time <a href="http://twitter.com/davorg/status/2950987917">to write</a>:<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content">Made it. Sitting in departure lounge waiting to board. Thanks for all your help. Hope you all enjoyed the drama.</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><span class="status-body"><span class="entry-content">And I think everyone was as relieved as I was.<br /><br /></span></span><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> - just happy you're on the way safely. [<a href="http://twitter.com/unixdaemon/status/2951003258">@unixdaemon</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> woo hoo - well done :) [<a href="http://twitter.com/davecampbell/status/2951007163">@davecampbell</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Awesome!  See you in Portugal on Sunday :) [<a href="http://twitter.com/OvidPerl/status/2951085260">@OvidPerl</a>]</span></span><br /></blockquote><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> The HP techies here in the Bracknell office have been enthralled by yr mini soap opera. Glad you made it :-) [<a href="http://twitter.com/edwenn/status/2951168289">@edwenn</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Yay! Well done! [<a href="http://twitter.com/antoniojl/status/2951191006">@antoniojl</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content">glad that <a href="http://twitter.com/davorg">@davorg</a> found his passport in time. [<a href="http://twitter.com/maokt/status/2953404360">@maokt</a>]</span></span><br /><span class="status-body"><span class="entry-content"></span></span></blockquote><blockquote><span class="status-body"><span class="entry-content"></span></span><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> Well done, and thanks for the entertainment! [<a href="http://twitter.com/robinhouston/status/3055608125">@robinhouston</a>]</span></span><br /></blockquote><blockquote><span class="status-body"><span class="entry-content"><a href="http://twitter.com/davorg">@davorg</a> w00t! U made it. Should have started a sweepstake in the office :) [<a href="http://twitter.com/cyberdees/status/3055979805">@cyberdees</a>]</span></span><br /></blockquote><span class="status-body"><span class="entry-content">My Twitter statuses are also fed through to my Facebook page. So friends were commenting there too. And I'm really grateful for all of the comments that I got from both places. It would have been really easy to have given up and cancelled the trip, but knowing that there were all these people out there rooting for me gave me the incentive to keep going.<br /><br />I can categorically state that in this instance both Twitter and Facebook were wonderful systems.<br /><br />Thanks to everyone who commented.<br /></span></span>]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Headphones on the G1</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/07/headphones-on-the-g1.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1552</id>
+
+    <published>2009-07-30T12:05:28Z</published>
+    <updated>2009-07-30T13:34:04Z</updated>
+
+    <summary>[This is here as a public service to other frustrated G1 owners]In December, when I wrote about my first impressions of the G1, one of my biggest complaints was that it had a completely non-standard socket for headphones. It came...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="customer service" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="customerservice" label="customer service" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="g1" label="g1" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="headphones" label="headphones" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="tmobile" label="t-mobile" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[[This is here as a public service to other frustrated G1 owners]<br /><br />In December, when I wrote about my <a href="http://blog.dave.org.uk/2008/12/google-phone-first-impressi.html">first impressions of the G1</a>, one of my biggest complaints was that it had a completely non-standard socket for headphones. It came with a set of headphones which fitted the socket, but they were some of the worst and most uncomfortable headphones that I had ever tried. I lasted less than an hour using them.<br /><br />But soon after I got my G1, I started to hear from other people who had got a different headphone adapter in the box. Instead of a pair of headphones with the dodgy "not quite USB" plug on them, they got a pair of headphones with a standard 3.5mm plug togther with an adapter to convert from 3.5mm to the dodgy "not quite USB" socket. This is clearly a better package as it allows you to use any headphones with the G1.<br /><br />I emailed T-Mobile customer support to see if they could sent me the nice adapter. They said that I could get one from a T-Mobile shop. I went into three or four shops. None of them knew what I was talking about. In one of them the manager unboxed three G1s to see what was in the box. In all three cases it was the crappy old connection that I already had.<br /><br />I emailed T-Mobile customer support again explaining what had happened and asking why they had sent me on a wild goose chase. They apologised and promised to look into it.<br /><br />At this point, I should point out that T-Mobile customer support really aren't very good. You've got a good chance of getting someone in a call centre in India who really hasn't got much of a clue about what you're talking about. They have an intensely irritating habit of repeating a paraphrased version of your query back to you in the mistaken believe (I assume) that this will somehow be useful to you. They are also told to reply to all requests with a phone call. Even ones that they receive by email. Even ones, I've discovered, that start with "PLEASE REPLY BY EMAIL - DO NOT PHONE ME". I like to deal with customer support by email so that I have a permanent record of what I have been told.<br /><br />Sorry about that diversion. I found it theraputic. Where was I? Oh yes. They promised to look into it. Then they promptly forgot about it. Three months later I wrote to them again, explaining that when someone tells me that they are looking into something, then I expect to get a follow-up at some point.<br /><br />They replied, apologised and said that they would look into it and get back to me. Which, to their credit, they did. A couple of days later I got a mail saying that they couldn't change the offer they had made me. This was strange as they hadn't actually made me an offer. They went on to say that if I bought myself the adaptor that I wanted, they would refund the cost.<br /><br />Before they could change their mind, I went onto the HTC web site and bought <a href="http://www.htcaccessorystore.com/uk/p_htc_item.aspx?i=179935">one of these</a>. I forwarded the order confirmation to T-Mobile and they phoned me (grr!) to tell me that they had credited the amount to my account.<br /><br />So there's the happy ending to the story. After about six months of trying, many visits to T-Mobile shops and many frustrating email conversations with T-Mobile customer support I got what I wanted. I can now listen to music on my G1 using my favourite headphones.<br /><br />If you're trying to get a decent headphone adapter out of them, feel free to point them at this blog entry. If they do it for one person, they should really do it for everyone who asks. If by writing this I can make someone's interaction with T-Mobile less painful then that would make me very happy.<br /><br />Let me know how you get on.<br /><br /><b>Update:</b> I should mention that there's another option. The G1 supports stereo bluetooth headphones - so just <a href="http://www.amazon.co.uk/exec/obidos/ASIN/B000UVNJ5M/davblog-21">buy something like this</a> and there's no need to plug anything in.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Very Cellular Songs</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/07/very-cellular-songs.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1551</id>
+
+    <published>2009-07-23T11:56:43Z</published>
+    <updated>2009-07-23T12:21:03Z</updated>
+
+    <summary>On Sunday evening I was at the Barbican Centre for Very Cellular Songs - The Music of the Incredible String Band. This featured a number of performers singing and playing Incredible String Band songs. The performers included Mike Heron and...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="music" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="musicincrediblestringbandbarbican" label="music incrediblestringband barbican" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[On Sunday evening I was at the Barbican Centre for <a href="http://www.songkick.com/festivals/9816-very-cellular-songs-the-music-of-the-incredible-string-band/id/2298726-very-cellular-songs-the-music-of-the-incredible-string-band-2009">Very Cellular Songs - The Music of the Incredible String Band</a>. This featured a number of performers singing and playing <a href="http://www.last.fm/music/The+Incredible+String+Band">Incredible String Band</a> songs. The performers included Mike Heron and Clive Palmer who were original members of the band. According to Joe Boyd, who curated and introduced the show, the third original member, Robin Williamson, isn't keen on being involved with such retrospectives. The best known performers were probably Richard Thompson, Robyn Hitchcock and Green Gartside but all of the performers were very impressive.<br /><br />I've never really explored the ISB's music. I've had a copy of <a href="http://www.last.fm/music/The+Incredible+String+Band/The+Hangman%27s+Beautiful+Daughter">The Hangman's Beautiful Daughter </a>for a while but I can't have listened to it more than a handful of times. I can't really explain why I haven't listened to them much. I suppose that going to this gig was an attempt to work out for once and for all whether or not I liked them. And I'm really glad that I did because I had a great time. It's now four days later and I still have snippets of their songs going round my head.<br /><br />One of the problems with this kind of show is that because the line-up changes with each song, there's a bit of an extended pause whilst the previous performers leave the stage and the new ones come on. This was slightly exacerbated by the fact that Clive Palmer was walking with a stick and it took him rather a long time to get on and off the stage. But as Richard Thompson pointed out, compared to some of the ISB gigs in the sixties, this was really slick.<br /><br />I also found myself realising why I used to enjoy going to the <a href="http://www.songkick.com/festivals/1163-cambridge-folk-festival">Cambridge Folk Festival</a> so much. It was a great way to find new bands. There were a number of performers who I'd never heard of and I'll certainly be be investigating more music by Abigail Washburn, Alasdair Roberts and the Trembling Bells.<br /><br />It was a very enjoyable night. I'm rather hoping that it was recorded in some way so that I can relive it. If, like me, the music of the ISB is a bit of a closed book to you, then I recommend listening to <a href="http://www.last.fm/music/The+Incredible+String+Band/_/A+Very+Cellular+Song">A Very Cellular Song</a> or (if you prefer something a little less out there) <a href="http://www.last.fm/music/The+Incredible+String+Band/_/Everything%27s+Fine+Right+Now">Everything's Fine Right Now</a>.<br />]]>
+        
+    </content>
+</entry>
+
+<entry>
+    <title>Apollo Introspection</title>
+    <link rel="alternate" type="text/html" href="http://blog.dave.org.uk/2009/07/apollo-introspection.html" />
+    <id>tag:blog.dave.org.uk,2009://1.1550</id>
+
+    <published>2009-07-22T12:44:34Z</published>
+    <updated>2009-07-22T13:27:10Z</updated>
+
+    <summary> Last night I celebrated the 40th anniversary of the first Moon walk by going to the Science Museum to see a live performance of Brian Eno&apos;s Apollo. The music was played by Icebreaker who were largely out of sight...</summary>
+    <author>
+        <name>Dave Cross</name>
+        <uri>http://dave.org.uk/</uri>
+    </author>
+    
+        <category term="tech" scheme="http://www.sixapart.com/ns/types#category" />
+    
+    <category term="annivesary" label="annivesary" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="apollo" label="apollo" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="moon" label="moon" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="science" label="science" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="sciencemuseum" label="science museum" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="space" label="space" scheme="http://www.sixapart.com/ns/types#tag" />
+    <category term="technology" label="technology" scheme="http://www.sixapart.com/ns/types#tag" />
+    
+    <content type="html" xml:lang="en" xml:base="http://blog.dave.org.uk/">
+        <![CDATA[<a href="http://www.flickr.com/photos/davorg/3746163974/" title="Apollo Space Suit by Dave Cross, on Flickr"><img src="http://farm4.static.flickr.com/3497/3746163974_dafdd82573_m.jpg" alt="Apollo Space Suit" align="left" height="240" width="180" /></a> Last night I celebrated the 40th anniversary of the first Moon walk by going to the Science Museum to see a live performance of Brian Eno's <a href="http://en.wikipedia.org/wiki/Apollo:_Atmospheres_and_Soundtracks">Apollo</a>. The music was played by <a href="http://en.wikipedia.org/wiki/Icebreaker_%28band%29">Icebreaker</a> who were largely out of sight below the screen while extracts from <a href="http://en.wikipedia.org/wiki/For_All_Mankind">For All Mankind</a> were broadcast on the IMAX screen. It seems I chose the wrong night to go as Eno himself introduced the performance on Monday night (the 40th anniversary of the first Moon landing), but that doesn't really matter - the show was still great. I'd recommend you see it, but that was the final performance.<br /><br />I'm old enough that I remember the original events. My parents dragged me out of bed early in the morning of July 21st 1969 to watch Neil Armstrong leave the Eagle and become the first man to walk on the Moon. My memory is hazy and no doubt clouded by the innumerable times that I've seen the footage since, but I definitely remember being obsessed by all things Apollo at the time.<br /><br />Mine was the first generation to whom spaceflight was a reality. I was born five years after Sputnik 1 and about eighteen months after Yuri Gagarin's spaceflight. People of my age were the first people to grow up in a world where it seemed that the space travel of science fiction might not remain fiction for much longer. By the time of Apollo 11 we were sure that we were going to be the first generation to take our holidays on the Moon. If you had told that six-year-old boy that the chances of him ever visiting the Moon were as slim as they now seem, he would have laughed at you.<br /><br />I'm not usually prone to introspection, but this anniversary has effected me in a strange way. I suppose I've known it for years, but I've finally had to face the fact that I won't be travelling to the Moon. There's an outside chance that I might get rich enough or prices might fall enough that I'll one day take a "space tourist" flight to Earth orbit. But that's likely to be about as far as I'll get. And that makes me sad.<br /><br />I know, of course, all of the reasons why the Apollo project was cancelled. And why no-one has gone further than the <a href="http://en.wikipedia.org/wiki/International_Space_Station">International Space Station</a> in the last thirty-five years. But understanding the rationale doesn't stop it from being a huge disappointment to me. I'm glad to here people starting to talk about going back to the Moon and the Apollo 11 astronauts encouraging NASA to consider missions to Mars, but I'm just going to have to accept that there is no chance that I'll be involved in any of those projects.<br /><br />Astronauts are largely younger than me these days. I sailed past both my thirtieth and fortieth birthdays without experiencing the morose introspection that those birthdays traditionally trigger. But I think that what I've been feeling over the last few days is a very similar effect.<br /><br /><br />]]>
+        
+    </content>
+</entry>
+
+</feed>

@@ -1,8 +1,11 @@
-use Test::More tests => 6;
+use Test::More tests => 8;
 use FindBin qw($Bin);
+use YAML qw(LoadFile);
+
 use_ok('Perlanet');
+
 chdir $Bin;
-ok(my $p = Perlanet->new('testrc'), 'Object created');
+ok(my $p = Perlanet->new({ cfg => LoadFile('testrc') }), 'Object created');
 isa_ok($p, 'Perlanet');
 
 if (exists $p->cfg->{opml} and -e $p->cfg->{opml}) {
@@ -34,3 +37,7 @@ if (exists $p->cfg->{feed}{file} and -e $p->cfg->{feed}{file}) {
 if (exists $p->cfg->{page}{file} and -e $p->cfg->{page}{file}) {
   unlink $p->cfg->{page}{file};
 }
+
+ok($p = Perlanet->new(cfg => LoadFile('testrc')), 'Object created');
+isa_ok($p, 'Perlanet');
+
