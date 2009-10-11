@@ -133,8 +133,9 @@ sub run {
 
     unless ($response->is_success) {
       warn "$f->{url}:\n" . $response->http_response->status_line . "\n";
-      next;
     }
+
+    next if $response->is_error;
 
     my $data = $response->content;
 
