@@ -5,7 +5,7 @@ cache_dir: cache
 author:
   name: Dave Cross
   email: dave@dave.org.uk
-entries: 20
+entries: 10
 page:
   file: index.html
   template: index.tt

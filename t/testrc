@@ -12,8 +12,8 @@ page:
   file: index.html
   template: index.tt
 feed:
-  file: atom.xml
-  format: Atom
+  file: rss.xml
+  format: RSS
 feeds:
   - url: file:data/davblog.xml
     title: davblog

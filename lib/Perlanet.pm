@@ -150,8 +150,8 @@ sub run {
       next;
     }
 
-    if ($feed->format ne $self->{cfg}{feed}{format}) {
-      $feed = $feed->convert($self->{cfg}{feed}{format});
+    if ($feed->format ne $self->cfg->{feed}{format}) {
+      $feed = $feed->convert($self->cfg->{feed}{format});
     }
 
     unless (defined $f->{title}) {
