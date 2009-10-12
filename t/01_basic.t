@@ -21,7 +21,10 @@ $p->run;
 
 ok(-e $p->cfg->{feed}{file}, 'Feed created');
 ok(-e $p->cfg->{page}{file}, 'Page created');
-ok(-e $p->cfg->{opml}, 'OPML created');
+SKIP: {
+  skip 'XML::OPML::SimpleGen not installed', 1 unless $p->cfg->{opml};
+  ok(-e $p->cfg->{opml}, 'OPML created');
+}
 
 if (exists $p->cfg->{opml} and -e $p->cfg->{opml}) {
   unlink $p->cfg->{opml};

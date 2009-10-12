@@ -17,7 +17,6 @@ use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
 
-require XML::OPML::SimpleGen;
 
 use vars qw{$VERSION};
 
@@ -110,14 +109,23 @@ sub BUILD {
 
   my $opml;
   if ($self->cfg->{opml}) {
-    my $loc = setlocale(LC_ALL, 'C');
-    $opml = XML::OPML::SimpleGen->new;
-    setlocale(LC_ALL, $loc);
-    $opml->head(
-      title => $self->cfg->{title},
-    );
+    eval { require XML::OPML::SimpleGen; };
 
-    $self->opml($opml);
+    if ($@) {
+      warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+           "Support.\n";
+      warn "OPML support disabled for this run.\n";
+      delete $self->cfg->{opml};
+    } else {
+      my $loc = setlocale(LC_ALL, 'C');
+      $opml = XML::OPML::SimpleGen->new;
+      setlocale(LC_ALL, $loc);
+      $opml->head(
+        title => $self->cfg->{title},
+      );
+
+      $self->opml($opml);
+    }
   }
 }
 

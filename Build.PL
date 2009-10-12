@@ -17,14 +17,14 @@ my $build = Module::Build->new(
                 'DateTime'             => 0,
                 'DateTime::Duration'   => 0,
                 'YAML'                 => 0,
-                'XML::OPML::SimpleGen' => 0,
                 'HTML::Tidy'           => 0,
                 'HTML::Scrubber'       => 0,
                 'Moose'                => 0,
 	},
         recommends         => {
-                'CHI'                 => 0,
-                'Compress::Zlib'      => 0,
+                'CHI'                  => 0,
+                'Compress::Zlib'       => 0,
+                'XML::OPML::SimpleGen' => 0,
         },
         build_requires     => {
         	'Test::More'          => 0,
