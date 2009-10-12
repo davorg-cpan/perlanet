@@ -16,7 +16,6 @@ use DateTime::Duration;
 use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
-use CHI;
 
 require XML::OPML::SimpleGen;
 
@@ -91,6 +90,16 @@ sub BUILD {
   $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||=
                                            "Perlanet/$VERSION" ));
   $self->ua->show_progress(1) if -t STDOUT;
+
+  if ($self->cfg->{cache_dir}) {
+    eval { require CHI; };
+
+    if ($@) {
+      warn "You need to install CHI to enable caching.\n";
+      warn "Caching disabled for this run.\n";
+      delete $self->cfg->{cache_dir};
+    }
+  }
 
   $self->cfg->{cache_dir}
     and $self->cache(CHI->new(
