@@ -219,7 +219,7 @@ sub run {
 
   # Only need so many entries
   if (@entries > $self->cfg->{entries}) {
-    $#entries = $self->cfg->{entries};
+    $#entries = $self->cfg->{entries} - 1;
   }
 
   # Preferences for HTML::Tidy
