@@ -176,8 +176,14 @@ sub run {
       $f->{title} = $feed->title;
     } 
 
+    my @feed_entries = $feed->entries;
+
+    if ($self->cfg->{entries_per_feed}) {
+      $#feed_entries = $self->cfg->{entries_per_feed};
+    }
+
     push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
-                         $feed->entries;
+                         @feed_entries;
 
     if ($self->opml) {
       $self->opml->insert_outline(
