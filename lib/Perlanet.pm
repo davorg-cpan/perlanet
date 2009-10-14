@@ -21,7 +21,7 @@ use HTML::Scrubber;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.34';
+  $VERSION = '0.35';
 }
 
 $XML::Atom::ForceUnicode = 1;
@@ -140,6 +140,8 @@ sub run {
 
   my @entries;
 
+  my $day_zero = DateTime->from_epoch(epoch=>0);
+
   foreach my $f (@{$self->cfg->{feeds}}) {
 
     my $response = URI::Fetch->fetch($f->{url},
@@ -176,7 +178,11 @@ sub run {
       $f->{title} = $feed->title;
     } 
 
-    my @feed_entries = $feed->entries;
+    my @feed_entries = sort {
+      ($b->modified || $b->issued || $day_zero)
+        <=>
+      ($a->modified || $a->issued || $day_zero)
+    } $feed->entries;
 
     if ($self->cfg->{entries_per_feed} and
       @feed_entries > $self->cfg->{entries_per_feed}) {
@@ -200,12 +206,10 @@ sub run {
     $self->opml->save($self->cfg->{opml});
   }
 
-  my $day_zero = DateTime->from_epoch(epoch=>0);
-
   @entries = sort {
                     ($b->modified || $b->issued || $day_zero)
                      <=>
-                    ($a->modified || $b->issued || $day_zero)
+                    ($a->modified || $a->issued || $day_zero)
                   } @entries;
 
   my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
