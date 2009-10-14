@@ -120,6 +120,15 @@ touch with you if they have any concerns about your use of their site.
 The maximum number of entries to include in the aggregated content. This option
 is mandatory.
 
+=item entries_per_feed
+
+The C<entries> value above defines the total number of entries in the
+aggregated output feed. The <entries_per_feed> value defines the number of
+entries to take from each of your source feeds. For example, if this is
+set to 1 then there will only be one entry from each feed in your output.
+If this value is 0 (or missing) then all values from all source feeds are
+used.
+
 =item opml
 
 The system can optionally create an OPML file containing details of the

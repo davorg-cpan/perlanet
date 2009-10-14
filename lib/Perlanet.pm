@@ -178,8 +178,9 @@ sub run {
 
     my @feed_entries = $feed->entries;
 
-    if ($self->cfg->{entries_per_feed}) {
-      $#feed_entries = $self->cfg->{entries_per_feed};
+    if ($self->cfg->{entries_per_feed} and
+      @feed_entries > $self->cfg->{entries_per_feed}) {
+      $#feed_entries = $self->cfg->{entries_per_feed} - 1;
     }
 
     push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
