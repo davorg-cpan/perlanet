@@ -13,3 +13,4 @@ t/testrc
 t/index.tt
 README
 Changes
+t/data/davblog.xml
