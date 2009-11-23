@@ -90,6 +90,8 @@ sub BUILD {
                                            "Perlanet/$VERSION" ));
   $self->ua->show_progress(1) if -t STDOUT;
 
+  $self->ua->env_proxy;
+
   if ($self->cfg->{cache_dir}) {
     eval { require CHI; };
 
