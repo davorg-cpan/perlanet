@@ -21,7 +21,7 @@ use HTML::Scrubber;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.36';
+  $VERSION = '0.37';
 }
 
 $XML::Atom::ForceUnicode = 1;
