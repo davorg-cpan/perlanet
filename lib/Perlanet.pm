@@ -15,6 +15,7 @@ use HTML::Tidy;
 use HTML::Scrubber;
 use TryCatch;
 use Perlanet::Feed;
+use Perlanet::Entry;
 
 use vars qw{$VERSION};
 
@@ -327,7 +328,13 @@ sub select_entries
         }
 
         push @feed_entries,
-            map { $_->title($feed->title . ': ' . $_->title); $_ } @entries;
+            map {
+                $_->title($feed->title . ': ' . $_->title);
+                Perlanet::Entry->new(
+                    _entry => $_,
+                    feed => $feed
+                );
+            } @entries;
     }
 
     return @feed_entries;
@@ -378,7 +385,7 @@ sub build_feed
     $f->self_link($self_url);
     $f->id($self_url);
 
-    $f->add_entry($_) for @entries;
+    $f->add_entry($_->_entry) for @entries;
     return $f;
 }
 
