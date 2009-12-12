@@ -14,6 +14,7 @@ use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
 use TryCatch;
+use Perlanet::Feed;
 
 use vars qw{$VERSION};
 
@@ -61,6 +62,19 @@ has 'cutoff' => (
         DateTime->now + DateTime::Duration->new(weeks => 1);
     }
 );
+
+has 'feeds' => (
+    isa => 'ArrayRef',
+    is => 'ro',
+    lazy_build => 1,
+);
+
+sub _build_feeds {
+    my $self = shift;
+    return [ map {
+        Perlanet::Feed->new($_)
+      } @{ $self->cfg->{feeds} } ];
+}
 
 =head1 NAME
 
@@ -163,27 +177,40 @@ this will return C<undef>.
 
 =cut
 
-sub fetch_feed
+sub fetch_feeds
 {
-    my ($self, $url) = @_;
-    
-    my $response = URI::Fetch->fetch($url,
-      UserAgent     => $self->ua,
-      Cache         => $self->cache || undef,
-      ForceResponse => 1,
-    );
+    my ($self, @feeds) = @_;
 
-    return if !$response->is_success || $response->is_error;
+    my @valid_feeds;
+    for my $feed (@feeds) {
+        my $response = URI::Fetch->fetch($feed->url,
+            UserAgent     => $self->ua,
+            Cache         => $self->cache || undef,
+            ForceResponse => 1,
+        );
 
-    try {
-        my $data = $response->content;
-        my $feed = XML::Feed->parse(\$data)
-            or return;
+        next if !$response->is_success || $response->is_error;
+
+        try {
+            my $data = $response->content;
+            my $xml_feed = XML::Feed->parse(\$data)
+                or next;
+            
+            if ($xml_feed->format ne $self->cfg->{feed}{format}) {
+                $xml_feed = $xml_feed->convert($feed->format);
+            }
+
+            $feed->_xml_feed($xml_feed);
+            $feed->title($xml_feed->title) unless $feed->title;
+
+            push @valid_feeds, $feed;
+        }
+        catch {
+            warn "Errors parsing " . $feed->url;
+        }
     }
-    catch {
-        warn "Errors parsing $url";
-        return;
-    }
+
+    return @valid_feeds;
 }
 
 =head2 select_entries
@@ -194,20 +221,18 @@ Select all entries from a L<XML::Feed>, and sort them.
 
 sub select_entries
 {
-    my ($self, $feed, $f) = @_;
+    my ($self, @feeds) = @_;
 
-    if ($feed->format ne $self->cfg->{feed}{format}) {
-        $feed = $feed->convert($self->cfg->{feed}{format});
-    }
+    my @feed_entries;
+    for my $feed (@feeds) {
+        my @entries = $feed->entries;
+        if ($self->cfg->{entries_per_feed} and
+                @feed_entries > $self->cfg->{entries_per_feed}) {
+            $#feed_entries = $self->cfg->{entries_per_feed} - 1;
+        }
 
-    unless (defined $f->{title}) {
-        $f->{title} = $feed->title;
-    } 
-
-    my @feed_entries = $feed->entries;
-    if ($self->cfg->{entries_per_feed} and
-        @feed_entries > $self->cfg->{entries_per_feed}) {
-        $#feed_entries = $self->cfg->{entries_per_feed} - 1;
+        push @feed_entries,
+            map { $_->title($feed->title . ': ' . $_->title); $_ } @entries;
     }
 
     return @feed_entries;
@@ -378,6 +403,25 @@ sub save
     close $feedfile;
 }
 
+sub update_opml {
+    my $self = shift;
+
+    return unless $self->opml;
+
+    foreach my $f (@{$self->cfg->{feeds}}) {
+        if ($self->opml) {
+            $self->opml->insert_outline(
+                title   => $f->{title},
+                text    => $f->{title},
+                xmlUrl  => $f->{url},
+                htmlUrl => $f->{web},
+            );
+        }
+    }
+  
+    $self->opml->save($self->cfg->{opml});
+}
+
 =head2 run
 
 The main method which runs the perlanet process.
@@ -385,48 +429,28 @@ The main method which runs the perlanet process.
 =cut
 
 sub run {
-  my $self = shift;
+    my $self = shift;
 
-  my @entries;
-  foreach my $f (@{$self->cfg->{feeds}}) {
-      my $feed = $self->fetch_feed($f->{url});
-
-      if (!$feed) {
-          warn "Could not fetch " . $f->{url};
-          next;
-      }
+    $self->update_opml;
       
-      my @feed_entries = $self->select_entries($feed, $f);
-      push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
-                         @feed_entries;
+    my @entries = $self->select_entries(
+        $self->fetch_feeds(@{ $self->feeds })
+    );
 
-      if ($self->opml) {
-          $self->opml->insert_outline(
-              title   => $f->{title},
-              text    => $f->{title},
-              xmlUrl  => $f->{url},
-              htmlUrl => $f->{web},
-          );
-      }
-  }
-  
-  $self->opml->save($self->cfg->{opml})
-      if $self->opml;
+    my $day_zero = DateTime->from_epoch(epoch => 0);
+    my @feed_entries = grep {
+        ($_->issued || $_->modified || $day_zero) < $self->cutoff
+    } $self->sort_entries(@entries);
 
-  my $day_zero = DateTime->from_epoch(epoch => 0);
-  my @feed_entries = grep {
-      ($_->issued || $_->modified || $day_zero) < $self->cutoff
-  } $self->sort_entries(@entries);
+    # Only need so many entries
+    if (@entries > $self->cfg->{entries}) {
+        $#entries = $self->cfg->{entries} - 1;
+    }
 
-  # Only need so many entries
-  if (@entries > $self->cfg->{entries}) {
-      $#entries = $self->cfg->{entries} - 1;
-  }
-
-  # Build feed
-  my $feed = $self->build_feed(@entries);
-  $self->save($feed);
-  $self->render($feed);
+    # Build feed
+    my $feed = $self->build_feed(@entries);
+    $self->save($feed);
+    $self->render($feed);
 }
 
 =head1 TO DO
