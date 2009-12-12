@@ -13,6 +13,7 @@ use DateTime::Duration;
 use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
+use TryCatch;
 
 use vars qw{$VERSION};
 
@@ -127,57 +128,64 @@ sub BUILD {
   }
 }
 
-sub per_feed
-{
-    my ($self, $f) = @_;
+=head2 fetch_feed
 
-    my $day_zero = DateTime->from_epoch(epoch => 0);
+Fetch a feed and return into as a L<XML::Feed>. If the feed cannot be fetched,
+this will return C<undef>.
+
+=cut
+
+sub fetch_feed
+{
+    my ($self, $url) = @_;
     
-    my $response = URI::Fetch->fetch($f->{url},
+    my $response = URI::Fetch->fetch($url,
       UserAgent     => $self->ua,
       Cache         => $self->cache || undef,
       ForceResponse => 1,
     );
 
-    if (!$response->is_success) {
-        warn sprintf "Could not fetch %s: %s\n",
-            $f->{url},
-            $response->http_response->status_line;
+    return if !$response->is_success || $response->is_error;
+
+    try {
+        my $data = $response->content;
+        my $feed = XML::Feed->parse(\$data)
+            or return;
     }
-
-    return if $response->is_error;
-
-    my $data = $response->content;
-
-    my $feed = eval { XML::Feed->parse(\$data) };
-
-    if ($@) {
-      warn "$f->{url}\n$@\n";
-      next;
+    catch {
+        warn "Errors parsing $url";
+        return;
     }
+}
 
-    unless ($feed) {
-      warn "$f->{url}\nNo feed\n";
-      next;
-    }
+=head2 select_entries
+
+Select all entries from a L<XML::Feed>, and sort them.
+
+=cut
+
+sub select_entries
+{
+    my ($self, $feed, $f) = @_;
 
     if ($feed->format ne $self->cfg->{feed}{format}) {
-      $feed = $feed->convert($self->cfg->{feed}{format});
+        $feed = $feed->convert($self->cfg->{feed}{format});
     }
 
     unless (defined $f->{title}) {
-      $f->{title} = $feed->title;
+        $f->{title} = $feed->title;
     } 
 
+    my $day_zero = DateTime->from_epoch(epoch => 0);
     my @feed_entries = sort {
-      ($b->modified || $b->issued || $day_zero)
-        <=>
-      ($a->modified || $a->issued || $day_zero)
+        ($b->modified || $b->issued || $day_zero)
+            <=>
+        ($a->modified || $a->issued || $day_zero)
     } $feed->entries;
-
+    
     if ($self->cfg->{entries_per_feed} and
-      @feed_entries > $self->cfg->{entries_per_feed}) {
-      $#feed_entries = $self->cfg->{entries_per_feed} - 1;
+        @feed_entries > $self->cfg->{entries_per_feed}) {
+        $#feed_entries = $self->cfg->{entries_per_feed} - 1;
     }
 
     return @feed_entries;
@@ -193,29 +201,29 @@ sub run {
   my $self = shift;
 
   my @entries;
-
-  my $day_zero = DateTime->from_epoch(epoch=>0);
-
   foreach my $f (@{$self->cfg->{feeds}}) {
+      my $feed = $self->fetch_feed($f->{url})
+          or next;
 
-      my @feed_entries = $self->per_feed($f);
-
-    push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
+      my @feed_entries = $self->select_entries($feed, $f);
+      push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                          @feed_entries;
 
-    if ($self->opml) {
-      $self->opml->insert_outline(
-        title   => $f->{title},
-        text    => $f->{title},
-        xmlUrl  => $f->{url},
-        htmlUrl => $f->{web},
-      );
-    }
+      if ($self->opml) {
+          $self->opml->insert_outline(
+              title   => $f->{title},
+              text    => $f->{title},
+              xmlUrl  => $f->{url},
+              htmlUrl => $f->{web},
+          );
+      }
   }
 
   if ($self->opml) {
-    $self->opml->save($self->cfg->{opml});
+      $self->opml->save($self->cfg->{opml});
   }
+
+  my $day_zero = DateTime->from_epoch(epoch=>0);
 
   @entries = sort {
                     ($b->modified || $b->issued || $day_zero)
