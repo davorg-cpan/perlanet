@@ -320,6 +320,54 @@ sub clean_entries
     return @cleaned;
 }
 
+sub build_feed
+{
+    my ($self, @entries) = @_;
+    
+    my $f = XML::Feed->new($self->cfg->{feed}{format});
+    $f->title($self->cfg->{title});
+    $f->link($self->cfg->{url});
+    $f->description($self->cfg->{description});
+    $f->author($self->cfg->{author}{name});
+    if ($self->cfg->{feed}{format} eq 'Atom') {
+        my $p = $f->{atom}->author;
+        $p->email($self->cfg->{author}{email});
+    }
+    $f->modified(DateTime->now);
+    my $self_url = $self->cfg->{self_link} || $self->cfg->{feed}{url} ||
+        $self->cfg->{url} . $self->cfg->{feed}{file};
+    $f->self_link($self_url);
+    $f->id($self_url);
+
+    $f->add_entry($_) for $self->clean_entries(@entries);
+    return $f;
+}
+
+sub render
+{
+    my $tt = Template->new;
+
+    $tt->process(
+        $self->cfg->{page}{template},
+        {
+            feed => $f,
+            cfg => $self->cfg
+        },
+        $self->cfg->{page}{file},
+        {
+            binmode => ':utf8'
+        }
+    ) or croak $tt->error;
+}
+
+sub save
+{
+    my ($self, $feed) = @_;
+    open my $feedfile, '>', $self->cfg->{feed}{file}
+        or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
+    print $feedfile $feed->as_xml;
+    close $feedfile;
+}
 
 =head2 run
 
@@ -368,35 +416,9 @@ sub run {
   }
 
   # Build feed
-  my $f = XML::Feed->new($self->cfg->{feed}{format});
-  $f->title($self->cfg->{title});
-  $f->link($self->cfg->{url});
-  $f->description($self->cfg->{description});
-  $f->author($self->cfg->{author}{name});
-  if ($self->cfg->{feed}{format} eq 'Atom') {
-      my $p = $f->{atom}->author;
-      $p->email($self->cfg->{author}{email});
-  }
-  $f->modified(DateTime->now);
-  my $self_url = $self->cfg->{self_link} || $self->cfg->{feed}{url} ||
-      $self->cfg->{url} . $self->cfg->{feed}{file};
-  $f->self_link($self_url);
-  $f->id($self_url);
-
-  $f->add_entry($_) for $self->clean_entries(@feed_entries);
-
-  open my $feedfile, '>', $self->cfg->{feed}{file}
-      or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
-  print $feedfile $f->as_xml;
-  close $feedfile;
-
-  my $tt = Template->new;
-
-  $tt->process($self->cfg->{page}{template},
-               { feed => $f, cfg => $self->cfg },
-               $self->cfg->{page}{file},
-               { binmode => ':utf8'})
-      or croak $tt->error;
+  my $feed = $self->build_feed(@entries);
+  $self->save($feed);
+  $self->render($feed);
 }
 
 =head1 TO DO
