@@ -196,6 +196,110 @@ sub sort_entries
     } @entries;
 }
 
+sub clean_entries
+{
+    my ($self, @entries) = @_;
+    
+    # Preferences for HTML::Tidy
+    my %tidy = (
+        doctype           => 'omit',
+        output_xhtml      => 1,
+        wrap              => 0,
+        alt_text          => '',
+        break_before_br   => 0,
+        char_encoding     => 'raw',
+        tidy_mark         => 0,
+        show_body_only    => 1,
+        preserve_entities => 1,
+        show_warnings     => 0,
+    );
+    
+    # Rules for HTML::Scrub
+    my %scrub_rules = (
+        img => {
+            src   => qr{^http://},    # only URL with http://
+            alt   => 1,               # alt attributes allowed
+            align => 1,               # allow align on images
+            style => 1,
+            '*'   => 0,               # deny all others
+        },
+        style => 0,
+        script => 0,
+        span => {
+            id => 0,                  # blogger(?) includes spans with id attribute
+        },
+        a => {
+            href => 1,
+            '*'  => 0,
+        },
+    );
+    
+    # Definitions for HTML::Scrub
+    my %scrub_def = (
+        '*'           => 1,
+        'href'        => qr{^(?!(?:java)?script)}i,
+        'src'         => qr{^(?!(?:java)?script)}i,
+        'cite'        => '(?i-xsm:^(?!(?:java)?script))',
+        'language'    => 0,
+        'name'        => 1,
+        'value'       => 1,
+        'onblur'      => 0,
+        'onchange'    => 0,
+        'onclick'     => 0,
+        'ondblclick'  => 0,
+        'onerror'     => 0,
+        'onfocus'     => 0,
+        'onkeydown'   => 0,
+        'onkeypress'  => 0,
+        'onkeyup'     => 0,
+        'onload'      => 0,
+        'onmousedown' => 0,
+        'onmousemove' => 0,
+        'onmouseout'  => 0,
+        'onmouseover' => 0,
+        'onmouseup'   => 0,
+        'onreset'     => 0,
+        'onselect'    => 0,
+        'onsubmit'    => 0,
+        'onunload'    => 0,
+        'src'         => 1,
+        'type'        => 1,
+        'style'       => 1,
+        'class'       => 0,
+        'id'          => 0,
+    );
+
+    my $tidy = HTML::Tidy->new(\%tidy);
+    $tidy->ignore( type => TIDY_WARNING );
+
+    my $scrub = HTML::Scrubber->new;
+    $scrub->rules(%scrub_rules);
+    $scrub->default(1, \%scrub_def);
+
+    my @cleaned;
+    foreach my $entry (@entries) {
+        if ($entry->content->type && $entry->content->type eq 'text/html') {
+            my $scrubbed = $scrub->scrub($entry->content->body);
+            my $clean = $tidy->clean(utf8::is_utf8($scrubbed)
+                  ? $scrubbed
+                  : decode('utf8', $scrubbed));
+
+            # hack to remove a particularly nasty piece of blogspot HTML
+            $clean =~ s|<div align="justify"></div>||g;
+            $entry->content($clean);
+        }
+
+        # Problem with XML::Feed's conversion of RSS to Atom
+        if ($entry->issued && ! $entry->modified) {
+            $entry->modified($entry->issued);
+        }
+
+        push @cleaned, $entry;
+    }
+
+    return @cleaned;
+}
+
 
 =head2 run
 
@@ -239,116 +343,23 @@ sub run {
       $#entries = $self->cfg->{entries} - 1;
   }
 
-  # Preferences for HTML::Tidy
-  my %tidy = (
-    doctype      => 'omit',
-    output_xhtml => 1,
-    wrap         => 0,
-    alt_text     => '',
-    break_before_br => 0,
-    char_encoding => 'raw',
-    tidy_mark => 0,
-    show_body_only => 1,
-    preserve_entities => 1,
-    show_warnings => 0,
-  );
-
-  # Rules for HTML::Scrub
-  my %scrub_rules = (
-    img    => {
-      src   => qr{^http://},    # only URL with http://
-      alt   => 1,               # alt attributes allowed
-      align => 1,               # allow align on images
-      style => 1,
-      '*'   => 0,               # deny all others
-    },
-    style  => 0,
-    script => 0,
-    span   => {
-      id    => 0,               # blogger(?) includes spans with id attribute
-    },
-    a      => {
-      href  => 1,
-      '*'   => 0,
-    },
-  );
-
-  # Definitions for HTML::Scrub
-  my %scrub_def = (
-    '*'           => 1,
-    'href'        => qr{^(?!(?:java)?script)}i,
-    'src'         => qr{^(?!(?:java)?script)}i,
-    'cite'        => '(?i-xsm:^(?!(?:java)?script))',
-    'language'    => 0,
-    'name'        => 1,
-    'value'       => 1,
-    'onblur'      => 0,
-    'onchange'    => 0,
-    'onclick'     => 0,
-    'ondblclick'  => 0,
-    'onerror'     => 0,
-    'onfocus'     => 0,
-    'onkeydown'   => 0,
-    'onkeypress'  => 0,
-    'onkeyup'     => 0,
-    'onload'      => 0,
-    'onmousedown' => 0,
-    'onmousemove' => 0,
-    'onmouseout'  => 0,
-    'onmouseover' => 0,
-    'onmouseup'   => 0,
-    'onreset'     => 0,
-    'onselect'    => 0,
-    'onsubmit'    => 0,
-    'onunload'    => 0,
-    'src'         => 1,
-    'type'        => 1,
-    'style'       => 1,
-    'class'       => 0,
-    'id'          => 0,
-  );
-
-  my $tidy = HTML::Tidy->new(\%tidy);
-  $tidy->ignore( type => TIDY_WARNING );
-
-  my $scrub = HTML::Scrubber->new;
-  $scrub->rules(%scrub_rules);
-  $scrub->default(1, \%scrub_def);
-
+  # Build feed
   my $f = XML::Feed->new($self->cfg->{feed}{format});
   $f->title($self->cfg->{title});
   $f->link($self->cfg->{url});
   $f->description($self->cfg->{description});
   $f->author($self->cfg->{author}{name});
   if ($self->cfg->{feed}{format} eq 'Atom') {
-    my $p = $f->{atom}->author;
-    $p->email($self->cfg->{author}{email});
+      my $p = $f->{atom}->author;
+      $p->email($self->cfg->{author}{email});
   }
   $f->modified(DateTime->now);
   my $self_url = $self->cfg->{self_link} || $self->cfg->{feed}{url} ||
-                $self->cfg->{url} . $self->cfg->{feed}{file};
+      $self->cfg->{url} . $self->cfg->{feed}{file};
   $f->self_link($self_url);
   $f->id($self_url);
 
-  foreach my $entry (@entries) {
-    if ($entry->content->type && $entry->content->type eq 'text/html') {
-      my $scrubbed = $scrub->scrub($entry->content->body);
-      my $clean = $tidy->clean(utf8::is_utf8($scrubbed) ?
-                                 $scrubbed :
-                                 decode('utf8', $scrubbed));
-
-      # hack to remove a particularly nasty piece of blogspot HTML
-      $clean =~ s|<div align="justify"></div>||g;
-      $entry->content($clean);
-    }
-
-    # Problem with XML::Feed's conversion of RSS to Atom
-    if ($entry->issued && ! $entry->modified) {
-      $entry->modified($entry->issued);
-    }
-
-    $f->add_entry($entry);
-  }
+  $f->add_entry($_) for $self->clean_entries(@feed_entries);
 
   open my $feedfile, '>', $self->cfg->{feed}{file}
     or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
