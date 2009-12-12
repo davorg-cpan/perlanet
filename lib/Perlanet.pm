@@ -18,15 +18,41 @@ use TryCatch;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.37';
+    $VERSION = '0.37';
 }
 
 $XML::Atom::ForceUnicode = 1;
 
-has 'cfg'  => ( is => 'rw', isa => 'HashRef' );
-has 'ua'   => ( is => 'rw', isa => 'LWP::UserAgent' );
-has 'opml' => ( is => 'rw', isa => 'XML::OPML::SimpleGen');
-has 'cache'=> ( is => 'rw' );
+has 'cfg'  => (
+    is => 'rw',
+    isa => 'HashRef'
+);
+
+has 'ua' => (
+    is => 'rw',
+    isa => 'LWP::UserAgent',
+    lazy_build => 1
+);
+
+has 'opml' => (
+    is => 'rw',
+    isa => 'XML::OPML::SimpleGen'
+);
+
+has 'cache'=> (
+    is => 'rw'
+);
+
+sub _build_ua {
+    my $self = shift;
+    my $ua = LWP::UserAgent->new(
+        agent => $self->cfg->{agent} ||= "Perlanet/$VERSION"
+    );
+    $ua->show_progress(1) if -t STDOUT;
+    $ua->env_proxy;
+
+    return $ua;
+}
 
 =head1 NAME
 
@@ -67,65 +93,59 @@ If not given, this defaults to C<./perlanetrc>.
 =cut
 
 sub BUILDARGS {
-  my $class = shift;
+    my $class = shift;
 
-  @_ or @_ = ('./perlanetrc');
+    @_ or @_ = ('./perlanetrc');
 
-  if ( @_ == 1 && ! ref $_[0] ) {
-    open my $cfg_file, '<:utf8', $_[0]
-      or croak "Cannot open file $_[0]: $!";
-    return { cfg => LoadFile($cfg_file) };
-  } else {
-    return $class->SUPER::BUILDARGS(@_);
-  }
+    if ( @_ == 1 && ! ref $_[0] ) {
+        open my $cfg_file, '<:utf8', $_[0]
+            or croak "Cannot open file $_[0]: $!";
+        return { cfg => LoadFile($cfg_file) };
+    } else {
+        return $class->SUPER::BUILDARGS(@_);
+    }
 }
 
 sub BUILD {
-  my $self = shift;
+    my $self = shift;
 
-  $self->ua(LWP::UserAgent->new( agent => $self->cfg->{agent} ||=
-                                           "Perlanet/$VERSION" ));
-  $self->ua->show_progress(1) if -t STDOUT;
-
-  $self->ua->env_proxy;
-
-  if ($self->cfg->{cache_dir}) {
-    eval { require CHI; };
-
-    if ($@) {
-      warn "You need to install CHI to enable caching.\n";
-      warn "Caching disabled for this run.\n";
-      delete $self->cfg->{cache_dir};
+    if ($self->cfg->{cache_dir}) {
+        eval { require CHI; };
+        
+        if ($@) {
+            warn "You need to install CHI to enable caching.\n";
+            warn "Caching disabled for this run.\n";
+            delete $self->cfg->{cache_dir};
+        }
     }
-  }
-
-  $self->cfg->{cache_dir}
-    and $self->cache(CHI->new(
-      driver     => 'File',
-      root_dir   => $self->cfg->{cache_dir},
-      expires_in => 60 * 60 * 24 * 30,
-  ));
-
-  my $opml;
-  if ($self->cfg->{opml}) {
-    eval { require XML::OPML::SimpleGen; };
-
-    if ($@) {
-      warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
-           "Support.\n";
-      warn "OPML support disabled for this run.\n";
-      delete $self->cfg->{opml};
-    } else {
-      my $loc = setlocale(LC_ALL, 'C');
-      $opml = XML::OPML::SimpleGen->new;
-      setlocale(LC_ALL, $loc);
-      $opml->head(
-        title => $self->cfg->{title},
-      );
-
-      $self->opml($opml);
+    
+    $self->cfg->{cache_dir}
+        and $self->cache(CHI->new(
+            driver     => 'File',
+            root_dir   => $self->cfg->{cache_dir},
+            expires_in => 60 * 60 * 24 * 30,
+        ));
+    
+    my $opml;
+    if ($self->cfg->{opml}) {
+        eval { require XML::OPML::SimpleGen; };
+        
+        if ($@) {
+            warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+                "Support.\n";
+            warn "OPML support disabled for this run.\n";
+            delete $self->cfg->{opml};
+        } else {
+            my $loc = setlocale(LC_ALL, 'C');
+            $opml = XML::OPML::SimpleGen->new;
+            setlocale(LC_ALL, $loc);
+            $opml->head(
+                title => $self->cfg->{title},
+            );
+            
+            $self->opml($opml);
+        }
     }
-  }
 }
 
 =head2 fetch_feed
@@ -312,9 +332,13 @@ sub run {
 
   my @entries;
   foreach my $f (@{$self->cfg->{feeds}}) {
-      my $feed = $self->fetch_feed($f->{url})
-          or next;
+      my $feed = $self->fetch_feed($f->{url});
 
+      if (!feed) {
+          warn "Could not fetch " . $f->{url};
+          next;
+      }
+      
       my @feed_entries = $self->select_entries($feed, $f);
       push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                          @feed_entries;
@@ -362,7 +386,7 @@ sub run {
   $f->add_entry($_) for $self->clean_entries(@feed_entries);
 
   open my $feedfile, '>', $self->cfg->{feed}{file}
-    or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
+      or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
   print $feedfile $f->as_xml;
   close $feedfile;
 
@@ -372,7 +396,7 @@ sub run {
                { feed => $f, cfg => $self->cfg },
                $self->cfg->{page}{file},
                { binmode => ':utf8'})
-    or croak $tt->error;
+      or croak $tt->error;
 }
 
 =head1 TO DO
