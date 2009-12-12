@@ -293,7 +293,7 @@ sub fetch_feeds
                 or next;
             
             if ($xml_feed->format ne $self->cfg->{feed}{format}) {
-                $xml_feed = $xml_feed->convert($feed->format);
+                $xml_feed = $xml_feed->convert($self->cfg->{feed}{format});
             }
 
             $feed->_xml_feed($xml_feed);
@@ -330,6 +330,12 @@ sub select_entries
         push @feed_entries,
             map {
                 $_->title($feed->title . ': ' . $_->title);
+
+                # Problem with XML::Feed's conversion of RSS to Atom
+                if ($_->issued && ! $_->modified) {
+                    $_->modified($_->issued);
+                }
+                
                 Perlanet::Entry->new(
                     _entry => $_,
                     feed => $feed
@@ -386,6 +392,7 @@ sub build_feed
     );
 
     $f->add_entry($_->_entry) for @entries;
+
     return $f;
 }
 
@@ -394,8 +401,8 @@ sub render
     my ($self, $feed) = @_;
     my $tt = Template->new;
 
-    for my $entry ($feed->entries) {
-        $entry->content->body($self->clean($entry->content->body)); 
+    for my $entry (@{ $feed->entries }) {
+        $self->clean($entry->content->body);
     }
 
     $tt->process(
