@@ -176,13 +176,7 @@ sub select_entries
         $f->{title} = $feed->title;
     } 
 
-    my $day_zero = DateTime->from_epoch(epoch => 0);
-    my @feed_entries = sort {
-        ($b->modified || $b->issued || $day_zero)
-            <=>
-        ($a->modified || $a->issued || $day_zero)
-    } $feed->entries;
-    
+    my @feed_entries = $feed->entries;
     if ($self->cfg->{entries_per_feed} and
         @feed_entries > $self->cfg->{entries_per_feed}) {
         $#feed_entries = $self->cfg->{entries_per_feed} - 1;
@@ -190,6 +184,18 @@ sub select_entries
 
     return @feed_entries;
 }
+
+sub sort_entries
+{
+    my ($self, @entries) = @_;
+    my $day_zero = DateTime->from_epoch(epoch => 0);
+    return sort {
+        ($b->modified || $b->issued || $day_zero)
+            <=>
+        ($a->modified || $a->issued || $day_zero)
+    } @entries;
+}
+
 
 =head2 run
 
@@ -218,27 +224,19 @@ sub run {
           );
       }
   }
+  
+  $self->opml->save($self->cfg->{opml})
+      if $self->opml;
 
-  if ($self->opml) {
-      $self->opml->save($self->cfg->{opml});
-  }
-
-  my $day_zero = DateTime->from_epoch(epoch=>0);
-
-  @entries = sort {
-                    ($b->modified || $b->issued || $day_zero)
-                     <=>
-                    ($a->modified || $a->issued || $day_zero)
-                  } @entries;
-
+  my $day_zero = DateTime->from_epoch(epoch => 0);
   my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
-  @entries =
-    grep { ($_->issued || $_->modified || $day_zero) < $week_in_future }
-    @entries;
+  my @feed_entries = grep {
+      ($_->issued || $_->modified || $day_zero) < $week_in_future
+  } $self->sort_entries(@entries);
 
   # Only need so many entries
   if (@entries > $self->cfg->{entries}) {
-    $#entries = $self->cfg->{entries} - 1;
+      $#entries = $self->cfg->{entries} - 1;
   }
 
   # Preferences for HTML::Tidy
