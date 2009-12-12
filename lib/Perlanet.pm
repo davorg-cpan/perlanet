@@ -1,10 +1,7 @@
 package Perlanet;
-
-use strict;
-use warnings;
+use Moose;
 
 use Carp;
-use Moose;
 use Encode;
 use List::Util 'min';
 use POSIX qw(setlocale LC_ALL);
@@ -16,7 +13,6 @@ use DateTime::Duration;
 use YAML 'LoadFile';
 use HTML::Tidy;
 use HTML::Scrubber;
-
 
 use vars qw{$VERSION};
 
@@ -131,32 +127,25 @@ sub BUILD {
   }
 }
 
-=head2 run
+sub per_feed
+{
+    my ($self, $f) = @_;
 
-The main method which runs the perlanet process.
-
-=cut
-
-sub run {
-  my $self = shift;
-
-  my @entries;
-
-  my $day_zero = DateTime->from_epoch(epoch=>0);
-
-  foreach my $f (@{$self->cfg->{feeds}}) {
-
+    my $day_zero = DateTime->from_epoch(epoch => 0);
+    
     my $response = URI::Fetch->fetch($f->{url},
       UserAgent     => $self->ua,
       Cache         => $self->cache || undef,
       ForceResponse => 1,
     );
 
-    unless ($response->is_success) {
-      warn "$f->{url}:\n" . $response->http_response->status_line . "\n";
+    if (!$response->is_success) {
+        warn sprintf "Could not fetch %s: %s\n",
+            $f->{url},
+            $response->http_response->status_line;
     }
 
-    next if $response->is_error;
+    return if $response->is_error;
 
     my $data = $response->content;
 
@@ -190,6 +179,26 @@ sub run {
       @feed_entries > $self->cfg->{entries_per_feed}) {
       $#feed_entries = $self->cfg->{entries_per_feed} - 1;
     }
+
+    return @feed_entries;
+}
+
+=head2 run
+
+The main method which runs the perlanet process.
+
+=cut
+
+sub run {
+  my $self = shift;
+
+  my @entries;
+
+  my $day_zero = DateTime->from_epoch(epoch=>0);
+
+  foreach my $f (@{$self->cfg->{feeds}}) {
+
+      my @feed_entries = $self->per_feed($f);
 
     push @entries, map { $_->title($f->{title} . ': ' . $_->title); $_ }
                          @feed_entries;
