@@ -54,6 +54,14 @@ sub _build_ua {
     return $ua;
 }
 
+has 'cutoff' => (
+    isa => 'DateTime',
+    is => 'ro',
+    default => sub {
+        DateTime->now + DateTime::Duration->new(weeks => 1);
+    }
+);
+
 =head1 NAME
 
 Perlanet - A program for creating web pages that aggregate web feeds (both
@@ -345,12 +353,13 @@ sub build_feed
 
 sub render
 {
+    my ($self, $feed) = @_;
     my $tt = Template->new;
 
     $tt->process(
         $self->cfg->{page}{template},
         {
-            feed => $f,
+            feed => $feed,
             cfg => $self->cfg
         },
         $self->cfg->{page}{file},
@@ -382,7 +391,7 @@ sub run {
   foreach my $f (@{$self->cfg->{feeds}}) {
       my $feed = $self->fetch_feed($f->{url});
 
-      if (!feed) {
+      if (!$feed) {
           warn "Could not fetch " . $f->{url};
           next;
       }
@@ -405,9 +414,8 @@ sub run {
       if $self->opml;
 
   my $day_zero = DateTime->from_epoch(epoch => 0);
-  my $week_in_future = DateTime->now + DateTime::Duration->new(weeks => 1);
   my @feed_entries = grep {
-      ($_->issued || $_->modified || $day_zero) < $week_in_future
+      ($_->issued || $_->modified || $day_zero) < $self->cutoff
   } $self->sort_entries(@entries);
 
   # Only need so many entries
