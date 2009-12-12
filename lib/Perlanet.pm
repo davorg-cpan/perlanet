@@ -321,7 +321,7 @@ sub select_entries
 
     my @feed_entries;
     for my $feed (@feeds) {
-        my @entries = $feed->entries;
+        my @entries = $feed->_xml_feed->entries;
         if ($self->cfg->{entries_per_feed} and
                 @feed_entries > $self->cfg->{entries_per_feed}) {
             $#feed_entries = $self->cfg->{entries_per_feed} - 1;
@@ -369,21 +369,21 @@ sub clean
 sub build_feed
 {
     my ($self, @entries) = @_;
+
+    my $self_url = $self->cfg->{self_link} ||
+                   $self->cfg->{feed}{url} ||
+                   $self->cfg->{url} . $self->cfg->{feed}{file};
     
-    my $f = XML::Feed->new($self->cfg->{feed}{format});
-    $f->title($self->cfg->{title});
-    $f->link($self->cfg->{url});
-    $f->description($self->cfg->{description});
-    $f->author($self->cfg->{author}{name});
-    if ($self->cfg->{feed}{format} eq 'Atom') {
-        my $p = $f->{atom}->author;
-        $p->email($self->cfg->{author}{email});
-    }
-    $f->modified(DateTime->now);
-    my $self_url = $self->cfg->{self_link} || $self->cfg->{feed}{url} ||
-        $self->cfg->{url} . $self->cfg->{feed}{file};
-    $f->self_link($self_url);
-    $f->id($self_url);
+    my $f = Perlanet::Feed->new(
+        title => ,$self->cfg->{title},
+        url => $self->cfg->{url},
+        description => $self->cfg->{description},
+        author => $self->cfg->{author}{name},
+        email => $self->cfg->{author}{email},
+        modified => DateTime->now,
+        self_link => $self_url,
+        id => $self_url
+    );
 
     $f->add_entry($_->_entry) for @entries;
     return $f;
@@ -466,7 +466,7 @@ sub run {
 
     # Build feed
     my $feed = $self->build_feed(@entries);
-    $self->save($feed);
+    # $self->save($feed); #TODO
     $self->render($feed);
 }
 
