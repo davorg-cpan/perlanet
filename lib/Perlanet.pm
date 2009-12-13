@@ -1,7 +1,10 @@
 package Perlanet;
-use Moose;
+
+use strict;
+use warnings;
 
 use Carp;
+use Moose;
 use Encode;
 use List::Util 'min';
 use POSIX qw(setlocale LC_ALL);
@@ -26,150 +29,150 @@ BEGIN {
 $XML::Atom::ForceUnicode = 1;
 
 has 'cfg'  => (
-    is => 'rw',
-    isa => 'HashRef'
+  is => 'rw',
+  isa => 'HashRef'
 );
 
 has 'ua' => (
-    is => 'rw',
-    isa => 'LWP::UserAgent',
-    lazy_build => 1
+  is => 'rw',
+  isa => 'LWP::UserAgent',
+  lazy_build => 1
 );
 
 has 'opml' => (
-    is => 'rw',
-    isa => 'XML::OPML::SimpleGen'
+  is => 'rw',
+  isa => 'XML::OPML::SimpleGen'
 );
 
 has 'cache'=> (
-    is => 'rw'
+  is => 'rw'
 );
 
 sub _build_ua {
-    my $self = shift;
-    my $ua = LWP::UserAgent->new(
-        agent => $self->cfg->{agent} ||= "Perlanet/$VERSION"
-    );
-    $ua->show_progress(1) if -t STDOUT;
-    $ua->env_proxy;
-
-    return $ua;
+  my $self = shift;
+  my $ua = LWP::UserAgent->new(
+    agent => $self->cfg->{agent} ||= "Perlanet/$VERSION"
+  );
+  $ua->show_progress(1) if -t STDOUT;
+  $ua->env_proxy;
+  
+  return $ua;
 }
 
 has 'cutoff' => (
-    isa => 'DateTime',
-    is => 'ro',
-    default => sub {
-        DateTime->now + DateTime::Duration->new(weeks => 1);
-    }
+  isa => 'DateTime',
+  is => 'ro',
+  default => sub {
+    DateTime->now + DateTime::Duration->new(weeks => 1);
+  }
 );
 
 has 'feeds' => (
-    isa => 'ArrayRef',
-    is => 'ro',
-    lazy_build => 1,
+  isa => 'ArrayRef',
+  is => 'ro',
+  lazy_build => 1,
 );
 
 sub _build_feeds {
-    my $self = shift;
-    return [ map {
-        Perlanet::Feed->new($_)
-      } @{ $self->cfg->{feeds} } ];
+  my $self = shift;
+  return [ map {
+    Perlanet::Feed->new($_)
+    } @{ $self->cfg->{feeds} } ];
 }
 
 has 'tidy' => (
-    is => 'rw',
-    lazy_build => 1
+  is => 'rw',
+  lazy_build => 1
 );
 
 sub _build_tidy {
-    my $self = shift;
-    my %tidy = (
-        doctype           => 'omit',
-        output_xhtml      => 1,
-        wrap              => 0,
-        alt_text          => '',
-        break_before_br   => 0,
-        char_encoding     => 'raw',
-        tidy_mark         => 0,
-        show_body_only    => 1,
-        preserve_entities => 1,
-        show_warnings     => 0,
-    );
+  my $self = shift;
+  my %tidy = (
+    doctype           => 'omit',
+    output_xhtml      => 1,
+    wrap              => 0,
+    alt_text          => '',
+    break_before_br   => 0,
+    char_encoding     => 'raw',
+    tidy_mark         => 0,
+    show_body_only    => 1,
+    preserve_entities => 1,
+    show_warnings     => 0,
+  );
 
-    my $tidy = HTML::Tidy->new(\%tidy);
-    $tidy->ignore( type => TIDY_WARNING );
+  my $tidy = HTML::Tidy->new(\%tidy);
+  $tidy->ignore( type => TIDY_WARNING );
 
-    return $tidy;
+  return $tidy;
 }
 
 has 'scrubber' => (
-    is => 'rw',
-    lazy_build => 1
+  is => 'rw',
+  lazy_build => 1
 );
 
 sub _build_scrubber {
-    my $self = shift;
-
-    my %scrub_rules = (
-        img => {
-            src   => qr{^http://},    # only URL with http://
-            alt   => 1,               # alt attributes allowed
-            align => 1,               # allow align on images
-            style => 1,
-            '*'   => 0,               # deny all others
-        },
-        style => 0,
-        script => 0,
-        span => {
-            id => 0,                  # blogger(?) includes spans with id attribute
-        },
-        a => {
-            href => 1,
-            '*'  => 0,
-        },
-    );
+  my $self = shift;
+  
+  my %scrub_rules = (
+    img => {
+      src   => qr{^http://},    # only URL with http://
+      alt   => 1,               # alt attributes allowed
+      align => 1,               # allow align on images
+      style => 1,
+      '*'   => 0,               # deny all others
+    },
+    style => 0,
+    script => 0,
+    span => {
+      id => 0,                  # blogger(?) includes spans with id attribute
+    },
+    a => {
+      href => 1,
+      '*'  => 0,
+    },
+  );
     
-    # Definitions for HTML::Scrub
-    my %scrub_def = (
-        '*'           => 1,
-        'href'        => qr{^(?!(?:java)?script)}i,
-        'src'         => qr{^(?!(?:java)?script)}i,
-        'cite'        => '(?i-xsm:^(?!(?:java)?script))',
-        'language'    => 0,
-        'name'        => 1,
-        'value'       => 1,
-        'onblur'      => 0,
-        'onchange'    => 0,
-        'onclick'     => 0,
-        'ondblclick'  => 0,
-        'onerror'     => 0,
-        'onfocus'     => 0,
-        'onkeydown'   => 0,
-        'onkeypress'  => 0,
-        'onkeyup'     => 0,
-        'onload'      => 0,
-        'onmousedown' => 0,
-        'onmousemove' => 0,
-        'onmouseout'  => 0,
-        'onmouseover' => 0,
-        'onmouseup'   => 0,
-        'onreset'     => 0,
-        'onselect'    => 0,
-        'onsubmit'    => 0,
-        'onunload'    => 0,
-        'src'         => 1,
-        'type'        => 1,
-        'style'       => 1,
-        'class'       => 0,
-        'id'          => 0,
-    );
+  # Definitions for HTML::Scrub
+  my %scrub_def = (
+    '*'           => 1,
+    'href'        => qr{^(?!(?:java)?script)}i,
+    'src'         => qr{^(?!(?:java)?script)}i,
+    'cite'        => '(?i-xsm:^(?!(?:java)?script))',
+    'language'    => 0,
+    'name'        => 1,
+    'value'       => 1,
+    'onblur'      => 0,
+    'onchange'    => 0,
+    'onclick'     => 0,
+    'ondblclick'  => 0,
+    'onerror'     => 0,
+    'onfocus'     => 0,
+    'onkeydown'   => 0,
+    'onkeypress'  => 0,
+    'onkeyup'     => 0,
+    'onload'      => 0,
+    'onmousedown' => 0,
+    'onmousemove' => 0,
+    'onmouseout'  => 0,
+    'onmouseover' => 0,
+    'onmouseup'   => 0,
+    'onreset'     => 0,
+    'onselect'    => 0,
+    'onsubmit'    => 0,
+    'onunload'    => 0,
+    'src'         => 1,
+    'type'        => 1,
+    'style'       => 1,
+    'class'       => 0,
+    'id'          => 0,
+  );
 
-    my $scrub = HTML::Scrubber->new;
-    $scrub->rules(%scrub_rules);
-    $scrub->default(1, \%scrub_def);
-
-    return $scrub;
+  my $scrub = HTML::Scrubber->new;
+  $scrub->rules(%scrub_rules);
+  $scrub->default(1, \%scrub_def);
+  
+  return $scrub;
 }
 
 =head1 NAME
@@ -211,59 +214,59 @@ If not given, this defaults to C<./perlanetrc>.
 =cut
 
 sub BUILDARGS {
-    my $class = shift;
+  my $class = shift;
 
-    @_ or @_ = ('./perlanetrc');
+  @_ or @_ = ('./perlanetrc');
 
-    if ( @_ == 1 && ! ref $_[0] ) {
-        open my $cfg_file, '<:utf8', $_[0]
-            or croak "Cannot open file $_[0]: $!";
-        return { cfg => LoadFile($cfg_file) };
-    } else {
-        return $class->SUPER::BUILDARGS(@_);
-    }
+  if ( @_ == 1 && ! ref $_[0] ) {
+    open my $cfg_file, '<:utf8', $_[0]
+      or croak "Cannot open file $_[0]: $!";
+    return { cfg => LoadFile($cfg_file) };
+  } else {
+    return $class->SUPER::BUILDARGS(@_);
+  }
 }
 
 sub BUILD {
-    my $self = shift;
+  my $self = shift;
 
-    if ($self->cfg->{cache_dir}) {
-        eval { require CHI; };
+  if ($self->cfg->{cache_dir}) {
+    eval { require CHI; };
         
-        if ($@) {
-            warn "You need to install CHI to enable caching.\n";
-            warn "Caching disabled for this run.\n";
-            delete $self->cfg->{cache_dir};
-        }
+    if ($@) {
+      warn "You need to install CHI to enable caching.\n";
+      warn "Caching disabled for this run.\n";
+      delete $self->cfg->{cache_dir};
     }
+  }
     
-    $self->cfg->{cache_dir}
-        and $self->cache(CHI->new(
-            driver     => 'File',
-            root_dir   => $self->cfg->{cache_dir},
-            expires_in => 60 * 60 * 24 * 30,
-        ));
+  $self->cfg->{cache_dir}
+    and $self->cache(CHI->new(
+      driver     => 'File',
+      root_dir   => $self->cfg->{cache_dir},
+      expires_in => 60 * 60 * 24 * 30,
+    ));
     
-    my $opml;
-    if ($self->cfg->{opml}) {
-        eval { require XML::OPML::SimpleGen; };
+  my $opml;
+  if ($self->cfg->{opml}) {
+    eval { require XML::OPML::SimpleGen; };
         
-        if ($@) {
-            warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
-                "Support.\n";
-            warn "OPML support disabled for this run.\n";
-            delete $self->cfg->{opml};
-        } else {
-            my $loc = setlocale(LC_ALL, 'C');
-            $opml = XML::OPML::SimpleGen->new;
-            setlocale(LC_ALL, $loc);
-            $opml->head(
-                title => $self->cfg->{title},
-            );
+    if ($@) {
+      warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+        "Support.\n";
+      warn "OPML support disabled for this run.\n";
+      delete $self->cfg->{opml};
+    } else {
+      my $loc = setlocale(LC_ALL, 'C');
+      $opml = XML::OPML::SimpleGen->new;
+      setlocale(LC_ALL, $loc);
+      $opml->head(
+        title => $self->cfg->{title},
+      );
             
-            $self->opml($opml);
-        }
+      $self->opml($opml);
     }
+  }
 }
 
 =head2 fetch_feed
@@ -275,38 +278,38 @@ this will return C<undef>.
 
 sub fetch_feeds
 {
-    my ($self, @feeds) = @_;
+  my ($self, @feeds) = @_;
 
-    my @valid_feeds;
-    for my $feed (@feeds) {
-        my $response = URI::Fetch->fetch($feed->url,
-            UserAgent     => $self->ua,
-            Cache         => $self->cache || undef,
-            ForceResponse => 1,
-        );
+  my @valid_feeds;
+  for my $feed (@feeds) {
+    my $response = URI::Fetch->fetch($feed->url,
+                                     UserAgent     => $self->ua,
+                                     Cache         => $self->cache || undef,
+                                     ForceResponse => 1,
+                                   );
 
-        next if !$response->is_success || $response->is_error;
+    next if !$response->is_success || $response->is_error;
 
-        try {
-            my $data = $response->content;
-            my $xml_feed = XML::Feed->parse(\$data)
-                or next;
+    try {
+      my $data = $response->content;
+      my $xml_feed = XML::Feed->parse(\$data)
+        or next;
             
-            if ($xml_feed->format ne $self->cfg->{feed}{format}) {
-                $xml_feed = $xml_feed->convert($self->cfg->{feed}{format});
-            }
+      if ($xml_feed->format ne $self->cfg->{feed}{format}) {
+        $xml_feed = $xml_feed->convert($self->cfg->{feed}{format});
+      }
 
-            $feed->_xml_feed($xml_feed);
-            $feed->title($xml_feed->title) unless $feed->title;
+      $feed->_xml_feed($xml_feed);
+      $feed->title($xml_feed->title) unless $feed->title;
 
-            push @valid_feeds, $feed;
-        }
-        catch {
-            warn "Errors parsing " . $feed->url;
-        }
+      push @valid_feeds, $feed;
+    }
+      catch {
+        warn "Errors parsing " . $feed->url;
+      }
     }
 
-    return @valid_feeds;
+  return @valid_feeds;
 }
 
 =head2 select_entries
@@ -317,133 +320,133 @@ Select all entries from a L<XML::Feed>, and sort them.
 
 sub select_entries
 {
-    my ($self, @feeds) = @_;
+  my ($self, @feeds) = @_;
 
-    my @feed_entries;
-    for my $feed (@feeds) {
-        my @entries = $feed->_xml_feed->entries;
-        if ($self->cfg->{entries_per_feed} and
-                @feed_entries > $self->cfg->{entries_per_feed}) {
-            $#feed_entries = $self->cfg->{entries_per_feed} - 1;
-        }
-
-        push @feed_entries,
-            map {
-                $_->title($feed->title . ': ' . $_->title);
-
-                # Problem with XML::Feed's conversion of RSS to Atom
-                if ($_->issued && ! $_->modified) {
-                    $_->modified($_->issued);
-                }
-                
-                Perlanet::Entry->new(
-                    _entry => $_,
-                    feed => $feed
-                );
-            } @entries;
+  my @feed_entries;
+  for my $feed (@feeds) {
+    my @entries = $feed->_xml_feed->entries;
+    if ($self->cfg->{entries_per_feed} and
+          @feed_entries > $self->cfg->{entries_per_feed}) {
+      $#feed_entries = $self->cfg->{entries_per_feed} - 1;
     }
 
-    return @feed_entries;
+    push @feed_entries,
+      map {
+        $_->title($feed->title . ': ' . $_->title);
+
+        # Problem with XML::Feed's conversion of RSS to Atom
+        if ($_->issued && ! $_->modified) {
+          $_->modified($_->issued);
+        }
+                
+        Perlanet::Entry->new(
+          _entry => $_,
+          feed => $feed
+        );
+      } @entries;
+  }
+
+  return @feed_entries;
 }
 
 sub sort_entries
 {
-    my ($self, @entries) = @_;
-    my $day_zero = DateTime->from_epoch(epoch => 0);
-    return sort {
-        ($b->modified || $b->issued || $day_zero)
-            <=>
+  my ($self, @entries) = @_;
+  my $day_zero = DateTime->from_epoch(epoch => 0);
+  return sort {
+    ($b->modified || $b->issued || $day_zero)
+      <=>
         ($a->modified || $a->issued || $day_zero)
-    } @entries;
+      } @entries;
 }
 
 sub clean
 {
-    my ($self, $content) = @_;
+  my ($self, $content) = @_;
 
-    my $scrubbed = $self->scrubber->scrub($content);
-    my $clean = $self->tidy->clean(utf8::is_utf8($scrubbed)
-          ? $scrubbed
-          : decode('utf8', $scrubbed));
+  my $scrubbed = $self->scrubber->scrub($content);
+  my $clean = $self->tidy->clean(utf8::is_utf8($scrubbed)
+      ? $scrubbed
+        : decode('utf8', $scrubbed));
 
-    # hack to remove a particularly nasty piece of blogspot HTML
-    $clean =~ s|<div align="justify"></div>||g;
+  # hack to remove a particularly nasty piece of blogspot HTML
+  $clean =~ s|<div align="justify"></div>||g;
 
-    return $clean;
+  return $clean;
 }
 
 sub build_feed
 {
-    my ($self, @entries) = @_;
+  my ($self, @entries) = @_;
 
-    my $self_url = $self->cfg->{self_link} ||
-                   $self->cfg->{feed}{url} ||
-                   $self->cfg->{url} . $self->cfg->{feed}{file};
+  my $self_url = $self->cfg->{self_link} ||
+    $self->cfg->{feed}{url} ||
+      $self->cfg->{url} . $self->cfg->{feed}{file};
     
-    my $f = Perlanet::Feed->new(
-        title => ,$self->cfg->{title},
-        url => $self->cfg->{url},
-        description => $self->cfg->{description},
-        author => $self->cfg->{author}{name},
-        email => $self->cfg->{author}{email},
-        modified => DateTime->now,
-        self_link => $self_url,
-        id => $self_url
-    );
+  my $f = Perlanet::Feed->new(
+    title => ,$self->cfg->{title},
+    url => $self->cfg->{url},
+    description => $self->cfg->{description},
+    author => $self->cfg->{author}{name},
+    email => $self->cfg->{author}{email},
+    modified => DateTime->now,
+    self_link => $self_url,
+    id => $self_url
+  );
 
-    $f->add_entry($_->_entry) for @entries;
+  $f->add_entry($_->_entry) for @entries;
 
-    return $f;
+  return $f;
 }
 
 sub render
 {
-    my ($self, $feed) = @_;
-    my $tt = Template->new;
+  my ($self, $feed) = @_;
+  my $tt = Template->new;
 
-    for my $entry (@{ $feed->entries }) {
-        $self->clean($entry->content->body);
-    }
+  for my $entry (@{ $feed->entries }) {
+    $self->clean($entry->content->body);
+  }
 
-    $tt->process(
-        $self->cfg->{page}{template},
-        {
-            feed => $feed,
-            cfg => $self->cfg
-        },
-        $self->cfg->{page}{file},
-        {
-            binmode => ':utf8'
-        }
-    ) or croak $tt->error;
+  $tt->process(
+    $self->cfg->{page}{template},
+  {
+    feed => $feed,
+    cfg => $self->cfg
+  },
+    $self->cfg->{page}{file},
+  {
+    binmode => ':utf8'
+  }
+) or croak $tt->error;
 }
 
 sub save
 {
-    my ($self, $feed) = @_;
-    open my $feedfile, '>', $self->cfg->{feed}{file}
-        or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
-    print $feedfile $feed->as_xml;
-    close $feedfile;
+  my ($self, $feed) = @_;
+  open my $feedfile, '>', $self->cfg->{feed}{file}
+    or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
+  print $feedfile $feed->as_xml;
+  close $feedfile;
 }
 
 sub update_opml {
-    my $self = shift;
+  my $self = shift;
 
-    return unless $self->opml;
+  return unless $self->opml;
 
-    foreach my $f (@{$self->cfg->{feeds}}) {
-        if ($self->opml) {
-            $self->opml->insert_outline(
-                title   => $f->{title},
-                text    => $f->{title},
-                xmlUrl  => $f->{url},
-                htmlUrl => $f->{web},
-            );
-        }
+  foreach my $f (@{$self->cfg->{feeds}}) {
+    if ($self->opml) {
+      $self->opml->insert_outline(
+        title   => $f->{title},
+        text    => $f->{title},
+        xmlUrl  => $f->{url},
+        htmlUrl => $f->{web},
+      );
     }
+  }
   
-    $self->opml->save($self->cfg->{opml});
+  $self->opml->save($self->cfg->{opml});
 }
 
 =head2 run
@@ -453,28 +456,28 @@ The main method which runs the perlanet process.
 =cut
 
 sub run {
-    my $self = shift;
+  my $self = shift;
 
-    $self->update_opml;
+  $self->update_opml;
       
-    my @entries = $self->select_entries(
-        $self->fetch_feeds(@{ $self->feeds })
-    );
+  my @entries = $self->select_entries(
+    $self->fetch_feeds(@{ $self->feeds })
+  );
 
-    my $day_zero = DateTime->from_epoch(epoch => 0);
-    my @feed_entries = grep {
-        ($_->issued || $_->modified || $day_zero) < $self->cutoff
-    } $self->sort_entries(@entries);
+  my $day_zero = DateTime->from_epoch(epoch => 0);
+  my @feed_entries = grep {
+    ($_->issued || $_->modified || $day_zero) < $self->cutoff
+  } $self->sort_entries(@entries);
 
-    # Only need so many entries
-    if (@entries > $self->cfg->{entries}) {
-        $#entries = $self->cfg->{entries} - 1;
-    }
+  # Only need so many entries
+  if (@entries > $self->cfg->{entries}) {
+    $#entries = $self->cfg->{entries} - 1;
+  }
 
-    # Build feed
-    my $feed = $self->build_feed(@entries);
-    # $self->save($feed); #TODO
-    $self->render($feed);
+  # Build feed
+  my $feed = $self->build_feed(@entries);
+  # $self->save($feed); #TODO
+  $self->render($feed);
 }
 
 =head1 TO DO
