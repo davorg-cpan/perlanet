@@ -20,6 +20,8 @@ use TryCatch;
 use Perlanet::Feed;
 use Perlanet::Entry;
 
+use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
+
 use vars qw{$VERSION};
 
 BEGIN {
@@ -29,13 +31,13 @@ BEGIN {
 $XML::Atom::ForceUnicode = 1;
 
 has 'cfg'  => (
-  is => 'rw',
+  is  => 'rw',
   isa => 'HashRef'
 );
 
 has 'ua' => (
-  is => 'rw',
-  isa => 'LWP::UserAgent',
+  is         => 'rw',
+  isa        => 'LWP::UserAgent',
   lazy_build => 1
 );
 
@@ -51,7 +53,7 @@ sub _build_ua {
 }
 
 has 'opml' => (
-  is => 'rw',
+  is  => 'rw',
   isa => 'XML::OPML::SimpleGen'
 );
 
@@ -60,16 +62,16 @@ has 'cache'=> (
 );
 
 has 'cutoff' => (
-  isa => 'DateTime',
-  is => 'ro',
+  isa     => 'DateTime',
+  is      => 'ro',
   default => sub {
     DateTime->now + DateTime::Duration->new(weeks => 1);
   }
 );
 
 has 'feeds' => (
-  isa => 'ArrayRef',
-  is => 'ro',
+  isa        => 'ArrayRef',
+  is         => 'ro',
   lazy_build => 1,
 );
 
@@ -81,7 +83,7 @@ sub _build_feeds {
 }
 
 has 'tidy' => (
-  is => 'rw',
+  is         => 'rw',
   lazy_build => 1
 );
 
@@ -107,7 +109,7 @@ sub _build_tidy {
 }
 
 has 'scrubber' => (
-  is => 'rw',
+  is         => 'rw',
   lazy_build => 1
 );
 
@@ -324,8 +326,8 @@ sub BUILD {
     eval { require CHI; };
         
     if ($@) {
-      warn "You need to install CHI to enable caching.\n";
-      warn "Caching disabled for this run.\n";
+      carp "You need to install CHI to enable caching.\n";
+      carp "Caching disabled for this run.\n";
       delete $self->cfg->{cache_dir};
     }
   }
@@ -334,7 +336,7 @@ sub BUILD {
     and $self->cache(CHI->new(
       driver     => 'File',
       root_dir   => $self->cfg->{cache_dir},
-      expires_in => 60 * 60 * 24 * 30,
+      expires_in => THIRTY_DAYS,
     ));
     
   my $opml;
@@ -342,9 +344,9 @@ sub BUILD {
     eval { require XML::OPML::SimpleGen; };
         
     if ($@) {
-      warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+      carp 'You need to install XML::OPML::SimpleGen to enable OPML ' .
         "Support.\n";
-      warn "OPML support disabled for this run.\n";
+      carp "OPML support disabled for this run.\n";
       delete $self->cfg->{opml};
     } else {
       my $loc = setlocale(LC_ALL, 'C');
@@ -357,6 +359,8 @@ sub BUILD {
       $self->opml($opml);
     }
   }
+
+  return;
 }
 
 =head1 METHODS
@@ -372,8 +376,7 @@ NB: This method also modifies the contents of L</feeds>.
 
 =cut
 
-sub fetch_feeds
-{
+sub fetch_feeds {
   my ($self, @feeds) = @_;
 
   my @valid_feeds;
@@ -401,7 +404,7 @@ sub fetch_feeds
       push @valid_feeds, $feed;
     }
       catch {
-        warn "Errors parsing " . $feed->url;
+        carp 'Errors parsing ' . $feed->url;
       }
     }
 
@@ -424,8 +427,7 @@ The returned list has been filtered according to any filters set up in the L<per
 
 =cut
 
-sub select_entries
-{
+sub select_entries {
   my ($self, @feeds) = @_;
 
   my @feed_entries;
@@ -464,15 +466,16 @@ L<Perlanet::Entry>s, and returns an ordered list.
 
 =cut
 
-sub sort_entries
-{
+sub sort_entries {
   my ($self, @entries) = @_;
+
   my $day_zero = DateTime->from_epoch(epoch => 0);
+
   return sort {
     ($b->modified || $b->issued || $day_zero)
       <=>
-        ($a->modified || $a->issued || $day_zero)
-      } @entries;
+    ($a->modified || $a->issued || $day_zero)
+  } @entries;
 }
 
 =head2 clean
@@ -487,8 +490,7 @@ Takes a string, and returns the cleaned string.
 
 =cut
 
-sub clean
-{
+sub clean {
   my ($self, $content) = @_;
 
   my $scrubbed = $self->scrubber->scrub($content);
@@ -512,23 +514,22 @@ that is the actual feed for the planet.
 
 =cut
 
-sub build_feed
-{
+sub build_feed {
   my ($self, @entries) = @_;
 
   my $self_url = $self->cfg->{self_link} ||
-    $self->cfg->{feed}{url} ||
-      $self->cfg->{url} . $self->cfg->{feed}{file};
+                 $self->cfg->{feed}{url} ||
+                 $self->cfg->{url} . $self->cfg->{feed}{file};
     
   my $f = Perlanet::Feed->new(
-    title => ,$self->cfg->{title},
-    url => $self->cfg->{url},
+    title       => $self->cfg->{title},
+    url         => $self->cfg->{url},
     description => $self->cfg->{description},
-    author => $self->cfg->{author}{name},
-    email => $self->cfg->{author}{email},
-    modified => DateTime->now,
-    self_link => $self_url,
-    id => $self_url
+    author      => $self->cfg->{author}{name},
+    email       => $self->cfg->{author}{email},
+    modified    => DateTime->now,
+    self_link   => $self_url,
+    id          => $self_url
   );
 
   $f->add_entry($_) for @entries;
@@ -549,9 +550,9 @@ result is output to the configured C<< $cfg->[page}{file> >>.
 
 =cut
 
-sub render
-{
+sub render {
   my ($self, $feed) = @_;
+
   my $tt = Template->new;
 
   for my $entry (@{ $feed->entries }) {
@@ -560,15 +561,17 @@ sub render
 
   $tt->process(
     $self->cfg->{page}{template},
-  {
-    feed => $feed,
-    cfg => $self->cfg
-  },
+    {
+      feed => $feed,
+      cfg => $self->cfg
+    },
     $self->cfg->{page}{file},
-  {
-    binmode => ':utf8'
-  }
-) or croak $tt->error;
+    {
+      binmode => ':utf8'
+    }
+  ) or croak $tt->error;
+
+  return;
 }
 
 =head2 save
@@ -580,13 +583,15 @@ Save the feed XML to a file on disk.
 
 =cut
 
-sub save
-{
+sub save {
   my ($self, $feed) = @_;
+
   open my $feedfile, '>', $self->cfg->{feed}{file}
     or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
   print $feedfile $feed->as_xml($self->cfg->{feed}{format});
   close $feedfile;
+
+  return;
 }
 
 =head2 update_opml
@@ -616,6 +621,8 @@ sub update_opml {
   }
   
   $self->opml->save($self->cfg->{opml});
+
+  return;
 }
 
 =head2 run
@@ -634,6 +641,7 @@ sub run {
   );
 
   my $day_zero = DateTime->from_epoch(epoch => 0);
+
   my @feed_entries = grep {
     ($_->issued || $_->modified || $day_zero) < $self->cutoff
   } $self->sort_entries(@entries);
@@ -647,6 +655,8 @@ sub run {
   my $feed = $self->build_feed(@entries);
   $self->save($feed);
   $self->render($feed);
+
+  return;
 }
 
 =head1 TO DO
