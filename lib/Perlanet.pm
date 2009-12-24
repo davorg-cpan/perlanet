@@ -204,12 +204,102 @@ more flexible.
 For most uses, you probably don't want to use the Perlanet module. The
 L<perlanet> command line program is far more likely to be useful.
 
-=head1 METHODS
+=head1 CONSTRUCTOR
 
 =head2 new
 
-The constructor method. One optional argument which is the configuration file.
-If not given, this defaults to C<./perlanetrc>.
+  my $perlanet = Perlanet->new([ $config_filename ]);
+
+The constructor method. Can be passed the filename of a configuration
+file (default C<./perlanetrc>) or a hashref of initialisers.
+
+=head3 Example Configuration File
+
+  title: planet test
+  description: A Test Planet
+  url: http://planet.example.com/
+  author:
+    name: Dave Cross
+    email: dave@dave.org.uk
+  entries: 20
+  opml: opml.xml
+  page:
+    file: index.html
+    template: index.tt
+  feed:
+    file: atom.xml
+    format: Atom
+  cache_dir: /tmp/feeds
+  feeds:
+    - url: http://blog.dave.org.uk/atom.xml
+      title: Dave's Blog
+      web: http://blog.dave.org.uk/
+    - url: http://use.perl.org/~davorg/journal/rss
+      title: Dave's use.perl Journal
+      web: http://use.perl.org/~davorg/journal/
+    - url: http://www.oreillynet.com/pub/feed/31?au=2607
+      title: Dave on O'Reillynet
+      web: http://www.oreillynet.com/pub/au/2607
+
+For a detailed explanation of the configuration file contents, see
+L<perlanet/CONFIGURATION FILE>.
+
+=head3 Customised use (advanced)
+
+  my $perlanet = Perlanet->new(\%custom_attr_values);
+
+Perlanet is a L<Moose> class, if the configuration file doesn't
+provide enough flexibility, you may also instantiate the attribute
+values directly.
+
+See L</ATTRIBUTES> below for details of the key/value pairs to pass in.
+
+=head1 ATTRIBUTES
+
+=over
+
+=item cfg
+
+A hashref of configuration data. This is filled from the configuration
+file if supplied. Use this if you want an alternative to the YAML
+format of the file.
+
+=item ua
+
+An instance of L<LWP::UserAgent>. Defaults to a simple agent using C<<
+$cfg->{agent} >> as the user agent name, or C< Perlanet/$VERSION >.
+
+=item opml
+
+An instance of L<XML::OPML::SimpleGen>. Optional. Defaults to a new
+instance with C<< $cfg->{title} >> as it's title.
+
+=item cache
+
+An instance of L<CHI>. Optional. Defaults to a new instance with the
+root_dir set to C<< $cfg->{cache_dir} >>, if it was supplied.
+
+=item cutoff
+
+An instance of L<DateTime> which represents the earliest date for
+which feed posts will be fetched/shown.
+
+=item feeds
+
+An arrayref of L<Perlanet::Feed> objects representing the feeds to
+collect data from.
+
+=item tidy
+
+An instance of L<HTML::Tidy> used to tidy the feed entry contents
+before outputting. For default settings see source of Perlanet.pm.
+
+=item scrubber
+
+An instance of L<HTML::Scrubber> used to remove unwanted content from
+the feed entries. For default settings see source of Perlanet.pm.
+
+=back
 
 =cut
 
@@ -269,10 +359,16 @@ sub BUILD {
   }
 }
 
+=head1 METHODS
+
 =head2 fetch_feeds
 
-Attempt to download all feeds, as specified in the C<feeds> attribute. Each feed
-will be returned as a L<Perlanet::Feed>, with the actually feed data loaded.
+Called internally by L</run> and passed the list of feeds in L</feeds>.
+
+Attempt to download all given feeds, as specified in the C<feeds> attribute. Returns a list of 
+L<Perlanet::Feed> objects, with the actual feed data loaded. 
+
+NB: This method also modifies the contents of L</feeds>.
 
 =cut
 
@@ -314,8 +410,17 @@ sub fetch_feeds
 
 =head2 select_entries
 
-Select all entries from a loaded L<Perlanet::Feed>, into a format usable by the
-planet.
+Called internally by L</run> and passed the list of feeds from L</fetch_eeds>.
+
+Returns a combined list of L<Perlanet::Entry> objects from all given feeds.
+
+=for comment
+
+## why isnt this the case?
+
+The returned list has been filtered according to any filters set up in the L<perlanet/CONFIGURATION>. 
+
+=end for
 
 =cut
 
@@ -352,8 +457,10 @@ sub select_entries
 
 =head2 sort_entries
 
-Sort the fetched entries into an order for aggregation. Takes a list of
-L<Perlanet::Entries>, and returns a new list.
+Called internally by L</run> and passed the list of entries from L</select_entries>.
+
+Sort the given list of entries into created/modified order for aggregation. Takes a list of
+L<Perlanet::Entry>s, and returns an ordered list.
 
 =cut
 
@@ -372,7 +479,7 @@ sub sort_entries
 
 Clean a content string into a form presentable for display. By default, this
 means running the content through both HTML::Tidy and HTML::Scrubber. These 2
-modules are configurable by override the L<tidy> and L<scrubber> attributes. If
+modules are configurable by override the L</tidy> and L</scrubber> attributes. If
 you do not wish to use HTML::Tidy/HTML::Scrubber or do something more complex,
 you may override this method.
 
@@ -397,8 +504,11 @@ sub clean
 
 =head2 build_feed
 
-Takes a list of L<Perlanet::Entry>s, and returns a L<Perlanet::Feed> that is the
-actual feed for the planet.
+Called internally by L</run> and passed the list of entries from
+L</sort_entries>.
+
+Takes a list of L<Perlanet::Entry>s, and returns a L<Perlanet::Feed>
+that is the actual feed for the planet.
 
 =cut
 
@@ -428,10 +538,14 @@ sub build_feed
 
 =head2 render
 
-Render the planet feed. By default, this uses L<Template> Toolkit to render to a
-file, but can be overriden to render to wherever you need.
+Called internally by L</run> and passed the feed from L</build_feed>.
 
-Takes a L<Perlanet::Feed> as input (as generated by L<build_feed>.
+Render the planet feed as a page. By default, this uses L<Template>
+Toolkit to render to an HTML file, but can be overriden to render to
+wherever you need.
+
+Takes a L<Perlanet::Feed> as input (as generated by L<build_feed>, the
+result is output to the configured C<< $cfg->[page}{file> >>.
 
 =cut
 
@@ -459,9 +573,10 @@ sub render
 
 =head2 save
 
-Save the feed XML to a file on disk.
+Called internally by L</run> and passed the L<Perlanet::Feed> from
+L</build_feed>.
 
-Takes a L<Perlanet::Feed> (generated by L<build_feed>)
+Save the feed XML to a file on disk.
 
 =cut
 
@@ -479,6 +594,8 @@ sub save
 Updates the OPML file of all contributers to this planet. If the L<opml>
 attribute does not have a value, this method does nothing, otherwise it inserts
 each author into the OPML file and saves it to disk.
+
+Uses the list of feeds from the L<perlanet/CONFIGURATION>.
 
 =cut
 
