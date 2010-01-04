@@ -16,6 +16,7 @@ t/pod.t
 t/pod_coverage.t
 t/testrc
 t/index.tt
+t/perlanetrc
 README
 Changes
 t/data/davblog.xml
