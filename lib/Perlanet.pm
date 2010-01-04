@@ -417,13 +417,13 @@ Called internally by L</run> and passed the list of feeds from L</fetch_eeds>.
 
 Returns a combined list of L<Perlanet::Entry> objects from all given feeds.
 
-=for comment
+=begin comment
 
 ## why isnt this the case?
 
 The returned list has been filtered according to any filters set up in the L<perlanet/CONFIGURATION>. 
 
-=end for
+=end comment
 
 =cut
 
