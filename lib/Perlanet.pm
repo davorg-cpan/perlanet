@@ -25,7 +25,7 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.44';
+  $VERSION = '0.45';
 }
 
 $XML::Atom::ForceUnicode = 1;
@@ -434,8 +434,8 @@ sub select_entries {
   for my $feed (@feeds) {
     my @entries = $feed->_xml_feed->entries;
     if ($self->cfg->{entries_per_feed} and
-          @feed_entries > $self->cfg->{entries_per_feed}) {
-      $#feed_entries = $self->cfg->{entries_per_feed} - 1;
+          @entries > $self->cfg->{entries_per_feed}) {
+      $#entries = $self->cfg->{entries_per_feed} - 1;
     }
 
     push @feed_entries,
