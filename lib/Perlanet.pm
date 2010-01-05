@@ -25,7 +25,7 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.41';
+  $VERSION = '0.42';
 }
 
 $XML::Atom::ForceUnicode = 1;
@@ -387,7 +387,7 @@ sub fetch_feeds {
                                      ForceResponse => 1,
                                    );
 
-    next if !$response->is_success || $response->is_error;
+    next if $response->is_error;
 
     try {
       my $data = $response->content;
