@@ -25,7 +25,7 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.43';
+  $VERSION = '0.44';
 }
 
 $XML::Atom::ForceUnicode = 1;
