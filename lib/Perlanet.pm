@@ -25,7 +25,7 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.42';
+  $VERSION = '0.43';
 }
 
 $XML::Atom::ForceUnicode = 1;
@@ -642,7 +642,7 @@ sub run {
 
   my $day_zero = DateTime->from_epoch(epoch => 0);
 
-  my @feed_entries = grep {
+  @entries = grep {
     ($_->issued || $_->modified || $day_zero) < $self->cutoff
   } $self->sort_entries(@entries);
 
