@@ -29,6 +29,7 @@ my $build = Module::Build->new(
         },
         build_requires     => {
         	'Test::More'          => 0,
+                'File::Path'          => 0,
         },
 	build_recommends   => {
 		'Test::Pod'           => 0,

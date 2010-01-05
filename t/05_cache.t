@@ -11,6 +11,8 @@ SKIP: {
 
   chdir($Bin);
 
+  rmtree($p->cfg->{cache_dir});
+
   my $p = Perlanet->new('cacherc');
 
   my @entries = $p->select_entries(
