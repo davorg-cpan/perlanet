@@ -16,7 +16,7 @@ has '_entry' => (
   isa => 'XML::Feed::Entry',
   is => 'ro',
   required => 1,
-  handles => [qw( title link issued body summary content modified )]
+  handles => [qw( title link issued body summary content modified author )]
 );
 
 has 'feed' => (
