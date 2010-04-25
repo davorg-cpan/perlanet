@@ -391,7 +391,7 @@ sub fetch_feeds {
 
     try {
       my $data = $response->content;
-      my $xml_feed = XML::Feed->parse(\$data)
+      my $xml_feed = XML::Feed->parse(\$data);
             
       if ($xml_feed->format ne $self->cfg->{feed}{format}) {
         $xml_feed = $xml_feed->convert($self->cfg->{feed}{format});
