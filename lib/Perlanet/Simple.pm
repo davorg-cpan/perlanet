@@ -7,181 +7,82 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use HTML::Scrubber;
-use HTML::Tidy;
-use POSIX qw(setlocale LC_ALL);
 use YAML 'LoadFile';
-use Template;
 
 extends 'Perlanet';
-with 'Perlanet::Trait::Cache',
-     'Perlanet::Trait::OPML';
+with qw(
+    Perlanet::Trait::Cache
+    Perlanet::Trait::OPML
+    Perlanet::Trait::Scrubber
+    Perlanet::Trait::Tidy
+    Perlanet::Trait::YAMLConfig
+    Perlanet::Trait::TemplateToolkit
+    Perlanet::Trait::FeedFile
+   );
 
-use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
+=head1 NAME
 
-has 'cfg'  => (
-  is  => 'rw',
-  isa => 'HashRef'
-);
+Perlanet::Simple - a DWIM Perlanet
 
-has 'tidy' => (
-  is         => 'rw',
-  lazy_build => 1
-);
+=head1 SYNOPSIS
 
-sub _build_tidy {
-  my $self = shift;
-  my %tidy = (
-    doctype           => 'omit',
-    output_xhtml      => 1,
-    wrap              => 0,
-    alt_text          => '',
-    break_before_br   => 0,
-    char_encoding     => 'raw',
-    tidy_mark         => 0,
-    show_body_only    => 1,
-    preserve_entities => 1,
-    show_warnings     => 0,
-  );
+    my $perlanet = Perlanet::Simple->new_with_config('perlanet.yaml')
+    $perlanet->run
 
-  my $tidy = HTML::Tidy->new(\%tidy);
-  $tidy->ignore( type => TIDY_WARNING );
+=head1 DESCRIPTION
 
-  return $tidy;
-}
+L<Perlanet> provides the driving force behind all Perlanet applications,
+but it doesn't do a whole lot, which means you would normally have to write
+the functionality you require. However, in the motive of simplicity,
+Perlanet::Simple glues enough stuff together to allow you to get a very quick
+planet working out of the box.
 
-has 'scrubber' => (
-  is         => 'rw',
-  lazy_build => 1
-);
+Perlanet::Simple takes the standard Perlanet module, and adds support for
+caching, OPML feed generation, and L<Template> rendering support. It will
+also attempt to clean each post using both L<HTML::Scrubber> and L<HTML::Tidy>.
 
-sub _build_scrubber {
-  my $self = shift;
+=head2 Configuration
 
-  my %scrub_rules = (
-    img => {
-      src   => qr{^http://},    # only URL with http://
-      alt   => 1,               # alt attributes allowed
-      align => 1,               # allow align on images
-      style => 1,
-      '*'   => 0,               # deny all others
-    },
-    style => 0,
-    script => 0,
-    span => {
-      id => 0,                  # blogger(?) includes spans with id attribute
-    },
-    a => {
-      href => 1,
-      '*'  => 0,
-    },
-  );
+Perlanet::Simple uses L<Perlanet::Trait::YAMLConfig> to allow you to specify
+configuration through a file.
 
-  # Definitions for HTML::Scrub
-  my %scrub_def = (
-    '*'           => 1,
-    'href'        => qr{^(?!(?:java)?script)}i,
-    'src'         => qr{^(?!(?:java)?script)}i,
-    'cite'        => '(?i-xsm:^(?!(?:java)?script))',
-    'language'    => 0,
-    'name'        => 1,
-    'value'       => 1,
-    'onblur'      => 0,
-    'onchange'    => 0,
-    'onclick'     => 0,
-    'ondblclick'  => 0,
-    'onerror'     => 0,
-    'onfocus'     => 0,
-    'onkeydown'   => 0,
-    'onkeypress'  => 0,
-    'onkeyup'     => 0,
-    'onload'      => 0,
-    'onmousedown' => 0,
-    'onmousemove' => 0,
-    'onmouseout'  => 0,
-    'onmouseover' => 0,
-    'onmouseup'   => 0,
-    'onreset'     => 0,
-    'onselect'    => 0,
-    'onsubmit'    => 0,
-    'onunload'    => 0,
-    'src'         => 1,
-    'type'        => 1,
-    'style'       => 1,
-    'class'       => 0,
-    'id'          => 0,
-  );
+=head3 Example Configuration File
 
-  my $scrub = HTML::Scrubber->new;
-  $scrub->rules(%scrub_rules);
-  $scrub->default(1, \%scrub_def);
+  title: planet test
+  description: A Test Planet
+  url: http://planet.example.com/
+  author:
+    name: Dave Cross
+    email: dave@dave.org.uk
+  entries: 20
+  opml: opml.xml
+  page:
+    file: index.html
+    template: index.tt
+  feed:
+    file: atom.xml
+    format: Atom
+  cache_dir: /tmp/feeds
+  feeds:
+    - url: http://blog.dave.org.uk/atom.xml
+      title: Dave's Blog
+      web: http://blog.dave.org.uk/
+    - url: http://use.perl.org/~davorg/journal/rss
+      title: Dave's use.perl Journal
+      web: http://use.perl.org/~davorg/journal/
+    - url: http://www.oreillynet.com/pub/feed/31?au=2607
+      title: Dave on O'Reillynet
+      web: http://www.oreillynet.com/pub/au/2607
 
-  return $scrub;
-}
+For a detailed explanation of the configuration file contents, see
+L<perlanet/CONFIGURATION FILE>.
 
-sub BUILDARGS {
-  my $class = shift;
+=item cache
 
-  @_ or @_ = ('./perlanetrc');
+An instance of L<CHI>. Optional. Defaults to a new instance with the
+root_dir set to C<< $cfg->{cache_dir} >>, if it was supplied.
 
-  if ( @_ == 1 && ! ref $_[0] ) {
-    open my $cfg_file, '<:utf8', $_[0]
-      or croak "Cannot open file $_[0]: $!";
-
-    my $cfg = LoadFile($cfg_file);
-    my $args = {
-        cfg   => $cfg,
-        feeds => [ map {
-            Perlanet::Feed->new($_)
-          } @{ $cfg->{feeds} } ],
-    };
-
-    $args->{max_entries} = $cfg->{entries}
-        if $cfg->{entries};
-
-    if ($cfg->{cache_dir}) {
-        eval { require CHI; };
-
-        if ($@) {
-            carp "You need to install CHI to enable caching.\n";
-            carp "Caching disabled for this run.\n";
-            delete $cfg->{cache_dir};
-        }
-    }
-
-    $cfg->{cache_dir}
-        and $args->{cache} = CHI->new(
-            driver     => 'File',
-            root_dir   => $cfg->{cache_dir},
-            expires_in => THIRTY_DAYS,
-        );
-
-    my $opml;
-    if ($cfg->{opml}) {
-        eval { require XML::OPML::SimpleGen; };
-
-        if ($@) {
-            carp 'You need to install XML::OPML::SimpleGen to enable OPML ' .
-                "Support.\n";
-            carp "OPML support disabled for this run.\n";
-            delete $cfg->{opml};
-        } else {
-            my $loc = setlocale(LC_ALL, 'C');
-            $opml = XML::OPML::SimpleGen->new;
-            setlocale(LC_ALL, $loc);
-            $opml->head(
-                title => $cfg->{title},
-            );
-
-            $args->{opml} = $opml;
-        }
-    }
-
-    return $args;
-  } else {
-    return $class->SUPER::BUILDARGS(@_);
-  }
-}
+=cut
 
 around '_build_ua' => sub {
   my $orig = shift;
@@ -191,41 +92,14 @@ around '_build_ua' => sub {
   return $ua;
 };
 
-override 'render' => sub {
-    my ($self, $feed) = @_;
-
-    my $tt = Template->new;
-
-    $tt->process(
-        $self->cfg->{page}{template},
-        {
-            feed => $feed,
-            cfg => $self->cfg
-        },
-        $self->cfg->{page}{file},
-        {
-            binmode => ':utf8'
-        }
-    ) or croak $tt->error;
-
-    open my $feedfile, '>', $self->cfg->{feed}{file}
-        or croak 'Cannot open ' . $self->cfg->{feed}{file} . " for writing: $!";
-    print $feedfile $feed->as_xml($self->cfg->{feed}{format});
-    close $feedfile;
-
-    return;
-};
-
-override 'clean' => sub {
+sub clean {
   my ($self, $entry) = @_;
-  my $scrubbed = $self->scrubber->scrub($entry->content->body);
-  my $clean = $self->tidy->clean(utf8::is_utf8($scrubbed)
-      ? $scrubbed
-        : decode('utf8', $scrubbed));
 
   # hack to remove a particularly nasty piece of blogspot HTML
-  $clean =~ s|<div align="justify"></div>||g;
-  $entry->content->body($clean);
+  my $body = $entry->content->body;
+  $body =~ s|<div align="justify"></div>||g;
+
+  $entry->content->body($body);
   return $entry;
 };
 

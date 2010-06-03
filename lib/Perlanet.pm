@@ -57,8 +57,9 @@ has 'max_entries' => (
 );
 
 has 'feeds' => (
-  isa        => 'ArrayRef',
-  is         => 'ro',
+  isa     => 'ArrayRef',
+  is      => 'ro',
+  default => sub { [] }
 );
 
 has $_ => (
@@ -68,7 +69,7 @@ has $_ => (
 
 =head1 NAME
 
-Perlanet - A program for creating web pages that aggregate web feeds (both
+Perlanet - A program for creating programs that aggregate web feeds (both
 RSS and Atom).
 
 =head1 SYNOPSIS
@@ -78,19 +79,19 @@ RSS and Atom).
 
 =head1 DESCRIPTION
 
-Perlanet is a program for creating web pages that aggregate web feeds (both
+Perlanet is a program for creating programs that aggregate web feeds (both
 RSS and Atom). Web pages like this are often called "Planets" after the Python
 software which originally popularised them. Perlanet is a planet builder
 written in Perl - hence "Perlanet".
 
-The emphasis on Perlanet is firmly on simplicity. It reads web feeds, merges
-them and publishes the merged feed as a web page and as a new feed. That's all
-it is intended to do. If you want to do more with your feeds (create feeds
-from inputs that don't publish feeds, filter or transform them in complex ways
-or publish them in interesting ways) then Perlanet isn't the right software
-for you. In that case I recommend that you take a look at Plagger - which is
-another feed aggregator, but one that is far more complex and, therefore, far
-more flexible.
+You are probably interested in L<Perlanet::Simple> to get started straight
+out of the box, batteries included style.
+
+Perlanet itself is the driving force behind everything, however. Perlanet
+reads a series of web feeds (filtering only those that are valid), sorts
+and selects entries from these web feeds, and then creates a new aggregate
+feed and renders this aggregate feed. Perlanet allows the user to customize
+all of these steps through subclassing and roles.
 
 For most uses, you probably don't want to use the Perlanet module. The
 L<perlanet> command line program is far more likely to be useful.
@@ -99,49 +100,9 @@ L<perlanet> command line program is far more likely to be useful.
 
 =head2 new
 
-  my $perlanet = Perlanet->new([ $config_filename ]);
+  my $perlanet = Perlanet->new
 
-The constructor method. Can be passed the filename of a configuration
-file (default C<./perlanetrc>) or a hashref of initialisers.
-
-=head3 Example Configuration File
-
-  title: planet test
-  description: A Test Planet
-  url: http://planet.example.com/
-  author:
-    name: Dave Cross
-    email: dave@dave.org.uk
-  entries: 20
-  opml: opml.xml
-  page:
-    file: index.html
-    template: index.tt
-  feed:
-    file: atom.xml
-    format: Atom
-  cache_dir: /tmp/feeds
-  feeds:
-    - url: http://blog.dave.org.uk/atom.xml
-      title: Dave's Blog
-      web: http://blog.dave.org.uk/
-    - url: http://use.perl.org/~davorg/journal/rss
-      title: Dave's use.perl Journal
-      web: http://use.perl.org/~davorg/journal/
-    - url: http://www.oreillynet.com/pub/feed/31?au=2607
-      title: Dave on O'Reillynet
-      web: http://www.oreillynet.com/pub/au/2607
-
-For a detailed explanation of the configuration file contents, see
-L<perlanet/CONFIGURATION FILE>.
-
-=head3 Customised use (advanced)
-
-  my $perlanet = Perlanet->new(\%custom_attr_values);
-
-Perlanet is a L<Moose> class, if the configuration file doesn't
-provide enough flexibility, you may also instantiate the attribute
-values directly.
+The constructor method. Can be passed a hashref of initialisers.
 
 See L</ATTRIBUTES> below for details of the key/value pairs to pass in.
 
@@ -149,26 +110,10 @@ See L</ATTRIBUTES> below for details of the key/value pairs to pass in.
 
 =over
 
-=item cfg
-
-A hashref of configuration data. This is filled from the configuration
-file if supplied. Use this if you want an alternative to the YAML
-format of the file.
-
 =item ua
 
 An instance of L<LWP::UserAgent>. Defaults to a simple agent using C<<
 $cfg->{agent} >> as the user agent name, or C< Perlanet/$VERSION >.
-
-=item opml
-
-An instance of L<XML::OPML::SimpleGen>. Optional. Defaults to a new
-instance with C<< $cfg->{title} >> as it's title.
-
-=item cache
-
-An instance of L<CHI>. Optional. Defaults to a new instance with the
-root_dir set to C<< $cfg->{cache_dir} >>, if it was supplied.
 
 =item cutoff
 
@@ -180,19 +125,24 @@ which feed posts will be fetched/shown.
 An arrayref of L<Perlanet::Feed> objects representing the feeds to
 collect data from.
 
-=item tidy
-
-An instance of L<HTML::Tidy> used to tidy the feed entry contents
-before outputting. For default settings see source of Perlanet.pm.
-
-=item scrubber
-
-An instance of L<HTML::Scrubber> used to remove unwanted content from
-the feed entries. For default settings see source of Perlanet.pm.
-
 =back
 
 =head1 METHODS
+
+=head2 fetch_page
+
+Attempt to fetch a web page and a returns a L<URI::Fetch::Response> object.
+
+=cut
+
+sub fetch_page {
+  my ($self, $url) = @_;
+  return URI::Fetch->fetch(
+      $url,
+      UserAgent     => $self->ua,
+      ForceResponse => 1,
+  );
+}
 
 =head2 fetch_feeds
 
@@ -205,21 +155,12 @@ NB: This method also modifies the contents of L</feeds>.
 
 =cut
 
-sub _fetch_page {
-  my ($self, $url) = @_;
-  return URI::Fetch->fetch(
-      $url,
-      UserAgent     => $self->ua,
-      ForceResponse => 1,
-  );
-}
-
 sub fetch_feeds {
   my ($self, @feeds) = @_;
 
   my @valid_feeds;
   for my $feed (@feeds) {
-    my $response = $self->_fetch_page($feed->url);
+    my $response = $self->fetch_page($feed->url);
 
     next if $response->is_error;
 
@@ -242,17 +183,9 @@ sub fetch_feeds {
 
 =head2 select_entries
 
-Called internally by L</run> and passed the list of feeds from L</fetch_eeds>.
+Called internally by L</run> and passed the list of feeds from L</fetch_feeds>.
 
 Returns a combined list of L<Perlanet::Entry> objects from all given feeds.
-
-=begin comment
-
-## why isnt this the case?
-
-The returned list has been filtered according to any filters set up in the L<perlanet/CONFIGURATION>.
-
-=end comment
 
 =cut
 
@@ -286,8 +219,10 @@ sub select_entries {
 
 Called internally by L</run> and passed the list of entries from L</select_entries>.
 
-Sort the given list of entries into created/modified order for aggregation. Takes a list of
-L<Perlanet::Entry>s, and returns an ordered list.
+Sort the given list of entries into created/modified order for aggregation, and filters them
+ if necessary.
+
+Takes a list of L<Perlanet::Entry>s, and returns an ordered list.
 
 =cut
 
@@ -309,23 +244,6 @@ sub sort_entries {
   }
 
   return @entries;
-}
-
-=head2 clean
-
-Clean a content string into a form presentable for display. By default, this
-means running the content through both HTML::Tidy and HTML::Scrubber. These 2
-modules are configurable by override the L</tidy> and L</scrubber> attributes. If
-you do not wish to use HTML::Tidy/HTML::Scrubber or do something more complex,
-you may override this method.
-
-Takes a string, and returns the cleaned string.
-
-=cut
-
-sub clean {
-  my ($self, $entry) = @_;
-  return $entry;
 }
 
 =head2 build_feed
@@ -359,6 +277,28 @@ sub build_feed {
   return $f;
 }
 
+=head2 clean
+
+Clean an entry into a form presentable for display.
+
+Takes an entry, and returns the cleaned entry.
+
+=cut
+
+sub clean {
+  my ($self, $entry) = @_;
+  return $entry;
+}
+
+=head2 clean_entries
+
+Clean all entries for the planet.
+
+Takes a list of entries, runs them through C<clean> (by default>, and returns
+a list of cleaned entries.
+
+=cut
+
 sub clean_entries
 {
     my ($self, @entries) = @_;
@@ -369,12 +309,11 @@ sub clean_entries
 
 Called internally by L</run> and passed the feed from L</build_feed>.
 
-Render the planet feed as a page. By default, this uses L<Template>
-Toolkit to render to an HTML file, but can be overriden to render to
-wherever you need.
+This is the hook where you generate some type of page to display the result
+of aggregating feeds together (ie, inserting the posts into a database,
+running a HTML templating library, etc)
 
-Takes a L<Perlanet::Feed> as input (as generated by L<build_feed>, the
-result is output to the configured C<< $cfg->[page}{file> >>.
+Takes a L<Perlanet::Feed> as input (as generated by L<build_feed>.
 
 =cut
 

@@ -2,38 +2,38 @@ use Test::More tests => 6;
 use FindBin qw($Bin);
 use_ok('Perlanet::Simple');
 chdir $Bin;
-ok(my $p = Perlanet::Simple->new('testrc'), 'Object created');
+ok(my $p = Perlanet::Simple->new_with_config(configfile => 'testrc'), 'Object created');
 isa_ok($p, 'Perlanet');
 
-if (exists $p->cfg->{opml} and -e $p->cfg->{opml}) {
-  unlink $p->cfg->{opml};
+if (-e $p->opml_file) {
+  unlink $p->opml_file;
 }
 
-if (exists $p->cfg->{feed}{file} and -e $p->cfg->{feed}{file}) {
-  unlink $p->cfg->{feed}{file};
+if (-e $p->feed_file) {
+  unlink $p->feed_file;
 }
 
-if (exists $p->cfg->{page}{file} and -e $p->cfg->{page}{file}) {
+if (-e $p->template_output) {
   unlink $p->cfg->{page}{file};
 }
 
 $p->run;
 
-ok(-e $p->cfg->{feed}{file}, 'Feed created');
-ok(-e $p->cfg->{page}{file}, 'Page created');
+ok(-e $p->feed_file, 'Feed created');
+ok(-e $p->template_output, 'Page created');
 SKIP: {
-  skip 'XML::OPML::SimpleGen not installed', 1 unless $p->cfg->{opml};
-  ok(-e $p->cfg->{opml}, 'OPML created');
+  skip 'XML::OPML::SimpleGen not installed', 1 unless $p->opml_file;
+  ok(-e $p->opml_file, 'OPML created');
 }
 
-if (exists $p->cfg->{opml} and -e $p->cfg->{opml}) {
-  unlink $p->cfg->{opml};
+if (-e $p->opml_file) {
+  unlink $p->opml_file;
 }
 
-if (exists $p->cfg->{feed}{file} and -e $p->cfg->{feed}{file}) {
-  unlink $p->cfg->{feed}{file};
+if (-e $p->feed_file) {
+  unlink $p->feed_file;
 }
 
-if (exists $p->cfg->{page}{file} and -e $p->cfg->{page}{file}) {
-  unlink $p->cfg->{page}{file};
+if (-e $p->template_output) {
+  unlink $p->template_output;
 }
