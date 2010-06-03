@@ -61,6 +61,11 @@ has 'feeds' => (
   is         => 'ro',
 );
 
+has $_ => (
+    isa => 'Str',
+    is  => 'ro',
+) for qw( self_link title description url author_name author_email );
+
 =head1 NAME
 
 Perlanet - A program for creating web pages that aggregate web feeds (both
@@ -257,10 +262,6 @@ sub select_entries {
   my @feed_entries;
   for my $feed (@feeds) {
     my @entries = $feed->_xml_feed->entries;
-    if ($self->cfg->{entries_per_feed} and
-          @entries > $self->cfg->{entries_per_feed}) {
-      $#entries = $self->cfg->{entries_per_feed} - 1;
-    }
 
     push @feed_entries,
       map {
@@ -340,16 +341,14 @@ that is the actual feed for the planet.
 sub build_feed {
   my ($self, @entries) = @_;
 
-  my $self_url = $self->cfg->{self_link} ||
-                 $self->cfg->{feed}{url} ||
-                 $self->cfg->{url} . $self->cfg->{feed}{file};
+  my $self_url = $self->self_link;
 
   my $f = Perlanet::Feed->new(
-    title       => $self->cfg->{title},
-    url         => $self->cfg->{url},
-    description => $self->cfg->{description},
-    author      => $self->cfg->{author}{name},
-    email       => $self->cfg->{author}{email},
+    title       => $self->title,
+    url         => $self->url,
+    description => $self->description,
+    author      => $self->author_name,
+    email       => $self->author_email,
     modified    => DateTime->now,
     self_link   => $self_url,
     id          => $self_url
