@@ -50,6 +50,12 @@ has 'cutoff' => (
   }
 );
 
+has 'max_entries' => (
+    isa => 'Int',
+    is  => 'rw',
+    predicate => 'has_max_entry_cap'
+);
+
 has 'feeds' => (
   isa        => 'ArrayRef',
   is         => 'ro',
@@ -181,15 +187,6 @@ the feed entries. For default settings see source of Perlanet.pm.
 
 =back
 
-=cut
-
-sub BUILD {
-  my $self = shift;
-
-
-  return;
-}
-
 =head1 METHODS
 
 =head2 fetch_feeds
@@ -224,10 +221,6 @@ sub fetch_feeds {
     try {
       my $data = $response->content;
       my $xml_feed = XML::Feed->parse(\$data);
-
-      if ($xml_feed->format ne $self->cfg->{feed}{format}) {
-        $xml_feed = $xml_feed->convert($self->cfg->{feed}{format});
-      }
 
       $feed->_xml_feed($xml_feed);
       $feed->title($xml_feed->title) unless $feed->title;
@@ -299,14 +292,22 @@ L<Perlanet::Entry>s, and returns an ordered list.
 
 sub sort_entries {
   my ($self, @entries) = @_;
-
   my $day_zero = DateTime->from_epoch(epoch => 0);
 
-  return sort {
-    ($b->modified || $b->issued || $day_zero)
-      <=>
-    ($a->modified || $a->issued || $day_zero)
+  @entries = grep {
+      ($_->issued || $_->modified || $day_zero) < $self->cutoff
+  } sort {
+      ($b->modified || $b->issued || $day_zero)
+          <=>
+      ($a->modified || $a->issued || $day_zero)
   } @entries;
+
+  # Only need so many entries
+  if ($self->has_max_entry_cap && @entries > $self->max_entries) {
+    $#entries = $self->max_entries - 1;
+  }
+
+  return @entries;
 }
 
 =head2 clean
@@ -322,17 +323,8 @@ Takes a string, and returns the cleaned string.
 =cut
 
 sub clean {
-  my ($self, $content) = @_;
-
-  my $scrubbed = $self->scrubber->scrub($content);
-  my $clean = $self->tidy->clean(utf8::is_utf8($scrubbed)
-      ? $scrubbed
-        : decode('utf8', $scrubbed));
-
-  # hack to remove a particularly nasty piece of blogspot HTML
-  $clean =~ s|<div align="justify"></div>||g;
-
-  return $clean;
+  my ($self, $entry) = @_;
+  return $entry;
 }
 
 =head2 build_feed
@@ -368,6 +360,12 @@ sub build_feed {
   return $f;
 }
 
+sub clean_entries
+{
+    my ($self, @entries) = @_;
+    return map { $self->clean($_) } @entries;
+}
+
 =head2 render
 
 Called internally by L</run> and passed the feed from L</build_feed>.
@@ -394,26 +392,12 @@ The main method which runs the perlanet process.
 sub run {
   my $self = shift;
 
-  my @entries = $self->select_entries(
-    $self->fetch_feeds(@{ $self->feeds })
-  );
-
-  my $day_zero = DateTime->from_epoch(epoch => 0);
-
-  @entries = grep {
-    ($_->issued || $_->modified || $day_zero) < $self->cutoff
-  } $self->sort_entries(@entries);
-
-  # Only need so many entries
-  if (@entries > $self->cfg->{entries}) {
-    $#entries = $self->cfg->{entries} - 1;
-  }
-
-  # Build feed
-  my $feed = $self->build_feed(@entries);
-  $self->render($feed);
-
-  return;
+  $self->render(
+      $self->build_feed(
+          $self->clean_entries(
+              $self->sort_entries(
+                  $self->select_entries(
+                      $self->fetch_feeds(@{ $self->feeds }))))));
 }
 
 =head1 TO DO

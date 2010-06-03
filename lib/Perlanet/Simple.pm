@@ -133,8 +133,11 @@ sub BUILDARGS {
         cfg   => $cfg,
         feeds => [ map {
             Perlanet::Feed->new($_)
-          } @{ $cfg->{feeds} } ]
+          } @{ $cfg->{feeds} } ],
     };
+
+    $args->{max_entries} = $cfg->{entries}
+        if $cfg->{entries};
 
     if ($cfg->{cache_dir}) {
         eval { require CHI; };
@@ -193,10 +196,6 @@ override 'render' => sub {
 
     my $tt = Template->new;
 
-    for my $entry (@{ $feed->entries }) {
-        $self->clean($entry->content->body);
-    }
-
     $tt->process(
         $self->cfg->{page}{template},
         {
@@ -215,6 +214,19 @@ override 'render' => sub {
     close $feedfile;
 
     return;
+};
+
+override 'clean' => sub {
+  my ($self, $entry) = @_;
+  my $scrubbed = $self->scrubber->scrub($entry->content->body);
+  my $clean = $self->tidy->clean(utf8::is_utf8($scrubbed)
+      ? $scrubbed
+        : decode('utf8', $scrubbed));
+
+  # hack to remove a particularly nasty piece of blogspot HTML
+  $clean =~ s|<div align="justify"></div>||g;
+  $entry->content->body($clean);
+  return $entry;
 };
 
 1;
