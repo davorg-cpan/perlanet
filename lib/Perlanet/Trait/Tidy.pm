@@ -40,18 +40,16 @@ sub _build_tidy {
   return $tidy;
 }
 
-around 'clean' => sub {
+around 'clean_html' => sub {
     my $orig = shift;
-    my ($self, $entry) = @_;
-    $entry = $self->$orig($entry);
-    my $body = $entry->content->body;
+    my ($self, $html) = @_;
+    $html = $self->$orig($html);
 
-    my $clean = $self->tidy->clean(utf8::is_utf8($body)
-      ? $body
-        : decode('utf8', $body));
+    my $clean = $self->tidy->clean(utf8::is_utf8($html)
+      ? $html
+        : decode('utf8', $html));
 
-    $entry->content->body($clean);
-    return $entry;
+    return $clean;
 };
 
 1;

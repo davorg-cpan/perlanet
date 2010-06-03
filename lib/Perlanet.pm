@@ -285,7 +285,7 @@ Takes an entry, and returns the cleaned entry.
 
 =cut
 
-sub clean {
+sub clean_html {
   my ($self, $entry) = @_;
   return $entry;
 }
@@ -302,7 +302,12 @@ a list of cleaned entries.
 sub clean_entries
 {
     my ($self, @entries) = @_;
-    return map { $self->clean($_) } @entries;
+
+    return map {
+        $_->content->body($self->clean_html($_->content->body));
+        $_->summary($self->clean_html($_->summary));
+        $_;
+    } @entries;
 }
 
 =head2 render

@@ -82,15 +82,12 @@ sub _build_scrubber {
   return $scrub;
 }
 
-around 'clean' => sub {
+around 'clean_html' => sub {
     my $orig = shift;
-    my ($self, $entry) = @_;
-    $entry = $self->$orig($entry);
-
-    my $scrubbed = $self->scrubber->scrub($entry->content->body);
-
-    $entry->content->body($scrubbed);
-    return $entry;
+    my ($self, $html) = @_;
+    $html = $self->$orig($html);
+    my $scrubbed = $self->scrubber->scrub($html);
+    return $html;
 };
 
 =head1 AUTHOR
