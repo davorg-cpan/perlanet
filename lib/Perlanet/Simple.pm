@@ -92,15 +92,22 @@ around '_build_ua' => sub {
   return $ua;
 };
 
-sub clean {
-  my ($self, $entry) = @_;
+=head2 clean_html
+
+Some custom cleaning code to remove a nasty piece of BlogSpot HTML
+(and still running all other cleaning traits)
+
+=cut
+
+around clean_html => sub {
+  my $orig = shift;
+  my ($self, $html) = @_;
 
   # hack to remove a particularly nasty piece of blogspot HTML
-  my $body = $entry->content->body;
-  $body =~ s|<div align="justify"></div>||g;
+  $html = $self->$orig($html);who
+  $html =~ s|<div align="justify"></div>||g;
 
-  $entry->content->body($body);
-  return $entry;
+  return $html;
 };
 
 1;

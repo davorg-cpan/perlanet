@@ -34,10 +34,10 @@ sub get_config_from_file {
         }
     }
 
-    delete $cfg->{cache_dir}
+    $cfg->{cache_dir}
         and $cfg->{cache} = CHI->new(
             driver     => 'File',
-            root_dir   => $cfg->{cache_dir},
+            root_dir   => delete $cfg->{cache_dir},
             expires_in => THIRTY_DAYS,
         );
 

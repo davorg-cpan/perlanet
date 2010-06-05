@@ -277,11 +277,11 @@ sub build_feed {
   return $f;
 }
 
-=head2 clean
+=head2 clean_html
 
-Clean an entry into a form presentable for display.
+Clean a HTML string so it is suitable for display.
 
-Takes an entry, and returns the cleaned entry.
+Takes a HTML string and returns a "cleaned" HTML string.
 
 =cut
 

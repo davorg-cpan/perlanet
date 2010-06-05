@@ -1,7 +1,7 @@
 use Test::More tests => 1;
 use FindBin qw($Bin);
 use File::Path;
-use Perlanet;
+use Perlanet::Simple;
 chdir $Bin;
 
 eval { require CHI; };
@@ -11,9 +11,9 @@ SKIP: {
 
   chdir($Bin);
 
-  my $p = Perlanet->new('cacherc');
+  my $p = Perlanet::Simple->new_with_config(configfile => 'cacherc');
 
-  rmtree($p->cfg->{cache_dir});
+  rmtree($p->cache->root_dir);
 
   my @entries = $p->select_entries(
                   $p->fetch_feeds(
@@ -33,6 +33,6 @@ SKIP: {
   # count should be the same on a second attempt
   is($first_count, $second_count, "$first_count == $second_count");
 
-  rmtree($p->cfg->{cache_dir});
+  rmtree($p->cache->root_dir);
 }
 
