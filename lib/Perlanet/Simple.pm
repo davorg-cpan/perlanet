@@ -77,11 +77,6 @@ configuration through a file.
 For a detailed explanation of the configuration file contents, see
 L<perlanet/CONFIGURATION FILE>.
 
-=item cache
-
-An instance of L<CHI>. Optional. Defaults to a new instance with the
-root_dir set to C<< $cfg->{cache_dir} >>, if it was supplied.
-
 =cut
 
 around '_build_ua' => sub {
