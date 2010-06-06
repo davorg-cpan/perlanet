@@ -21,11 +21,13 @@ my $build = Module::Build->new(
                 'HTML::Scrubber'       => 0,
                 'Moose'                => 0,
                 'TryCatch'             => 0,
+                'MooseX::Traits'       => 0
 	},
         recommends         => {
-                'CHI'                  => 0,
-                'Compress::Zlib'       => 0,
-                'XML::OPML::SimpleGen' => 0,
+                'CHI'                    => 0,
+                'Compress::Zlib'         => 0,
+                'XML::OPML::SimpleGen'   => 0,
+                'MooseX::ConfigFromFile' => 0,
         },
         build_requires     => {
         	'Test::More'          => 0,
