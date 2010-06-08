@@ -261,16 +261,14 @@ sub build_feed {
 
   my $self_url = $self->self_link;
 
-  my $f = Perlanet::Feed->new(
-    title       => $self->title,
-    url         => $self->url,
-    description => $self->description,
-    author      => $self->author_name,
-    email       => $self->author_email,
-    modified    => DateTime->now,
-    self_link   => $self_url,
-    id          => $self_url
-  );
+  my $f = Perlanet::Feed->new( modified    => DateTime->now );
+  $f->title($self->title)             if defined $self->title;
+  $f->url($self->url)                 if defined $self->url;
+  $f->description($self->description) if defined $self->description;
+  $f->author($self->author_name)      if defined $self->author_name;
+  $f->email($self->author_email)      if defined $self->author_email;
+  $f->self_link($self->url)           if defined $self->url;
+  $f->id($self->url)                  if defined $self->url;
 
   $f->add_entry($_) for @entries;
 
