@@ -5,12 +5,30 @@ use namespace::autoclean;
 use Encode;
 use HTML::Tidy;
 
+=head1 NAME
+
+Perlanet::Trait::Tidy - run posts through HTML::Tidy
+
+=head1 SYNOPSIS
+
+   my $perlanet = Perlanet->new_with_traits(traits => [ 'Perlanet::Trait::Tidy' ])
+   $perlanet->run
+
+=head1 DESCRIPTION
+
+Before a post is added to the aggregated feed, it will be ran through HTML::Tidy
+
+=head2 Configuring
+
+To configure the HTML::Tidy instance, you should override the C<_build_tidy> method.
+This method takes no input, and returns a HTML::Tidy instance.
+
 =head1 ATTRIBUTES
 
 =head2 tidy
 
 An instance of L<HTML::Tidy> used to tidy the feed entry contents
-before outputting. For default settings see source of Perlanet.pm.
+before outputting. For default settings see source..
 
 =cut
 
@@ -51,5 +69,19 @@ around 'clean_html' => sub {
 
     return $clean;
 };
+
+=head1 AUTHOR
+
+Oliver Charles, <oliver.g.charles@googlemail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2008 by Magnum Solutions Ltd.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
 
 1;

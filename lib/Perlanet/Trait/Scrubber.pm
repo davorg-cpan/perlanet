@@ -4,6 +4,15 @@ use namespace::autoclean;
 
 use HTML::Scrubber;
 
+=head1 NAME
+
+Perlanet::Trait::Scrubber - clean posts with HTML::Scrubber before aggregating
+
+=head1 DESCRIPTION
+
+Before adding a post to the aggregated feed, it will first be cleaned with
+L<HTML::Scrubber>.
+
 =head1 ATTRIBUTES
 
 =head1 scrubber

@@ -46,37 +46,6 @@ also attempt to clean each post using both L<HTML::Scrubber> and L<HTML::Tidy>.
 Perlanet::Simple uses L<Perlanet::Trait::YAMLConfig> to allow you to specify
 configuration through a file.
 
-=head3 Example Configuration File
-
-  title: planet test
-  description: A Test Planet
-  url: http://planet.example.com/
-  author:
-    name: Dave Cross
-    email: dave@dave.org.uk
-  entries: 20
-  opml: opml.xml
-  page:
-    file: index.html
-    template: index.tt
-  feed:
-    file: atom.xml
-    format: Atom
-  cache_dir: /tmp/feeds
-  feeds:
-    - url: http://blog.dave.org.uk/atom.xml
-      title: Dave's Blog
-      web: http://blog.dave.org.uk/
-    - url: http://use.perl.org/~davorg/journal/rss
-      title: Dave's use.perl Journal
-      web: http://use.perl.org/~davorg/journal/
-    - url: http://www.oreillynet.com/pub/feed/31?au=2607
-      title: Dave on O'Reillynet
-      web: http://www.oreillynet.com/pub/au/2607
-
-For a detailed explanation of the configuration file contents, see
-L<perlanet/CONFIGURATION FILE>.
-
 =cut
 
 around '_build_ua' => sub {
