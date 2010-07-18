@@ -34,8 +34,9 @@ my $build = Module::Build->new(
                 'File::Path'          => 0,
         },
 	build_recommends   => {
-		'Test::Pod'           => 0,
-		'Test::Pod::Coverage' => 0,
+		'Test::Pod'              => 0,
+		'Test::Pod::Coverage'    => 0,
+                'MooseX::ConfigFromFile' => 0,
 	},
         create_makefile_pl => 'traditional',
         script_files       => [ 'bin/perlanet' ],
