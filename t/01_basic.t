@@ -2,7 +2,8 @@ use Test::More tests => 6;
 use FindBin qw($Bin);
 use_ok('Perlanet::Simple');
 chdir $Bin;
-ok(my $p = Perlanet::Simple->new_with_config(configfile => 'testrc'), 'Object created');
+ok(my $p = Perlanet::Simple->new_with_config(configfile => 'testrc'),
+   'Object created');
 isa_ok($p, 'Perlanet');
 
 if (-e $p->opml_file) {
