@@ -5,13 +5,19 @@ examples/perlanetrc
 lib/Perlanet.pm
 lib/Perlanet/Entry.pm
 lib/Perlanet/Feed.pm
+lib/Perlanet/Simple.pm
+lib/Perlanet/Trait/Cache.pm
+lib/Perlanet/Trait/OPML.pm
+lib/Perlanet/Trait/TemplateToolkit.pm
+lib/Perlanet/Trait/YAMLConfig.pm
+lib/Perlanet/Trait/FeedFile.pm
+lib/Perlanet/Trait/Scrubber.pm
+lib/Perlanet/Trait/Tidy.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
 t/01_basic.t
-t/02_basic.t
 t/03_noconf.t
-t/04_moose_constr.t
 t/05_cache.t
 t/pod.t
 t/pod_coverage.t
