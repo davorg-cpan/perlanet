@@ -65,7 +65,7 @@ has 'feeds' => (
 has $_ => (
     isa => 'Str',
     is  => 'ro',
-) for qw( self_link title description url author_name author_email );
+) for qw( self_link title description url author_name author_email agent );
 
 =head1 NAME
 
