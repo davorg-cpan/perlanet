@@ -6,7 +6,7 @@ agent: Testing Perlanet
 author_name: Dave Cross
 author_email: dave@dave.org.uk
 max_entries: 20
-opml: opml.xml
+opml_file: opml.xml
 template_output: index.html
 template_input: index.tt
 feed_file: rss.xml
