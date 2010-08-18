@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Perlanet;
+use Perlanet::Simple;
 use Getopt::Std;
 use File::Basename;
 
