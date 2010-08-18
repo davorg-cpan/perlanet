@@ -52,7 +52,7 @@ around '_build_ua' => sub {
   my $orig = shift;
   my $self = shift;
   my $ua = $self->$orig;
-  $ua->agent($self->cfg->{agent}) if $self->cfg->{agent};
+  $ua->agent($self->agent) if $self->agent;
   return $ua;
 };
 
@@ -68,7 +68,7 @@ around clean_html => sub {
   my ($self, $html) = @_;
 
   # hack to remove a particularly nasty piece of blogspot HTML
-  $html = $self->$orig($html);who
+  $html = $self->$orig($html);
   $html =~ s|<div align="justify"></div>||g;
 
   return $html;
