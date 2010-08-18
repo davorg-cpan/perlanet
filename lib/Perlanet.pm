@@ -173,8 +173,9 @@ sub fetch_feeds {
 
       push @valid_feeds, $feed;
     }
-      catch {
+      catch ($e) {
         carp 'Errors parsing ' . $feed->url;
+        carp $e if defined $e;
       }
     }
 
