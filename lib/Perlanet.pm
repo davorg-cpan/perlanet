@@ -62,10 +62,15 @@ has 'feeds' => (
   default => sub { [] }
 );
 
+has 'author' => (
+  isa     => 'HashRef',
+  is      => 'ro',
+);
+
 has $_ => (
     isa => 'Str',
     is  => 'ro',
-) for qw( self_link title description url author_name author_email agent );
+) for qw( self_link title description url agent );
 
 =head1 NAME
 
@@ -266,8 +271,8 @@ sub build_feed {
   $f->title($self->title)             if defined $self->title;
   $f->url($self->url)                 if defined $self->url;
   $f->description($self->description) if defined $self->description;
-  $f->author($self->author_name)      if defined $self->author_name;
-  $f->email($self->author_email)      if defined $self->author_email;
+  $f->author($self->author->{name})   if defined $self->author->{name};
+  $f->email($self->author->{email})   if defined $self->author->{email};
   $f->self_link($self->url)           if defined $self->url;
   $f->id($self->url)                  if defined $self->url;
 
@@ -332,14 +337,21 @@ The main method which runs the perlanet process.
 =cut
 
 sub run {
-  my $self = shift;
+    my $self = shift;
 
-  $self->render(
-      $self->build_feed(
-          $self->clean_entries(
-              $self->sort_entries(
-                  $self->select_entries(
-                      $self->fetch_feeds(@{ $self->feeds }))))));
+    $self->render(
+	$self->build_feed(
+	    $self->clean_entries(
+		$self->sort_entries(
+		    $self->select_entries(
+			$self->fetch_feeds(
+			    @{ $self->feeds }
+			)
+		    )
+		)
+	    )
+	)
+    );
 }
 
 =head1 TO DO

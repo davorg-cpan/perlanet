@@ -20,7 +20,8 @@ version() if $opts{v} || $opts{h};
 help()    if $opts{h};
 exit      if $opts{v} || $opts{h};
 
-my $p = Perlanet->new(shift || './perlanetrc');
+my $cfg = shift || './perlanetrc';
+my $p = Perlanet::Simple->new_with_config(configfile => $cfg);
 
 $p->run;
 

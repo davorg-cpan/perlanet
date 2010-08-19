@@ -36,28 +36,25 @@ A L<Perlanet::Feed> that reperesents the aggregation of all posts
 =cut
 
 use Template;
+use Carp;
 
-has 'template_input' => (
-    isa       => 'Str',
+has 'page' => (
+    isa       => 'HashRef',
     is        => 'rw',
-    predicate => 'has_template',
-);
-
-has 'template_output' => (
-    isa       => 'Str',
-    is        => 'rw',
-    predicate => 'has_output',
+    default   => sub {
+	{ file => 'index.html', template => 'index.tt' }
+    },
 );
 
 after 'render' => sub {
     my ($self, $feed) = @_;
     my $tt = Template->new;
     $tt->process(
-        $self->template_input,
+        $self->page->{template},
         {
             feed => $feed,
         },
-        $self->template_output,
+        $self->page->{file},
         {
             binmode => ':utf8'
         }

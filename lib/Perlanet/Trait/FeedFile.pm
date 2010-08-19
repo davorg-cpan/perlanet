@@ -31,25 +31,21 @@ The format of the XML to use - may be RSS or Atom
 use Carp qw( croak );
 use Template;
 
-has 'feed_file' => (
-    isa       => 'Str',
+has 'feed' => (
+    isa       => 'HashRef',
     is        => 'rw',
-    predicate => 'has_feed_file',
-);
-
-has 'feed_format' => (
-    isa     => 'Str',
-    is      => 'rw',
-    default => 'RSS',
+    default   => sub {
+	{ file => 'atom.xml', format => 'Atom' }
+    },
 );
 
 after 'render' => sub {
     my ($self, $feed) = @_;
-    return unless $self->has_feed_file;
+    return unless $self->feed->{file};
 
-    open my $feedfile, '>', $self->feed_file
-        or croak 'Cannot open ' . $self->feed_file . " for writing: $!";
-    print $feedfile $feed->as_xml($self->feed_format);
+    open my $feedfile, '>', $self->feed->{file}
+        or croak 'Cannot open ' . $self->feed->{file} . " for writing: $!";
+    print $feedfile $feed->as_xml($self->feed->{format});
     close $feedfile;
 };
 
