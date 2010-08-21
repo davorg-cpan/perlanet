@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.47';
+  $VERSION = '0.50';
 }
 
 with 'MooseX::Traits';
@@ -386,7 +386,7 @@ Dave Cross, <dave@mag-sol.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2008 by Magnum Solutions Ltd.
+Copyright (c) 2010 by Magnum Solutions Ltd.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
