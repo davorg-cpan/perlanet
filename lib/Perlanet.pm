@@ -50,10 +50,16 @@ has 'cutoff' => (
   }
 );
 
-has 'max_entries' => (
+has 'entries' => (
   isa => 'Int',
   is  => 'rw',
-  predicate => 'has_max_entry_cap'
+  default => 10,
+);
+
+has 'entries_per_feed' => (
+  isa => 'Int',
+  is  => 'rw',
+  default => 5,
 );
 
 has 'feeds' => (
@@ -204,6 +210,10 @@ sub select_entries {
   for my $feed (@feeds) {
     my @entries = $feed->_xml_feed->entries;
 
+    if ($self->entries_per_field and @entries > $self->entries_per_feed) {
+      $#entries = $self->entries - 1;
+    }
+
     push @feed_entries,
       map {
         $_->title($feed->title . ': ' . $_->title);
@@ -248,8 +258,8 @@ sub sort_entries {
   } @entries;
 
   # Only need so many entries
-  if ($self->has_max_entry_cap && @entries > $self->max_entries) {
-    $#entries = $self->max_entries - 1;
+  if ($self->entries && @entries > $self->entries) {
+    $#entries = $self->entries - 1;
   }
 
   return @entries;
