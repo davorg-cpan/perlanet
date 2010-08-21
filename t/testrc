@@ -7,10 +7,13 @@ author:
   name: Dave Cross
   email: dave@dave.org.uk
 max_entries: 20
-opml_file: opml.xml
-template_output: index.html
-template_input: index.tt
-feed_file: rss.xml
+opml: opml.xml
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: rss.xml
+  format: Atom
 feeds:
   - url: file:data/davblog.xml
     title: davblog
