@@ -342,7 +342,7 @@ sub run {
   my $self = shift;
 
   my @feeds    = $self->fetch_feeds(@{$self->feeds});
-  my @selected = $self->select_entries(@entries);
+  my @selected = $self->select_entries(@feeds);
   my @sorted   = $self->sort_entries(@selected);
   my @cleaned  = $self->clean_entries(@sorted);
   my $feed     = $self->build_feed(@cleaned);
