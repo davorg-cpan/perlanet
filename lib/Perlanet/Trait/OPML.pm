@@ -62,10 +62,10 @@ Where to save the OPML feed when it has been created
 
 =cut
 
-has 'opml_file' => (
+has 'opml' => (
   isa       => 'Str',
   is        => 'rw',
-  predicate => 'has_opml_file'
+  predicate => 'has_opml'
 );
 
 =head1 METHODS
@@ -101,13 +101,13 @@ Save the OPML file, by default to disk.
 
 sub save_opml {
   my $self = shift;
-  $self->opml_generator->save($self->opml_file);
+  $self->opml_generator->save($self->opml);
 }
 
 around 'fetch_feeds' => sub {
   my $orig = shift;
   my ($self, @feeds) = @_;
-  return unless $self->has_opml_file;
+  return unless $self->has_opml;
   @feeds = $self->$orig(@feeds);
   $self->update_opml(@feeds);
   return @feeds;
