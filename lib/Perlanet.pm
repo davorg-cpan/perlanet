@@ -153,8 +153,9 @@ sub fetch_page {
 
 Called internally by L</run> and passed the list of feeds in L</feeds>.
 
-Attempt to download all given feeds, as specified in the C<feeds> attribute. Returns a list of
-L<Perlanet::Feed> objects, with the actual feed data loaded.
+Attempt to download all given feeds, as specified in the C<feeds> attribute.
+Returns a list of L<Perlanet::Feed> objects, with the actual feed data
+loaded.
 
 NB: This method also modifies the contents of L</feeds>.
 
@@ -178,18 +179,19 @@ sub fetch_feeds {
 
       push @valid_feeds, $feed;
     }
-      catch ($e) {
-        carp 'Errors parsing ' . $feed->url;
-        carp $e if defined $e;
-      }
+    catch ($e) {
+      carp 'Errors parsing ' . $feed->url;
+      carp $e if defined $e;
     }
+  }
 
   return @valid_feeds;
 }
 
 =head2 select_entries
 
-Called internally by L</run> and passed the list of feeds from L</fetch_feeds>.
+Called internally by L</run> and passed the list of feeds from
+L</fetch_feeds>.
 
 Returns a combined list of L<Perlanet::Entry> objects from all given feeds.
 
@@ -223,10 +225,11 @@ sub select_entries {
 
 =head2 sort_entries
 
-Called internally by L</run> and passed the list of entries from L</select_entries>.
+Called internally by L</run> and passed the list of entries from
+L</select_entries>.
 
-Sort the given list of entries into created/modified order for aggregation, and filters them
- if necessary.
+Sort the given list of entries into created/modified order for aggregation,
+and filters them if necessary.
 
 Takes a list of L<Perlanet::Entry>s, and returns an ordered list.
 
@@ -337,21 +340,15 @@ The main method which runs the perlanet process.
 =cut
 
 sub run {
-    my $self = shift;
+  my $self = shift;
 
-    $self->render(
-	$self->build_feed(
-	    $self->clean_entries(
-		$self->sort_entries(
-		    $self->select_entries(
-			$self->fetch_feeds(
-			    @{ $self->feeds }
-			)
-		    )
-		)
-	    )
-	)
-    );
+  my @feeds    = $self->fetch_feeds(@{$self->feeds});
+  my @selected = $self->select_entries(@entries);
+  my @sorted   = $self->sort_entries(@selected);
+  my @cleaned  = $self->clean_entries(@sorted);
+  my $feed     = $self->build_feed(@cleaned);
+
+  $self->render($feed);
 }
 
 =head1 TO DO
