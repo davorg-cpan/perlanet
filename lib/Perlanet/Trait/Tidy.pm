@@ -11,17 +11,21 @@ Perlanet::Trait::Tidy - run posts through HTML::Tidy
 
 =head1 SYNOPSIS
 
-   my $perlanet = Perlanet->new_with_traits(traits => [ 'Perlanet::Trait::Tidy' ])
-   $perlanet->run
+  my $perlanet = Perlanet->new_with_traits(
+    traits => [ 'Perlanet::Trait::Tidy' ]
+  );
+
+  $perlanet->run;
 
 =head1 DESCRIPTION
 
-Before a post is added to the aggregated feed, it will be ran through HTML::Tidy
+Before a post is added to the aggregated feed, it will be ran through
+HTML::Tidy.
 
 =head2 Configuring
 
-To configure the HTML::Tidy instance, you should override the C<_build_tidy> method.
-This method takes no input, and returns a HTML::Tidy instance.
+To configure the HTML::Tidy instance, you should override the C<_build_tidy>
+method. This method takes no input, and returns a HTML::Tidy instance.
 
 =head1 ATTRIBUTES
 
@@ -59,15 +63,15 @@ sub _build_tidy {
 }
 
 around 'clean_html' => sub {
-    my $orig = shift;
-    my ($self, $html) = @_;
-    $html = $self->$orig($html);
+  my $orig = shift;
+  my ($self, $html) = @_;
+  $html = $self->$orig($html);
 
-    my $clean = $self->tidy->clean(utf8::is_utf8($html)
-      ? $html
-        : decode('utf8', $html));
+  my $clean = $self->tidy->clean(utf8::is_utf8($html)
+    ? $html
+    : decode('utf8', $html));
 
-    return $clean;
+  return $clean;
 };
 
 =head1 AUTHOR
@@ -76,7 +80,7 @@ Oliver Charles, <oliver.g.charles@googlemail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2008 by Magnum Solutions Ltd.
+Copyright (c) 2010 by Magnum Solutions Ltd.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,

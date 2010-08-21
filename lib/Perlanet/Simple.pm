@@ -11,14 +11,14 @@ use YAML 'LoadFile';
 
 extends 'Perlanet';
 with qw(
-    Perlanet::Trait::Cache
-    Perlanet::Trait::OPML
-    Perlanet::Trait::Scrubber
-    Perlanet::Trait::Tidy
-    Perlanet::Trait::YAMLConfig
-    Perlanet::Trait::TemplateToolkit
-    Perlanet::Trait::FeedFile
-   );
+  Perlanet::Trait::Cache
+  Perlanet::Trait::OPML
+  Perlanet::Trait::Scrubber
+  Perlanet::Trait::Tidy
+  Perlanet::Trait::YAMLConfig
+  Perlanet::Trait::TemplateToolkit
+  Perlanet::Trait::FeedFile
+);
 
 =head1 NAME
 
@@ -26,8 +26,8 @@ Perlanet::Simple - a DWIM Perlanet
 
 =head1 SYNOPSIS
 
-    my $perlanet = Perlanet::Simple->new_with_config('perlanet.yaml')
-    $perlanet->run
+  my $perlanet = Perlanet::Simple->new_with_config('perlanet.yaml')
+  $perlanet->run
 
 =head1 DESCRIPTION
 

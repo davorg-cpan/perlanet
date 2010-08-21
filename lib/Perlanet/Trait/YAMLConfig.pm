@@ -4,7 +4,8 @@ use namespace::autoclean;
 
 =head1 NAME
 
-Perlanet::Trait::YAMLConfig - configure Perlanet through a YAML configuration file
+Perlanet::Trait::YAMLConfig - configure Perlanet through a YAML configuration
+file
 
 =head1 SYNOPSIS
 
@@ -12,12 +13,16 @@ Perlanet::Trait::YAMLConfig - configure Perlanet through a YAML configuration fi
    extends 'Perlanet';
    with 'Perlanet::Traits::YAMLConfig';
 
-   my $perlanet = MyPerlanet->new_with_config(configfile => 'whatever.yml');
-   $perlanet->run
+   my $perlanet = MyPerlanet->new_with_config(
+     configfile => 'whatever.yml'
+   );
+
+   $perlanet->runl
 
 =head1 DESCRIPTION
 
-Allows you to move the configuration of Perlanet to an external YAML configuration file
+Allows you to move the configuration of Perlanet to an external YAML
+configuration file.
 
 =head2 Example Configuration File
 
@@ -51,7 +56,8 @@ Allows you to move the configuration of Perlanet to an external YAML configurati
 
 =head2 THIRTY_DAYS
 
-The default length of caching, if caching options are present in the configuration
+The default length of caching, if caching options are present in the
+configuration
 
 =head2 get_config_from_file
 
@@ -67,38 +73,38 @@ use YAML qw( LoadFile );
 use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 
 sub get_config_from_file {
-    my ($self, $file) = @_;
+  my ($self, $file) = @_;
 
-    open my $cfg_file, '<:utf8', $file
-      or croak "Cannot open file $file: $!";
+  open my $cfg_file, '<:utf8', $file
+    or croak "Cannot open file $file: $!";
 
-    my $cfg = LoadFile($cfg_file);
+  my $cfg = LoadFile($cfg_file);
 
-    $cfg->{feeds} = [ map {
-        Perlanet::Feed->new($_)
-      } @{ $cfg->{feeds} } ];
+  $cfg->{feeds} = [ map {
+    Perlanet::Feed->new($_)
+  } @{ $cfg->{feeds} } ];
 
-    $cfg->{max_entries} = $cfg->{entries}
-        if $cfg->{entries};
+  $cfg->{max_entries} = $cfg->{entries}
+    if $cfg->{entries};
 
-    if ($cfg->{cache_dir}) {
-        eval { require CHI; };
+  if ($cfg->{cache_dir}) {
+    eval { require CHI; };
 
-        if ($@) {
-            carp "You need to install CHI to enable caching.\n";
-            carp "Caching disabled for this run.\n";
-            delete $cfg->{cache_dir};
-        }
+    if ($@) {
+      carp "You need to install CHI to enable caching.\n";
+      carp "Caching disabled for this run.\n";
+      delete $cfg->{cache_dir};
     }
+  }
 
-    $cfg->{cache_dir}
-        and $cfg->{cache} = CHI->new(
-            driver     => 'File',
-            root_dir   => delete $cfg->{cache_dir},
-            expires_in => THIRTY_DAYS,
-        );
+  $cfg->{cache_dir}
+    and $cfg->{cache} = CHI->new(
+      driver     => 'File',
+      root_dir   => delete $cfg->{cache_dir},
+      expires_in => THIRTY_DAYS,
+    );
 
-    return $cfg;
+  return $cfg;
 }
 
 =head1 AUTHOR
@@ -107,7 +113,7 @@ Oliver Charles, <oliver.g.charles@googlemail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2008 by Magnum Solutions Ltd.
+Copyright (c) 2010 by Magnum Solutions Ltd.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,

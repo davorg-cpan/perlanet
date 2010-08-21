@@ -92,11 +92,11 @@ sub _build_scrubber {
 }
 
 around 'clean_html' => sub {
-    my $orig = shift;
-    my ($self, $html) = @_;
-    $html = $self->$orig($html);
-    my $scrubbed = $self->scrubber->scrub($html);
-    return $html;
+  my $orig = shift;
+  my ($self, $html) = @_;
+  $html = $self->$orig($html);
+  my $scrubbed = $self->scrubber->scrub($html);
+  return $html;
 };
 
 =head1 AUTHOR
@@ -105,7 +105,7 @@ Dave Cross, <dave@mag-sol.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2008 by Magnum Solutions Ltd.
+Copyright (c) 2010 by Magnum Solutions Ltd.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
