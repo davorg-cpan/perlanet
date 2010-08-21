@@ -27,7 +27,7 @@ Perlanet::Simple - a DWIM Perlanet
 =head1 SYNOPSIS
 
   my $perlanet = Perlanet::Simple->new_with_config('perlanet.yaml')
-  $perlanet->run
+  $perlanet->run;
 
 =head1 DESCRIPTION
 
