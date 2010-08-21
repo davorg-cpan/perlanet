@@ -3,8 +3,9 @@ description: Testing stuff
 url: http://theplanetarium.org/
 self_link: http://theplanetarium.org/
 agent: Testing Perlanet
-author_name: Dave Cross
-author_email: dave@dave.org.uk
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
 max_entries: 20
 opml_file: opml.xml
 template_output: index.html
