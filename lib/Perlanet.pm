@@ -51,9 +51,9 @@ has 'cutoff' => (
 );
 
 has 'max_entries' => (
-    isa => 'Int',
-    is  => 'rw',
-    predicate => 'has_max_entry_cap'
+  isa => 'Int',
+  is  => 'rw',
+  predicate => 'has_max_entry_cap'
 );
 
 has 'feeds' => (
@@ -68,8 +68,8 @@ has 'author' => (
 );
 
 has $_ => (
-    isa => 'Str',
-    is  => 'ro',
+  isa => 'Str',
+  is  => 'ro',
 ) for qw( self_link title description url agent );
 
 =head1 NAME
@@ -143,9 +143,9 @@ Attempt to fetch a web page and a returns a L<URI::Fetch::Response> object.
 sub fetch_page {
   my ($self, $url) = @_;
   return URI::Fetch->fetch(
-      $url,
-      UserAgent     => $self->ua,
-      ForceResponse => 1,
+    $url,
+    UserAgent     => $self->ua,
+    ForceResponse => 1,
   );
 }
 
@@ -306,15 +306,14 @@ a list of cleaned entries.
 
 =cut
 
-sub clean_entries
-{
-    my ($self, @entries) = @_;
+sub clean_entries {
+  my ($self, @entries) = @_;
 
-    return map {
-        $_->content->body($self->clean_html($_->content->body));
-        $_->summary($self->clean_html($_->summary));
-        $_;
-    } @entries;
+  return map {
+    $_->content->body($self->clean_html($_->content->body));
+    $_->summary($self->clean_html($_->summary));
+    $_;
+  } @entries;
 }
 
 =head2 render
