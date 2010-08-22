@@ -26,7 +26,10 @@ t/pod_coverage.t
 t/testrc
 t/perlanetrc
 t/cacherc
+t/mprc
 t/index.tt
 README
 Changes
 t/data/davblog.xml
+t/data/stevebaker.xml
+t/data/talkcarswell.xml
