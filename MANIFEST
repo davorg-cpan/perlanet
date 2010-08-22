@@ -19,6 +19,7 @@ META.yml
 t/01_basic.t
 t/02_phases.t
 t/03_noconf.t
+t/04_mps.t
 t/05_cache.t
 t/pod.t
 t/pod_coverage.t

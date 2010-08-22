@@ -1,0 +1,23 @@
+title: planet test
+description: Testing stuff
+url: http://theplanetarium.org/
+self_link: http://theplanetarium.org/
+agent: Testing Perlanet
+entries_per_feed: 1
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
+entries: 20
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: rss.xml
+  format: Atom
+feeds:
+  - title: 'con: Wycombe: Steve Baker'
+    url: file:data/stevebaker.xml
+    web: http://www.stevebaker.info/
+  - title: 'co: Clacton: Douglas Carswell'
+    url: file:data/talkcarswell.xml
+    web: http://www.talkcarswell.com/
