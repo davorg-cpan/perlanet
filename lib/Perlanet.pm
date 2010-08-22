@@ -210,8 +210,8 @@ sub select_entries {
   for my $feed (@feeds) {
     my @entries = $feed->_xml_feed->entries;
 
-    if ($self->entries_per_field and @entries > $self->entries_per_feed) {
-      $#entries = $self->entries - 1;
+    if ($self->entries_per_feed and @entries > $self->entries_per_feed) {
+      $#entries = $self->entries_per_feed - 1;
     }
 
     push @feed_entries,
