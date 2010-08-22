@@ -319,11 +319,23 @@ cleaned entries.
 sub clean_entries {
   my ($self, @entries) = @_;
 
-  return map {
-    $_->content->body($self->clean_html($_->content->body));
-    $_->summary($self->clean_html($_->summary));
-    $_;
-  } @entries;
+  my @clean_entries;
+
+  foreach (@entries) {
+    if (my $body = $_->content->body) {
+      my $cleaned = $self->clean_html($body);
+      $_->content->body($cleaned);
+    }
+
+    if (my $summary = $_->summary->body) {
+      my $cleaned = $self->clean_html($summary);
+      $_->summary->body($cleaned);
+    }
+
+    push @clean_entries, $_;
+  }
+
+  return @clean_entries;
 }
 
 =head2 render
