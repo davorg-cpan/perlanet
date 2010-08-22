@@ -65,6 +65,7 @@ sub _build_tidy {
 around 'clean_html' => sub {
   my $orig = shift;
   my ($self, $html) = @_;
+
   $html = $self->$orig($html);
 
   my $clean = $self->tidy->clean(utf8::is_utf8($html)
