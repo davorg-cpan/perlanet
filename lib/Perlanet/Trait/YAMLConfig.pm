@@ -17,7 +17,7 @@ file
      configfile => 'whatever.yml'
    );
 
-   $perlanet->runl
+   $perlanet->run;
 
 =head1 DESCRIPTION
 
