@@ -311,8 +311,8 @@ sub clean_html {
 
 Clean all entries for the planet.
 
-Takes a list of entries, runs them through C<clean> (by default>, and returns
-a list of cleaned entries.
+Takes a list of entries, runs them through C<clean> and returns a list of
+cleaned entries.
 
 =cut
 
