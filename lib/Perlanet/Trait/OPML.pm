@@ -107,9 +107,8 @@ sub save_opml {
 around 'fetch_feeds' => sub {
   my $orig = shift;
   my ($self, @feeds) = @_;
-  return unless $self->has_opml;
   @feeds = $self->$orig(@feeds);
-  $self->update_opml(@feeds);
+  $self->update_opml(@feeds) if $self->has_opml;
   return @feeds;
 };
 
