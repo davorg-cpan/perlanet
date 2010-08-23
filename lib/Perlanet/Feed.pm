@@ -18,7 +18,7 @@ has 'url' => (
   is => 'rw',
 );
 
-has 'website' => (
+has 'web' => (
   isa => 'Str',
   is => 'rw',
 );
