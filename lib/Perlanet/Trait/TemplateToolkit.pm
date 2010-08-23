@@ -57,6 +57,7 @@ after 'render' => sub {
     $self->page->{template},
     {
       feed => $feed,
+      cfg  => $self,
     },
     $self->page->{file},
     {
