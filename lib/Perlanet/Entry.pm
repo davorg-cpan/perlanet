@@ -1,4 +1,8 @@
 package Perlanet::Entry;
+
+use strict;
+use warnings;
+
 use Moose;
 
 =head1 NAME

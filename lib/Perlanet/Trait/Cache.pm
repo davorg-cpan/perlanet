@@ -1,4 +1,8 @@
 package Perlanet::Trait::Cache;
+
+use strict;
+use warnings;
+
 use Moose::Role;
 use namespace::autoclean;
 

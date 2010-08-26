@@ -1,4 +1,8 @@
 package Perlanet::Feed;
+
+use strict;
+use warnings;
+
 use Moose;
 use XML::Feed;
 

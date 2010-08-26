@@ -1,4 +1,8 @@
 package Perlanet::Trait::OPML;
+
+use strict;
+use warnings;
+
 use Moose::Role;
 use namespace::autoclean;
 
