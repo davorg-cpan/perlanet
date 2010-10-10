@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.51';
+  $VERSION = '0.52';
 }
 
 with 'MooseX::Traits';
@@ -174,7 +174,16 @@ sub fetch_feeds {
   for my $feed (@feeds) {
     my $response = $self->fetch_page($feed->url);
 
-    next if $response->is_error;
+    if ($response->is_error) {
+      carp 'Error retrieving ' . $feed->url;
+      carp $response->http_response->status_line;
+      next;
+    }
+
+    unless (length $response->content) {
+      carp 'No data returned from ' . $feed->url;
+      next;
+    }
 
     try {
       my $data = $response->content;
