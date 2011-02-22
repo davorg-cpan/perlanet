@@ -2,7 +2,7 @@ package Perlanet::Trait::OPML;
 use Moose::Role;
 use namespace::autoclean;
 
-use Carp qw( croak );
+use Carp qw( carp );
 use POSIX qw(setlocale LC_ALL);
 
 =head1 NAME
@@ -31,8 +31,9 @@ An L<XML::OPML::SimpleGen> object to generate the XML for the OPML file
 
 has 'opml_generator' => (
   is         => 'rw',
-  isa        => 'XML::OPML::SimpleGen',
-  lazy_build => 1
+  isa        => 'Maybe[XML::OPML::SimpleGen]',
+  lazy_build => 1,
+  predicate => 'has_opml'
 );
 
 sub _build_opml_generator {
@@ -41,8 +42,10 @@ sub _build_opml_generator {
   eval { require XML::OPML::SimpleGen; };
 
   if ($@) {
-    croak 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+    carp 'You need to install XML::OPML::SimpleGen to enable OPML ' .
           'support';
+    $self->opml(undef);
+    return;
   }
 
   my $loc = setlocale(LC_ALL, 'C');
@@ -63,9 +66,8 @@ Where to save the OPML feed when it has been created
 =cut
 
 has 'opml' => (
-  isa       => 'Str',
+  isa       => 'Maybe[Str]',
   is        => 'rw',
-  predicate => 'has_opml'
 );
 
 =head1 METHODS
@@ -80,6 +82,8 @@ each author into the OPML file and saves it to disk.
 
 sub update_opml {
   my ($self, @feeds) = @_;
+
+  return unless $self->has_opml;
 
   foreach my $f (@feeds) {
     $self->opml_generator->insert_outline(
