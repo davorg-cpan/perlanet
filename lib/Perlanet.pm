@@ -11,14 +11,14 @@ use DateTime::Duration;
 use DateTime;
 use Perlanet::Entry;
 use Perlanet::Feed;
-use TryCatch;
+use Try::Tiny;
 use URI::Fetch;
 use XML::Feed;
 
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.55';
+  $VERSION = '0.56';
 }
 
 with 'MooseX::Traits';
@@ -194,10 +194,10 @@ sub fetch_feeds {
 
       push @valid_feeds, $feed;
     }
-    catch ($e) {
+    catch {
       carp 'Errors parsing ' . $feed->url;
-      carp $e if defined $e;
-    }
+      carp $_ if defined $_;
+    };
   }
 
   return @valid_feeds;

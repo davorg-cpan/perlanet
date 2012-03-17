@@ -20,7 +20,7 @@ my $build = Module::Build->new(
                 'HTML::Tidy'           => 0,
                 'HTML::Scrubber'       => 0,
                 'Moose'                => 0,
-                'TryCatch'             => 0,
+                'Try::Tiny'            => 0,
                 'MooseX::Traits'       => 0,
 	},
         recommends         => {
