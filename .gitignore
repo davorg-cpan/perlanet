@@ -1,6 +1,8 @@
 Build
 Changes
-META.yml
+META.*
+MYMETA.*
+MANIFEST.SKIP
 Makefile.PL
 Perlanet-*/
 Perlanet-*.tar.gz
