@@ -22,6 +22,7 @@ my $build = Module::Build->new(
                 'Moose'                => 0,
                 'Try::Tiny'            => 0,
                 'MooseX::Traits'       => 0,
+                'namespace::autoclean' => 0,
 	},
         recommends         => {
                 'CHI'                    => 0,
