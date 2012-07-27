@@ -100,7 +100,7 @@ around 'clean_html' => sub {
   my ($self, $html) = @_;
   $html = $self->$orig($html);
   my $scrubbed = $self->scrubber->scrub($html);
-  return $html;
+  return $scrubbed;
 };
 
 =head1 AUTHOR
