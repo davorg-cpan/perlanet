@@ -6,7 +6,7 @@ MANIFEST.SKIP
 Makefile.PL
 Perlanet-*/
 Perlanet-*.tar.gz
-Perlanet/
+./Perlanet/
 _build/
 blib/
 cover_db/
