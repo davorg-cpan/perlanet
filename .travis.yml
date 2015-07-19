@@ -7,6 +7,8 @@ perl:
   - "5.20"
 
 before_install:
-  cpanm -n Devel::Cover::Report::Coveralls
+  - sudo apt-get update -qq
+  - sudo apt-get install -y tidy
+  - cpanm -n Devel::Cover::Report::Coveralls
 script:
   perl Build.PL && ./Build build && cover -test -report coveralls
