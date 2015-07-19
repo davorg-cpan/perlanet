@@ -34,6 +34,7 @@ my $build = Module::Build->new(
         	'Test::More'          => 0,
                 'File::Path'          => 0,
                 'MooseX::ConfigFromFile' => 0,
+                'Alien::Tidyp'	      => 0,
         },
 	build_recommends   => {
 		'Test::Pod'              => 0,
