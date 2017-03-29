@@ -36,10 +36,12 @@ sub _build_scrubber {
 
   my %scrub_rules = (
     img => {
-      src   => qr{^http://},    # only URL with http://
+      src   => qr{^https?://},  # only URL with http://
       alt   => 1,               # alt attributes allowed
       align => 1,               # allow align on images
       style => 1,
+      width => 1,
+      height => 1,
       '*'   => 0,               # deny all others
     },
     style => 0,
