@@ -88,6 +88,8 @@ sub _build_scrubber {
     'style'       => 1,
     'class'       => 0,
     'id'          => 0,
+    'frameborder' => 0,
+    'border'      => 0,
   );
 
   my $scrub = HTML::Scrubber->new;
