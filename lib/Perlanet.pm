@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '0.56';
+  $VERSION = '0.57';
 }
 
 with 'MooseX::Traits';
