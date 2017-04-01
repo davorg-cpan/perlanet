@@ -7,6 +7,6 @@ perl:
   - "5.20"
 
 before_install:
-  cpanm -n Devel::Cover::Report::Coveralls
+  cpanm -n Devel::Cover::Report::Coveralls XML::OPML::SimpleGen
 script:
   perl Build.PL && ./Build build && cover -test -report coveralls
