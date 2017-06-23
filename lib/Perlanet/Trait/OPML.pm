@@ -85,11 +85,11 @@ each author into the OPML file and saves it to disk.
 =cut
 
 sub update_opml {
-  my ($self, @feeds) = @_;
+  my ($self, $feeds) = @_;
 
   return unless $self->has_opml;
 
-  foreach my $f (@feeds) {
+  foreach my $f (@$feeds) {
     $self->opml_generator->insert_outline(
       title   => $f->title,
       text    => $f->title,
@@ -114,10 +114,10 @@ sub save_opml {
 
 around 'fetch_feeds' => sub {
   my $orig = shift;
-  my ($self, @feeds) = @_;
-  @feeds = $self->$orig(@feeds);
-  $self->update_opml(@feeds) if $self->has_opml;
-  return @feeds;
+  my ($self, $feeds) = @_;
+  $feeds = $self->$orig($feeds);
+  $self->update_opml($feeds) if $self->has_opml;
+  return $feeds;
 };
 
 =head1 AUTHOR

@@ -15,20 +15,20 @@ SKIP: {
 
   rmtree($p->cache->root_dir);
 
-  my @entries = $p->select_entries(
+  my $entries = $p->select_entries(
                   $p->fetch_feeds(
-                    @{$p->feeds},
+                    $p->feeds,
                   ),
                 );
-  my $first_count = scalar @entries;
+  my $first_count = scalar @$entries;
 
-  @entries = $p->select_entries(
+  $entries = $p->select_entries(
                $p->fetch_feeds(
-                 @{$p->feeds},
+                 $p->feeds,
                ),
              );
 
-  my $second_count = scalar @entries;
+  my $second_count = scalar @$entries;
 
   # count should be the same on a second attempt
   is($first_count, $second_count, "$first_count == $second_count");

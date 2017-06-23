@@ -168,10 +168,10 @@ NB: This method also modifies the contents of L</feeds>.
 =cut
 
 sub fetch_feeds {
-  my ($self, @feeds) = @_;
+  my ($self, $feeds) = @_;
 
   my @valid_feeds;
-  for my $feed (@feeds) {
+  for my $feed (@$feeds) {
     my $response = $self->fetch_page($feed->url);
 
     if ($response->is_error) {
@@ -200,7 +200,7 @@ sub fetch_feeds {
     };
   }
 
-  return @valid_feeds;
+  return \@valid_feeds;
 }
 
 =head2 select_entries
@@ -213,10 +213,10 @@ Returns a combined list of L<Perlanet::Entry> objects from all given feeds.
 =cut
 
 sub select_entries {
-  my ($self, @feeds) = @_;
+  my ($self, $feeds) = @_;
 
   my @feed_entries;
-  for my $feed (@feeds) {
+  for my $feed (@$feeds) {
     my @entries = $feed->_xml_feed->entries;
 
     if ($self->entries_per_feed and @entries > $self->entries_per_feed) {
@@ -239,7 +239,7 @@ sub select_entries {
       } @entries;
   }
 
-  return @feed_entries;
+  return \@feed_entries;
 }
 
 =head2 sort_entries
@@ -255,23 +255,23 @@ Takes a list of L<Perlanet::Entry>s, and returns an ordered list.
 =cut
 
 sub sort_entries {
-  my ($self, @entries) = @_;
+  my ($self, $entries) = @_;
   my $day_zero = DateTime->from_epoch(epoch => 0);
 
-  @entries = grep {
+  my @entries = grep {
       ($_->issued || $_->modified || $day_zero) < $self->cutoff
   } sort {
       ($b->modified || $b->issued || $day_zero)
           <=>
       ($a->modified || $a->issued || $day_zero)
-  } @entries;
+  } @$entries;
 
   # Only need so many entries
   if ($self->entries && @entries > $self->entries) {
     $#entries = $self->entries - 1;
   }
 
-  return @entries;
+  return \@entries;
 }
 
 =head2 build_feed
@@ -285,7 +285,7 @@ that is the actual feed for the planet.
 =cut
 
 sub build_feed {
-  my ($self, @entries) = @_;
+  my ($self, $entries) = @_;
 
   my $self_url = $self->self_link;
 
@@ -298,7 +298,7 @@ sub build_feed {
   $f->self_link($self->url)           if defined $self->url;
   $f->id($self->url)                  if defined $self->url;
 
-  $f->add_entry($_) for @entries;
+  $f->add_entry($_) for @$entries;
 
   return $f;
 }
@@ -326,11 +326,11 @@ cleaned entries.
 =cut
 
 sub clean_entries {
-  my ($self, @entries) = @_;
+  my ($self, $entries) = @_;
 
   my @clean_entries;
 
-  foreach (@entries) {
+  foreach (@$entries) {
     if (my $body = $_->content->body) {
       my $cleaned = $self->clean_html($body);
       $_->content->body($cleaned);
@@ -344,7 +344,7 @@ sub clean_entries {
     push @clean_entries, $_;
   }
 
-  return @clean_entries;
+  return \@clean_entries;
 }
 
 =head2 render
@@ -372,11 +372,11 @@ The main method which runs the perlanet process.
 sub run {
   my $self = shift;
 
-  my @feeds    = $self->fetch_feeds(@{$self->feeds});
-  my @selected = $self->select_entries(@feeds);
-  my @sorted   = $self->sort_entries(@selected);
-  my @cleaned  = $self->clean_entries(@sorted);
-  my $feed     = $self->build_feed(@cleaned);
+  my $feeds    = $self->fetch_feeds($self->feeds);
+  my $selected = $self->select_entries($feeds);
+  my $sorted   = $self->sort_entries($selected);
+  my $cleaned  = $self->clean_entries($sorted);
+  my $feed     = $self->build_feed($cleaned);
 
   $self->render($feed);
 }
