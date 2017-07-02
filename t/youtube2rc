@@ -1,0 +1,15 @@
+title: YouTube-Feed
+description: YouTube Subscriptions
+url: http://localhost
+author:
+  name: Test
+entries: 1000
+entries_per_feed: 0
+page:
+  file: youtube.html
+  template: template.tt
+feed:
+  file: atom.xml
+  format: Atom
+feeds:
+  - url: file:data/youtube.xml
