@@ -113,7 +113,7 @@ This optional entry defines the agent string that perlanet will use when
 requesting data from web sites. It's the name of the program that site owners
 will see in their web site access logs. Although it is optional, it is strongly
 recommended that you give a value for this configuration option and that the
-value you use includes contact details so that web site owners can get in 
+value you use includes contact details so that web site owners can get in
 touch with you if they have any concerns about your use of their site.
 
 =item entries
@@ -129,6 +129,14 @@ entries to take from each of your source feeds. For example, if this is
 set to 1 then there will only be one entry from each feed in your output.
 If this value is 0 (or missing) then all values from all source feeds are
 used.
+
+=item entry_sort_order
+
+Entries have two dates, issued (which is the date that the item was first
+published) and modified (which is the date that the item was last updated).
+This configuration option controls which of these two dates are used to sort
+the entries in a feed. It can be one of the two values C<issued> or
+C<modified>. If this option is omitted, then C<modified> is used.
 
 =item opml
 
@@ -293,4 +301,3 @@ it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
 
 =cut
-

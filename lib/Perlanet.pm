@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '1.0.0';
+  $VERSION = '1.1.0';
 }
 
 with 'MooseX::Traits';
@@ -77,6 +77,12 @@ has $_ => (
   isa => 'Str',
   is  => 'ro',
 ) for qw( self_link title description url agent );
+
+has entry_sort_order => (
+  isa => 'Str',
+  is  => 'ro',
+  default => 'modified',
+);
 
 =head1 NAME
 
@@ -219,6 +225,8 @@ sub select_entries {
   for my $feed (@$feeds) {
     my @entries = $feed->_xml_feed->entries;
 
+    @entries = @{ $self->sort_entries(\@entries) };
+
     if ($self->entries_per_feed and @entries > $self->entries_per_feed) {
       $#entries = $self->entries_per_feed - 1;
     }
@@ -258,13 +266,27 @@ sub sort_entries {
   my ($self, $entries) = @_;
   my $day_zero = DateTime->from_epoch(epoch => 0);
 
-  my @entries = grep {
-      ($_->issued || $_->modified || $day_zero) < $self->cutoff
-  } sort {
+  my @entries;
+
+  if ($self->entry_sort_order eq 'modified') {
+    @entries = grep {
+      ($_->modified || $_->issued || $day_zero) < $self->cutoff
+    } sort {
       ($b->modified || $b->issued || $day_zero)
           <=>
       ($a->modified || $a->issued || $day_zero)
-  } @$entries;
+    } @$entries;
+  } elsif ($self->entry_sort_order eq 'issued') {
+    @entries = grep {
+      ($_->issued || $_->modified || $day_zero) < $self->cutoff
+    } sort {
+      ($b->issued || $b->modified || $day_zero)
+          <=>
+      ($a->issued || $a->modified || $day_zero)
+    } @$entries;
+  } else {
+    die 'Invalid entry sort order: ' . $self->entry_sort_order;
+  }
 
   # Only need so many entries
   if ($self->entries && @entries > $self->entries) {
