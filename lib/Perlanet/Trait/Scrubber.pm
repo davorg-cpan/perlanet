@@ -53,6 +53,13 @@ sub _build_scrubber {
       href => 1,
       '*'  => 0,
     },
+    iframe => {
+      frameborder => 0,
+      scrolling   => 0,
+      seamless    => 0,
+      '*'         => 1,
+    },
+    centre => 0,
   );
 
   # Definitions for HTML::Scrub
