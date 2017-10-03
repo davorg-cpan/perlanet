@@ -1,4 +1,4 @@
-use Test::More tests => 9;
+use Test::More;
 use FindBin qw($Bin);
 use_ok('Perlanet::Simple');
 
@@ -19,3 +19,4 @@ is(@$cleaned, 2, 'Two cleaned entries');
 my $feed = $p->build_feed(@cleaned);
 isa_ok($feed, 'Perlanet::Feed', 'Got a feed');
 
+done_testing();

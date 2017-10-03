@@ -1,4 +1,4 @@
-use Test::More tests => 1;
+use Test::More;
 use FindBin qw($Bin);
 use File::Path;
 use Perlanet::Simple;
@@ -36,3 +36,4 @@ SKIP: {
   rmtree($p->cache->root_dir);
 }
 
+done_testing();

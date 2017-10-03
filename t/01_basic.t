@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More;
 use FindBin qw($Bin);
 
 use lib qw( ../lib );
@@ -50,6 +50,4 @@ ok($p = Perlanet->new_with_traits( traits => [ 'Perlanet::Trait::OPML' ]  ), 'Ob
 isa_ok($p,'Perlanet');
 $p->run();
 
-
-
-
+done_testing();

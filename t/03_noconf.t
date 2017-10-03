@@ -1,4 +1,4 @@
-use Test::More tests => 2;
+use Test::More;
 use FindBin qw($Bin);
 use Perlanet::Simple;
 
@@ -7,3 +7,5 @@ my $p = eval { Perlanet::Simple->new_with_config(configfile => 'missing') };
 
 ok($@, 'Exception thrown');
 like($@, qr(^Cannot open), 'Correct exception thrown');
+
+done_testing();
