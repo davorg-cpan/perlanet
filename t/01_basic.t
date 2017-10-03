@@ -1,5 +1,10 @@
-use Test::More tests => 6;
+use strict;
+use warnings;
+
+use Test::More tests => 8;
 use FindBin qw($Bin);
+
+use lib qw( ../lib );
 use_ok('Perlanet::Simple');
 
 chdir $Bin;
@@ -39,3 +44,12 @@ if (-e $p->feed->{file}) {
 if (-e $p->page->{file}) {
   unlink $p->page->{file};
 }
+
+# Test OPML
+ok($p = Perlanet->new_with_traits( traits => [ 'Perlanet::Trait::OPML' ]  ), 'Object with traits created');
+isa_ok($p,'Perlanet');
+$p->run();
+
+
+
+
