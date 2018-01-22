@@ -407,7 +407,7 @@ sub run {
 
 =head1 TO DO
 
-See L<http://wiki.github.com/davorg/perlanet>
+See L<http://wiki.github.com/davorg/perlanet/issues>
 
 =head1 SUPPORT
 
