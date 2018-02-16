@@ -46,8 +46,7 @@ my $build = Module::Build->new(
             resources =>
             {
                 repository => "git://github.com/davorg/perlanet.git",
-                homepage => "http://code.mag-sol.com/Perlanet/",
-                MailingList => "http://lists.mag-sol.com/mailman/listinfo/perlanet",
+                homepage => "http://perlanet.mag-sol.com/",
             },
             keywords =>
             [
