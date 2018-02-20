@@ -181,6 +181,8 @@ passed two variables.
 This is a simple template which uses the `feed` variable to display details
 of the aggregated feeds.
 
+[% TAGS star -%]
+
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -204,6 +206,8 @@ of the aggregated feeds.
         <address>[% feed.author | html %] / [% feed.modified | html %]</address>
       </body>
     </html>
+
+[* TAGS template -*]
 
 In the future, the Perlanet wiki at [http://wiki.github.com/davorg/perlanet](http://wiki.github.com/davorg/perlanet)
 will contain a cookbook of useful ideas to include in the output template.

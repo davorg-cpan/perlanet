@@ -141,22 +141,31 @@ feeds:
 </ul>
 <h3 id="example-output-template">Example output template</h3>
 <p>This is a simple template which uses the <code>feed</code> variable to display details of the aggregated feeds.</p>
+<p></p>
 <pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
     &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
-    &lt;title&gt;&lt;/title&gt;
+    &lt;title&gt;[% feed.title %]&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;&lt;/h1&gt;
-    &lt;p&gt;&lt;/p&gt;
-
+    &lt;h1&gt;[% feed.title | html %]&lt;/h1&gt;
+    &lt;p&gt;[% feed.description | html %]&lt;/p&gt;
+[% FOREACH entry IN feed.entries %]
+    &lt;h2&gt;&lt;a href=&quot;[% entry.link | url | html %]&quot;&gt;[% entry.title | html %]&lt;/h2&gt;&lt;/a&gt;
+    [% entry.content.body %]
+[% IF entry.author OR entry.issued %]
+    &lt;p&gt;Published[% IF entry.author %] by [% entry.author | html; END %]
+    [% IF entry.issued %] on [% entry.issued | html; END %]&lt;/p&gt;
+[% END %]
+[% END %]
     &lt;hr /&gt;
-    &lt;address&gt; / &lt;/address&gt;
+    &lt;address&gt;[% feed.author | html %] / [% feed.modified | html %]&lt;/address&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+<p></p>
 <p>In the future, the Perlanet wiki at <a href="http://wiki.github.com/davorg/perlanet" class="uri">http://wiki.github.com/davorg/perlanet</a> will contain a cookbook of useful ideas to include in the output template.</p>
 <h2 id="support">Support</h2>
 <p>To report bugs in Perlanet, please use the CPAN request tracker. You can either use the web page at <a href="http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet" class="uri">http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet</a> or send an email to bug-Perlanet@rt.cpan.org.</p>
