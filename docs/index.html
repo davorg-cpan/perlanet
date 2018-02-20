@@ -61,20 +61,21 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-<h1 id="name">NAME</h1>
+<h1 id="perlanet">Perlanet</h1>
+<h2 id="name">Name</h2>
 <p>perlanet - command line interface to Perlanet.pm</p>
-<h1 id="synopsis">SYNOPSIS</h1>
+<h2 id="synopsis">Synopsis</h2>
 <pre><code>$ perlanet</code></pre>
 <p>Or</p>
 <pre><code>$ perlanet config_file</code></pre>
-<h1 id="description">DESCRIPTION</h1>
+<h2 id="description">Description</h2>
 <p><code>perlanet</code> is a command line program for aggregating web feeds (both Atom and RSS) and publishing a new web page and a new web feed containing the results of that aggregation.</p>
-<h1 id="command-line-arguments">COMMAND LINE ARGUMENTS</h1>
+<h2 id="command-line-arguments">Command line arguments</h2>
 <p><code>perlanet</code> takes one optional command line argument, which is the name of a configuration file to use. If no filename is given then the program looks for a file called <code>perlanetrc</code> in the current directory.</p>
-<h1 id="configuration-file">CONFIGURATION FILE</h1>
+<h2 id="configuration-file">Configuration file</h2>
 <p><code>perlanet</code> requires a configuration file which contains details of which feeds to aggregate and what to do with the results of the aggregation. By default, <code>perlanet</code> looks for a file called <code>perlanetrc</code> in the current directory, but this name can be overridden by passing the name of a different file when calling the program.</p>
 <p>The configuration file is in YAML format. YAML is a simple text-based file format. See <a href="http://yaml.org/" class="uri">http://yaml.org/</a> for further details.</p>
-<h2 id="configuration-options">Configuration Options</h2>
+<h3 id="configuration-options">Configuration options</h3>
 <p>The configuration file can contain the following options.</p>
 <ul>
 <li><p>title</p>
@@ -104,7 +105,7 @@
 <li><p>feeds</p>
 <p>This mandatory option gives details of the web feeds to be aggregated. Each item on the list has one mandatory sub-option and two optional sub-options. The mandatory sub-option is <code>url</code> which gives the URL of the feed. The optional sub-option <code>title</code> gives a title which will be prepended to all of the entry titles taken from that feed. If no title is given, then the title will be taken from the feed title. The optional <code>web</code> sub-option gives a web site URL associated with the feed (often the address of the web site that the feed comes from). This can be used to create a list of the aggregated sites. The <code>web</code> sub-option becomes mandatory if you are creating an OPML file.</p></li>
 </ul>
-<h2 id="example-configuration-file">Example Configuration File</h2>
+<h3 id="example-configuration-file">Example configuration file</h3>
 <pre><code>title: planet test
 description: A Test Planet
 url: http://planet.example.com/
@@ -130,7 +131,7 @@ feeds:
   - url: http://www.oreillynet.com/pub/feed/31?au=2607
     title: Dave on O&#39;Reillynet
     web: http://www.oreillynet.com/pub/au/2607</code></pre>
-<h2 id="output-template">Output Template</h2>
+<h3 id="output-template">Output template</h3>
 <p>The web page is created from a Template Toolkit template. This template is passed two variables.</p>
 <ul>
 <li><p>feed</p>
@@ -138,7 +139,7 @@ feeds:
 <li><p>cfg</p>
 <p>This is the contents of the configuration file, converted to a (nested) Perl hash.</p></li>
 </ul>
-<h2 id="example-output-template">Example Output Template</h2>
+<h3 id="example-output-template">Example output template</h3>
 <p>This is a simple template which uses the <code>feed</code> variable to display details of the aggregated feeds.</p>
 <pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
     &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
@@ -157,18 +158,17 @@ feeds:
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <p>In the future, the Perlanet wiki at <a href="http://wiki.github.com/davorg/perlanet" class="uri">http://wiki.github.com/davorg/perlanet</a> will contain a cookbook of useful ideas to include in the output template.</p>
-<h1 id="support">SUPPORT</h1>
-<p>There is a mailing list which acts as both a place for developers to talk about maintaining and improving Perlanet and also for users to get support. You can sign up to this list at <a href="http://lists.mag-sol.com/mailman/listinfo/perlanet" class="uri">http://lists.mag-sol.com/mailman/listinfo/perlanet</a></p>
+<h2 id="support">Support</h2>
 <p>To report bugs in Perlanet, please use the CPAN request tracker. You can either use the web page at <a href="http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet" class="uri">http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet</a> or send an email to bug-Perlanet@rt.cpan.org.</p>
-<h1 id="see-also">SEE ALSO</h1>
+<h2 id="see-also">See also</h2>
 <ul>
 <li><a href="https://metacpan.org/pod/perlanet">perlanet</a></li>
 <li><a href="https://metacpan.org/pod/Plagger">Plagger</a></li>
 </ul>
-<h1 id="author">AUTHOR</h1>
+<h2 id="author">Author</h2>
 <p>Dave Cross, <a href="mailto:dave@mag-sol.com">dave@mag-sol.com</a></p>
-<h1 id="copyright-and-license">COPYRIGHT AND LICENSE</h1>
-<p>Copyright (C) 2008 by Magnum Solutions Ltd.</p>
+<h2 id="copyright-and-licence">Copyright and licence</h2>
+<p>Copyright (C) 2008-2018 by Magnum Solutions Ltd.</p>
 <p>This progam library is free software; you can redistribute it and/or modify it under the same terms as Perl itself, either Perl version 5.10.0 or, at your option, any later version of Perl 5 you may have available.</p>
       </div>
     </div>

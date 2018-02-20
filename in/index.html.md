@@ -1,8 +1,10 @@
-# NAME
+# Perlanet
+
+## Name
 
 perlanet - command line interface to Perlanet.pm
 
-# SYNOPSIS
+## Synopsis
 
     $ perlanet
 
@@ -10,19 +12,19 @@ Or
 
     $ perlanet config_file
 
-# DESCRIPTION
+## Description
 
 `perlanet` is a command line program for aggregating web feeds (both Atom
 and RSS) and publishing a new web page and a new web feed containing the
 results of that aggregation.
 
-# COMMAND LINE ARGUMENTS
+## Command line arguments
 
 `perlanet` takes one optional command line argument, which is the name of
 a configuration file to use. If no filename is given then the program looks
 for a file called `perlanetrc` in the current directory.
 
-# CONFIGURATION FILE
+## Configuration file
 
 `perlanet` requires a configuration file which contains details of which
 feeds to aggregate and what to do with the results of the aggregation. By
@@ -33,7 +35,7 @@ file when calling the program.
 The configuration file is in YAML format. YAML is a simple text-based file
 format. See [http://yaml.org/](http://yaml.org/) for further details.
 
-## Configuration Options
+### Configuration options
 
 The configuration file can contain the following options.
 
@@ -130,7 +132,7 @@ The configuration file can contain the following options.
     sites. The `web` sub-option becomes mandatory if you are creating an OPML
     file.
 
-## Example Configuration File
+### Example configuration file
 
     title: planet test
     description: A Test Planet
@@ -158,7 +160,7 @@ The configuration file can contain the following options.
         title: Dave on O'Reillynet
         web: http://www.oreillynet.com/pub/au/2607
 
-## Output Template
+### Output template
 
 The web page is created from a Template Toolkit template. This template is
 passed two variables.
@@ -174,7 +176,7 @@ passed two variables.
     This is the contents of the configuration file, converted to a (nested)
     Perl hash.
 
-## Example Output Template
+### Example output template
 
 This is a simple template which uses the `feed` variable to display details
 of the aggregated feeds.
@@ -206,30 +208,25 @@ of the aggregated feeds.
 In the future, the Perlanet wiki at [http://wiki.github.com/davorg/perlanet](http://wiki.github.com/davorg/perlanet)
 will contain a cookbook of useful ideas to include in the output template.
 
-# SUPPORT
-
-There is a mailing list which acts as both a place for developers to talk
-about maintaining and improving Perlanet and also for users to get support.
-You can sign up to this list at
-[http://lists.mag-sol.com/mailman/listinfo/perlanet](http://lists.mag-sol.com/mailman/listinfo/perlanet)
+## Support
 
 To report bugs in Perlanet, please use the CPAN request tracker. You can
 either use the web page at
 [http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet](http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet) or send an email
 to bug-Perlanet@rt.cpan.org.
 
-# SEE ALSO
+## See also
 
 - [perlanet](https://metacpan.org/pod/perlanet)
 - [Plagger](https://metacpan.org/pod/Plagger)
 
-# AUTHOR
+## Author
 
 Dave Cross, <dave@mag-sol.com>
 
-# COPYRIGHT AND LICENSE
+## Copyright and licence
 
-Copyright (C) 2008 by Magnum Solutions Ltd.
+Copyright (C) 2008-2018 by Magnum Solutions Ltd.
 
 This progam library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
