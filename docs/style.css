@@ -1,5 +1,7 @@
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   padding-left: 20px;
+  background-color: white;
+  border-top: solid black 1px;
 }
