@@ -20,9 +20,6 @@ with qw(
   Perlanet::Trait::FeedFile
 );
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
-
 =head1 NAME
 
 Perlanet::Simple - a DWIM Perlanet
@@ -80,5 +77,8 @@ around clean_html => sub {
 
   return $html;
 };
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
 
 1;
