@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 use Test::More;
 use FindBin qw($Bin);
 use Perlanet::Simple;

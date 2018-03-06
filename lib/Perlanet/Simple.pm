@@ -20,6 +20,9 @@ with qw(
   Perlanet::Trait::FeedFile
 );
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Perlanet::Simple - a DWIM Perlanet

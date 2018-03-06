@@ -405,6 +405,9 @@ sub run {
   $self->render($feed);
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
 =head1 TO DO
 
 See L<http://wiki.github.com/davorg/perlanet/issues>
