@@ -42,7 +42,7 @@ has 'feed' => (
   isa       => 'HashRef',
   is        => 'rw',
   default   => sub {
-    { file => 'atom.xml', format => 'Atom' }
+    { file => 'atom.xml', format => 'Atom' };
   },
 );
 

@@ -79,7 +79,7 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 sub get_config_from_file {
   my ($self, $file) = @_;
 
-  open my $cfg_file, '<:utf8', $file
+  open my $cfg_file, '<:encoding(UTF-8)', $file
     or croak "Cannot open file $file: $!";
 
   my $cfg = LoadFile($cfg_file);

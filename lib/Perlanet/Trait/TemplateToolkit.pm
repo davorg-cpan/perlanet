@@ -50,7 +50,7 @@ has 'page' => (
   isa       => 'HashRef',
   is        => 'rw',
   default   => sub {
-    { file => 'index.html', template => 'index.tt' }
+    { file => 'index.html', template => 'index.tt' };
   },
 );
 
