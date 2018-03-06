@@ -18,7 +18,7 @@ my $sorted = $p->sort_entries($selected);
 is(@$sorted, 2, 'Two sorted entries');
 my $cleaned = $p->clean_entries($sorted);
 is(@$cleaned, 2, 'Two cleaned entries');
-my $feed = $p->build_feed(@cleaned);
+my $feed = $p->build_feed($cleaned);
 isa_ok($feed, 'Perlanet::Feed', 'Got a feed');
 
 done_testing();
