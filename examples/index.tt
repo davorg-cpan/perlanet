@@ -8,7 +8,7 @@
     <h1>[% feed.title %]</h1>
     <p>[% feed.description %]</p>
 [% FOREACH entry IN feed.entries %]
-    <h2><a href="[% entry.link | url | html %]">[% entry.title | html %]</h2></a>
+    <h2><a href="[% entry.link | html %]">[% entry.title | html %]</h2></a>
     [% entry.content.body %]
 [% IF entry.author OR entry.issued %]
     <p>Published[% IF entry.author %] by [% entry.author | html; END %]
