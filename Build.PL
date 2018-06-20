@@ -43,6 +43,7 @@ my $build = Module::Build->new(
   create_makefile_pl => 'traditional',
   script_files       => [ 'bin/perlanet' ],
   meta_merge => {
+    'meta-spec' => { version => 2 },
     resources => {
       repository => {
        type => 'git',
