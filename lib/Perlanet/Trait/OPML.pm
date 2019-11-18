@@ -69,7 +69,7 @@ Where to save the OPML feed when it has been created
 
 =cut
 
-has 'opml' => (
+has 'opml_file' => (
   isa       => 'Maybe[Str]',
   is        => 'rw',
 );

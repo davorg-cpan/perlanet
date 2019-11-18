@@ -14,7 +14,7 @@ SKIP: {
   skip 'XML::OPML::SimpleGen not installed', 1 unless $p->has_opml;
 
   my (undef, $opml_file) = tempfile(OPEN => 0);
-  $p->opml($opml_file);
+  $p->opml_file($opml_file);
   $p->run();
   $p->save_opml();
   ok(-e $opml_file, 'OPML file created');
