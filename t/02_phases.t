@@ -5,7 +5,9 @@ use FindBin qw($Bin);
 use_ok('Perlanet::Simple');
 
 chdir $Bin;
-ok(my $p = Perlanet::Simple->new_with_config(configfile => 'testrc'),
+ok(my $p = Perlanet::Simple->new_with_config(
+  configfile => 'testrc_no_opml',
+),
    'Object created');
 isa_ok($p, 'Perlanet');
 

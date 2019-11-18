@@ -1,0 +1,21 @@
+title: planet test
+description: Testing stuff
+url: http://theplanetarium.org/
+self_link: http://theplanetarium.org/
+agent: Testing Perlanet
+entries_per_feed: 1
+author:
+  name: Dave Cross
+  email: dave@dave.org.uk
+max_entries: 20
+page:
+  file: index.html
+  template: index.tt
+feed:
+  file: rss.xml
+  format: Atom
+feeds:
+  - url: file:data/davblog.xml
+    title: davblog
+    web: http://blogs.dave.org.uk/
+

@@ -27,6 +27,7 @@ t/08_opml.t
 t/pod.t
 t/pod_coverage.t
 t/testrc
+t/testrc_no_opml
 t/perlanetrc
 t/cacherc
 t/mprc
