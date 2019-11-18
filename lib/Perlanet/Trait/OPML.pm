@@ -48,7 +48,7 @@ sub _build_opml_generator {
   if ($@) {
     carp 'You need to install XML::OPML::SimpleGen to enable OPML ' .
           'support';
-    $self->opml(undef);
+    $self->opml_file(undef);
     return;
   }
 
@@ -78,7 +78,7 @@ has 'opml_file' => (
 
 =head2 update_opml
 
-Updates the OPML file of all contributers to this planet. If the L<opml>
+Updates the OPML file of all contributers to this planet. If the L<opml_file>
 attribute does not have a value, this method does nothing, otherwise it inserts
 each author into the OPML file and saves it to disk.
 
@@ -109,7 +109,7 @@ Save the OPML file, by default to disk.
 
 sub save_opml {
   my $self = shift;
-  $self->opml_generator->save($self->opml);
+  $self->opml_generator->save($self->opml_file);
 }
 
 around 'fetch_feeds' => sub {

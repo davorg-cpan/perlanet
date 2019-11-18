@@ -12,8 +12,8 @@ ok(my $p = Perlanet::Simple->new_with_config(configfile => 'testrc'),
    'Object created');
 isa_ok($p, 'Perlanet');
 
-if (-e $p->opml) {
-  unlink $p->opml;
+if (-e $p->opml_file) {
+  unlink $p->opml_file;
 }
 
 if (-e $p->feed->{file}) {
@@ -30,11 +30,11 @@ ok(-e $p->feed->{file}, 'Feed created');
 ok(-e $p->page->{file}, 'Page created');
 SKIP: {
   skip 'XML::OPML::SimpleGen not installed', 1 unless $p->has_opml;
-  ok(-e $p->opml, 'OPML created');
+  ok(-e $p->opml_file, 'OPML created');
 }
 
-if (-e $p->opml) {
-  unlink $p->opml;
+if (-e $p->opml_file) {
+  unlink $p->opml_file;
 }
 
 if (-e $p->feed->{file}) {

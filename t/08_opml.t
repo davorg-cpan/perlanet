@@ -19,8 +19,8 @@ SKIP: {
   $p->save_opml();
   ok(-e $opml_file, 'OPML file created');
 
-  if (-e $p->opml) {
-    unlink $p->opml;
+  if (-e $p->opml_file) {
+    unlink $p->opml_file;
   }
 
   if (-e $p->feed->{file}) {
