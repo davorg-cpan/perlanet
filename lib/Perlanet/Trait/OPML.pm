@@ -36,8 +36,9 @@ An L<XML::OPML::SimpleGen> object to generate the XML for the OPML file
 has 'opml_generator' => (
   is         => 'rw',
   isa        => 'Maybe[XML::OPML::SimpleGen]',
-  lazy_build => 1,
-  predicate => 'has_opml'
+  builder    => '_build_opml_generator',
+  predicate  => 'has_opml',
+  required   => 1,
 );
 
 sub _build_opml_generator {
