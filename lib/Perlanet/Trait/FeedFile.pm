@@ -47,7 +47,8 @@ has 'feed' => (
 );
 
 after 'render' => sub {
-  my ($self, $feed) = @_;
+  my $self = shift;
+  my ($feed) = @_;
   return unless $self->feed->{file};
 
   open my $feedfile, '>', $self->feed->{file}

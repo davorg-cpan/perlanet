@@ -55,7 +55,8 @@ has 'page' => (
 );
 
 after 'render' => sub {
-  my ($self, $feed) = @_;
+  my $self = shift;
+  my ($feed) = @_;
   my $tt = Template->new;
   $tt->process(
     $self->page->{template},

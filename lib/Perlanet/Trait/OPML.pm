@@ -86,7 +86,8 @@ each author into the OPML file and saves it to disk.
 =cut
 
 sub update_opml {
-  my ($self, $feeds) = @_;
+  my $self = shift;
+  my ($feeds) = @_;
 
   return unless $self->has_opml;
 
@@ -115,7 +116,8 @@ sub save_opml {
 
 around 'fetch_feeds' => sub {
   my $orig = shift;
-  my ($self, $feeds) = @_;
+  my $self = shift;
+  my ($feeds) = @_;
   $feeds = $self->$orig($feeds);
   $self->update_opml($feeds) if $self->has_opml;
   return $feeds;

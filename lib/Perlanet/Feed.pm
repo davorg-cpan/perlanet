@@ -79,7 +79,8 @@ Returns a string containing the XML for this feed and all its entries
 =cut
 
 sub as_xml {
-  my ($self, $format) = @_;
+  my $self = shift;
+  my ($format) = @_;
 
   my $feed = XML::Feed->new($format);
   $feed->title($self->title);

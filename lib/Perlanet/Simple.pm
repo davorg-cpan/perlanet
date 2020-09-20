@@ -69,7 +69,8 @@ Some custom cleaning code to remove a nasty piece of BlogSpot HTML
 
 around clean_html => sub {
   my $orig = shift;
-  my ($self, $html) = @_;
+  my $self = shift;
+  my ($html) = @_;
 
   # hack to remove a particularly nasty piece of blogspot HTML
   $html = $self->$orig($html);
