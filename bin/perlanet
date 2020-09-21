@@ -172,13 +172,12 @@ when they change.
 This mandatory option gives details of the web feeds to be aggregated. Each
 item on the list has one mandatory sub-option and two optional sub-options.
 The mandatory sub-option is C<url> which gives the URL of the feed. The
-optional sub-option C<title> gives a title which will be prepended to all of
-the entry titles taken from that feed. If no title is given, then the title
-will be taken from the feed title. The optional C<web> sub-option gives a
-web site URL associated with the feed (often the address of the web site that
-the feed comes from). This can be used to create a list of the aggregated
-sites. The C<web> sub-option becomes mandatory if you are creating an OPML
-file.
+optional sub-option C<title> gives a title to the feed which can be used
+to identify the entries that originate from this feed. The optional C<web>
+sub-option gives a web site URL associated with the feed (often the address
+of the web site that the feed comes from). This can be used to create a list
+of the aggregated sites. The C<web> sub-option becomes mandatory if you are
+creating an OPML file.
 
 =back
 
