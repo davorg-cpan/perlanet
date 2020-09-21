@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '1.1.1';
+  $VERSION = '2.0.0';
 }
 
 with 'MooseX::Traits';
@@ -236,8 +236,6 @@ sub select_entries {
 
     push @feed_entries,
       map {
-        $_->title($feed->title . ': ' . $_->title);
-
         # Problem with XML::Feed's conversion of RSS to Atom
         if ($_->issued && ! $_->modified) {
           $_->modified($_->issued);
