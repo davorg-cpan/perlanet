@@ -6,6 +6,7 @@ lib/Perlanet.pm
 lib/Perlanet/Entry.pm
 lib/Perlanet/Feed.pm
 lib/Perlanet/Simple.pm
+lib/Perlanet/Types.pm
 lib/Perlanet/Trait/Cache.pm
 lib/Perlanet/Trait/OPML.pm
 lib/Perlanet/Trait/TemplateToolkit.pm
