@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '2.0.0';
+  $VERSION = '2.0.1';
 }
 
 with 'MooseX::Traits';
@@ -441,7 +441,7 @@ L<Plagger>
 
 =head1 AUTHOR
 
-Dave Cross, <dave@mag-sol.com>
+Dave Cross, <dave@perlhacks.com>
 
 =head1 COPYRIGHT AND LICENSE
 

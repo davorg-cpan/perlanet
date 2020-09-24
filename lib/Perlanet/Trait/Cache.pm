@@ -49,7 +49,7 @@ around 'fetch_page' => sub {
 
 =head1 AUTHOR
 
-Dave Cross, <dave@mag-sol.com>
+Dave Cross, <dave@perlhacks.com>
 
 =head1 COPYRIGHT AND LICENSE
 

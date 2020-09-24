@@ -89,9 +89,10 @@ sub update_opml {
   my $self = shift;
   my ($feeds) = @_;
 
-  return unless $self->has_opml;
-
   foreach my $f (@$feeds) {
+
+    return unless $self->opml_file and $self->has_opml;
+
     $self->opml_generator->insert_outline(
       title   => $f->title,
       text    => $f->title,
@@ -125,7 +126,7 @@ around 'fetch_feeds' => sub {
 
 =head1 AUTHOR
 
-Dave Cross, <dave@mag-sol.com>
+Dave Cross, <dave@perlhacks.com>
 
 =head1 COPYRIGHT AND LICENSE
 

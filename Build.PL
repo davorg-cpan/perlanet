@@ -5,7 +5,7 @@ use Module::Build;
 
 my $build = Module::Build->new(
   license            => 'perl',
-  dist_author        => 'Dave Cross <dave@mag-sol.com>',
+  dist_author        => 'Dave Cross <dave@perlhacks.com>',
   module_name        => 'Perlanet',
   requires           => {
     'perl'                 => '5.6.0',
@@ -31,10 +31,11 @@ my $build = Module::Build->new(
     'MooseX::ConfigFromFile' => 0,
   },
   build_requires     => {
-    'Test::More'          => 0,
-    'File::Path'          => 0,
+    'Test::More'             => 0,
+    'File::Path'             => 0,
     'MooseX::ConfigFromFile' => 0,
-    'Alien::Tidyp'        => 0,
+    'Alien::Tidyp'           => 0,
+    'XML::OPML::SimpleGen'   => 0,
   },
   build_recommends   => {
     'Test::Pod'              => 0,

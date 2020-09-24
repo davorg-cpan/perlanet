@@ -226,7 +226,7 @@ to bug-Perlanet@rt.cpan.org.
 
 ## Author
 
-Dave Cross, <dave@mag-sol.com>
+Dave Cross, <dave@perlhacks.com>
 
 ## Copyright and licence
 
