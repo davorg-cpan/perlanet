@@ -20,7 +20,7 @@ use Perlanet::Types;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '2.0.2';
+  $VERSION = '2.0.3';
 }
 
 with 'MooseX::Traits';
