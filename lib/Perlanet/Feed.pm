@@ -60,6 +60,11 @@ has 'modified' => (
   is => 'rw',
 );
 
+has 'max_entries' => (
+  is => 'ro',
+  isa => 'Int',
+);
+
 has 'entries' => (
   isa => 'ArrayRef',
   is => 'rw',

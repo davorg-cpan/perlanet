@@ -177,7 +177,10 @@ to identify the entries that originate from this feed. The optional C<web>
 sub-option gives a web site URL associated with the feed (often the address
 of the web site that the feed comes from). This can be used to create a list
 of the aggregated sites. The C<web> sub-option becomes mandatory if you are
-creating an OPML file.
+creating an OPML file. You can also add a C<max_entries> option which will
+override the global C<entries_per_feed> setting. If this setting exists
+and is set to zero, then the output feed will contain all of the entries
+from this input feed.
 
 =back
 

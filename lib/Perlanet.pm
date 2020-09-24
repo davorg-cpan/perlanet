@@ -18,7 +18,7 @@ use XML::Feed;
 use vars qw{$VERSION};
 
 BEGIN {
-  $VERSION = '2.0.1';
+  $VERSION = '2.0.2';
 }
 
 with 'MooseX::Traits';
@@ -230,8 +230,12 @@ sub select_entries {
 
     @entries = @{ $self->sort_entries(\@entries) };
 
-    if ($self->entries_per_feed and @entries > $self->entries_per_feed) {
-      $#entries = $self->entries_per_feed - 1;
+    my $number_of_entries =
+      defined $feed->max_entries ? $feed->max_entries 
+                                 : $self->entries_per_feed;
+
+    if ($number_of_entries and @entries > $number_of_entries) {
+      $#entries = $number_of_entries - 1;
     }
 
     push @feed_entries,
