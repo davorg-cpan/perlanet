@@ -138,6 +138,19 @@ This configuration option controls which of these two dates are used to sort
 the entries in a feed. It can be one of the two values C<issued> or
 C<modified>. If this option is omitted, then C<modified> is used.
 
+=item cutoff_duration
+
+Sometimes you might want your generated feed to only contain entries from,
+say, the last month. You can do that with the C<cutoff_duration> configuration
+option. This takes the form of sub-parameters which are in the same format
+as you would use when calling the constructor for
+L<DateTime::Duration> (which isn't surprising as that's what happens to
+them). For example the to exclude entries that are more than a month old,
+you would use:
+
+    cutoff_duration:
+      months: 1
+
 =item opml
 
 The system can optionally create an OPML file containing details of the

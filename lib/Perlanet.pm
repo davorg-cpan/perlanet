@@ -15,6 +15,8 @@ use Try::Tiny;
 use URI::Fetch;
 use XML::Feed;
 
+use Perlanet::Types;
+
 use vars qw{$VERSION};
 
 BEGIN {
@@ -42,13 +44,27 @@ sub _build_ua {
   return $ua;
 }
 
-has 'cutoff' => (
-  isa     => 'DateTime',
-  is      => 'ro',
-  default => sub {
-    DateTime->now + DateTime::Duration->new(weeks => 1);
-  }
+has 'cutoff_duration' => (
+  isa     => 'Perlanet::DateTime::Duration',
+  is      => 'rw',
+  lazy_build => 1,
+  coerce  => 1,
 );
+
+sub _build_cutoff_duration {
+  return { years => 1_000 };
+}
+
+has 'cutoff' => (
+  isa     => 'Perlanet::DateTime',
+  is      => 'ro',
+  lazy_build => 1,
+  coerce  => 1,
+);
+
+sub _build_cutoff {
+  return DateTime->now - shift->cutoff_duration;
+}
 
 has 'entries' => (
   isa => 'Int',
@@ -276,7 +292,7 @@ sub sort_entries {
 
   if ($self->entry_sort_order eq 'modified') {
     @entries = grep {
-      ($_->modified || $_->issued || $day_zero) < $self->cutoff
+      ($_->modified || $_->issued || $day_zero) > $self->cutoff
     } sort {
       ($b->modified || $b->issued || $day_zero)
           <=>
@@ -284,7 +300,7 @@ sub sort_entries {
     } @$entries;
   } elsif ($self->entry_sort_order eq 'issued') {
     @entries = grep {
-      ($_->issued || $_->modified || $day_zero) < $self->cutoff
+      ($_->issued || $_->modified || $day_zero) > $self->cutoff
     } sort {
       ($b->issued || $b->modified || $day_zero)
           <=>
