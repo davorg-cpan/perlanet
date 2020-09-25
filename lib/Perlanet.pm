@@ -17,11 +17,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-use vars qw{$VERSION};
-
-BEGIN {
-  $VERSION = '2.0.4';
-}
+our $VERSION = '2.0.4';
 
 with 'MooseX::Traits';
 
@@ -247,7 +243,7 @@ sub select_entries {
     @entries = @{ $self->sort_entries(\@entries) };
 
     my $number_of_entries =
-      defined $feed->max_entries ? $feed->max_entries 
+      defined $feed->max_entries ? $feed->max_entries
                                  : $self->entries_per_feed;
 
     if ($number_of_entries and @entries > $number_of_entries) {

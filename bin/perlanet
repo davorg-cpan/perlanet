@@ -7,11 +7,7 @@ use Perlanet::Simple;
 use Getopt::Std;
 use File::Basename;
 
-use vars qw{$VERSION};
-
-BEGIN {
-  $VERSION = $Perlanet::VERSION;
-}
+our $VERSION = $Perlanet::VERSION;
 
 my %opts;
 getopts('hv', \%opts);
