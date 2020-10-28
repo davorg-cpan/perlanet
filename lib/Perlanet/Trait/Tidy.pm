@@ -23,7 +23,7 @@ Perlanet::Trait::Tidy - run posts through HTML::Tidy
 
 =head1 DESCRIPTION
 
-Before a post is added to the aggregated feed, it will be ran through
+Before a post is added to the aggregated feed, it will be run through
 HTML::Tidy.
 
 =head2 Configuring
