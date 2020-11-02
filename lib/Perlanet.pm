@@ -236,6 +236,9 @@ sub select_entries {
   my $self = shift;
   my ($feeds) = @_;
 
+
+  my $day_zero = DateTime->from_epoch(epoch => 0);
+
   my @feed_entries;
   for my $feed (@$feeds) {
     my @entries = $feed->_xml_feed->entries;
@@ -252,6 +255,12 @@ sub select_entries {
     }
 
     for (@entries) {
+      # "Fix" entries with no dates
+      unless ($_->issued or $_->modified) {
+        $_->issued($date_zero);
+        $_->modified($date_zero);
+      }
+
       # Problem with XML::Feed's conversion of RSS to Atom
       if ($_->issued && ! $_->modified) {
         $_->modified($_->issued);
@@ -283,21 +292,20 @@ Takes a list of L<Perlanet::Entry>s, and returns an ordered list.
 sub sort_entries {
   my $self = shift;
   my ($entries) = @_;
-  my $day_zero = DateTime->from_epoch(epoch => 0);
 
   my @entries;
 
   if ($self->entry_sort_order eq 'modified') {
     @entries = sort {
-      ($b->modified || $b->issued || $day_zero)
+      ($b->modified || $b->issued)
           <=>
-      ($a->modified || $a->issued || $day_zero)
+      ($a->modified || $a->issued)
     } @$entries;
   } elsif ($self->entry_sort_order eq 'issued') {
     @entries = sort {
-      ($b->issued || $b->modified || $day_zero)
+      ($b->issued || $b->modified)
           <=>
-      ($a->issued || $a->modified || $day_zero)
+      ($a->issued || $a->modified)
     } @$entries;
   } else {
     die 'Invalid entry sort order: ' . $self->entry_sort_order;
@@ -319,10 +327,9 @@ date for this feed.
 sub cutoff_entries {
   my $self = shift;
   my ($entries) = @_;
-  my $day_zero = DateTime->from_epoch(epoch => 0);
 
   my @entries = grep {
-    ($_->issued || $_->modified || $day_zero) > $self->cutoff
+    ($_->issued || $_->modified) > $self->cutoff
   } @$entries;
 
   return \@entries;
