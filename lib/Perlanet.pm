@@ -250,18 +250,18 @@ sub select_entries {
       $#entries = $number_of_entries - 1;
     }
 
-    push @feed_entries,
-      map {
-        # Problem with XML::Feed's conversion of RSS to Atom
-        if ($_->issued && ! $_->modified) {
-          $_->modified($_->issued);
-        }
+    for (@entries) {
+      # Problem with XML::Feed's conversion of RSS to Atom
+      if ($_->issued && ! $_->modified) {
+        $_->modified($_->issued);
+      }
 
+      push @feed_entries,
         Perlanet::Entry->new(
           _entry => $_,
           feed => $feed
         );
-      } @entries;
+    }
   }
 
   return \@feed_entries;
