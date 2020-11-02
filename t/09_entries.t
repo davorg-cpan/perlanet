@@ -11,7 +11,7 @@ my @tests = ({
   count =>  5,
 }, {
   rc    => 'all',
-  count => 10,
+  count => 15,
 });
 
 for (@tests) {
