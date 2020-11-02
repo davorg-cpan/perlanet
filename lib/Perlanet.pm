@@ -241,6 +241,7 @@ sub select_entries {
     my @entries = $feed->_xml_feed->entries;
 
     @entries = @{ $self->sort_entries(\@entries) };
+    @entries = @{ $self->cutoff_entries(\@entries) };
 
     my $number_of_entries =
       defined $feed->max_entries ? $feed->max_entries
@@ -287,17 +288,13 @@ sub sort_entries {
   my @entries;
 
   if ($self->entry_sort_order eq 'modified') {
-    @entries = grep {
-      ($_->modified || $_->issued || $day_zero) > $self->cutoff
-    } sort {
+    @entries = sort {
       ($b->modified || $b->issued || $day_zero)
           <=>
       ($a->modified || $a->issued || $day_zero)
     } @$entries;
   } elsif ($self->entry_sort_order eq 'issued') {
-    @entries = grep {
-      ($_->issued || $_->modified || $day_zero) > $self->cutoff
-    } sort {
+    @entries = sort {
       ($b->issued || $b->modified || $day_zero)
           <=>
       ($a->issued || $a->modified || $day_zero)
@@ -306,10 +303,27 @@ sub sort_entries {
     die 'Invalid entry sort order: ' . $self->entry_sort_order;
   }
 
-  # Only need so many entries
-  if ($self->entries && @entries > $self->entries) {
-    $#entries = $self->entries - 1;
-  }
+  return \@entries;
+}
+
+=head2 cutoff_entries
+
+Called internally by L</run> and passed the list of entries from
+L</sort_entries>.
+
+Removes any entries that were published earlier than the cut-off
+date for this feed.
+
+=cut
+
+sub cutoff_entries {
+  my $self = shift;
+  my ($entries) = @_;
+  my $day_zero = DateTime->from_epoch(epoch => 0);
+
+  my @entries = grep {
+    ($_->issued || $_->modified || $day_zero) > $self->cutoff
+  } @$entries;
 
   return \@entries;
 }
