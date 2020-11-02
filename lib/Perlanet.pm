@@ -237,11 +237,24 @@ sub select_entries {
   my ($feeds) = @_;
 
 
-  my $day_zero = DateTime->from_epoch(epoch => 0);
+  my $date_zero = DateTime->from_epoch(epoch => 0);
 
   my @feed_entries;
   for my $feed (@$feeds) {
     my @entries = $feed->_xml_feed->entries;
+
+    for (@entries) {
+      # "Fix" entries with no dates
+      unless ($_->issued or $_->modified) {
+        $_->issued($date_zero);
+        $_->modified($date_zero);
+      }
+
+      # Problem with XML::Feed's conversion of RSS to Atom
+      if ($_->issued && ! $_->modified) {
+        $_->modified($_->issued);
+      }
+    }
 
     @entries = @{ $self->sort_entries(\@entries) };
     @entries = @{ $self->cutoff_entries(\@entries) };
@@ -255,17 +268,6 @@ sub select_entries {
     }
 
     for (@entries) {
-      # "Fix" entries with no dates
-      unless ($_->issued or $_->modified) {
-        $_->issued($date_zero);
-        $_->modified($date_zero);
-      }
-
-      # Problem with XML::Feed's conversion of RSS to Atom
-      if ($_->issued && ! $_->modified) {
-        $_->modified($_->issued);
-      }
-
       push @feed_entries,
         Perlanet::Entry->new(
           _entry => $_,
