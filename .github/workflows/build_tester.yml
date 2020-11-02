@@ -17,7 +17,7 @@ jobs:
     name: Perl ${{ matrix.perl-version }}
     steps:
       - uses: actions/checkout@v2
-      - name: Regular tests
+      - name: 'Regular tests'
       run: |
         perl Build.PL
         perl Build test
