@@ -12,12 +12,10 @@ jobs:
       matrix:
         perl-version:
           - '5.30'
-          # - '5.32'
-          # - 'latest'
     name: Perl ${{ matrix.perl-version }}
     steps:
       - uses: actions/checkout@v2
       - name: 'Regular tests'
       run: |
         perl Build.PL
-        perl Build test
+        Build test
