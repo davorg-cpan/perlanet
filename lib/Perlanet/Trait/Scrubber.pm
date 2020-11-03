@@ -102,6 +102,7 @@ sub _build_scrubber {
   my $scrub = HTML::Scrubber->new;
   $scrub->rules(%scrub_rules);
   $scrub->default(1, \%scrub_def);
+  $scrub->script(0);
 
   return $scrub;
 }
@@ -110,6 +111,9 @@ around 'clean_html' => sub {
   my $orig = shift;
   my $self = shift;
   my ($html) = @_;
+
+  warn __PACKAGE__, '::clean_html' if $ENV{PERLANET_DEBUG};
+
   $html = $self->$orig($html);
   my $scrubbed = $self->scrubber->scrub($html);
   return $scrubbed;

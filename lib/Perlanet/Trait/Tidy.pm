@@ -71,6 +71,8 @@ around 'clean_html' => sub {
   my $self = shift;
   my ($html) = @_;
 
+  warn __PACKAGE__, '::clean_html' if $ENV{PERLANET_DEBUG};
+
   $html = $self->$orig($html);
 
   my $clean = $self->tidy->clean(utf8::is_utf8($html)

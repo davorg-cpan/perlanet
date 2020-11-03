@@ -72,6 +72,8 @@ around clean_html => sub {
   my $self = shift;
   my ($html) = @_;
 
+  warn __PACKAGE__, '::clean_html' if $ENV{PERLANET_DEBUG};
+
   # hack to remove a particularly nasty piece of blogspot HTML
   $html = $self->$orig($html);
   $html =~ s|<div align="justify"></div>||g;
