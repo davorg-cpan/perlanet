@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: 'Regular tests'
-      - run: |
+        run: |
           perl Build.PL
           Build test
 
