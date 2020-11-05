@@ -23,6 +23,8 @@ my $build = Module::Build->new(
     'Try::Tiny'            => 0,
     'MooseX::Traits'       => 0,
     'namespace::autoclean' => 0,
+    'MooseX::ConfigFromFile' => 0,
+    'DateTime::Format::Strptime' => 0,
   },
   recommends         => {
     'CHI'                    => 0,
