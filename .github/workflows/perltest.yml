@@ -26,6 +26,8 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      - run: sudo apt-get update
+      - run: sudo apt-get install libtidy libtidy-dev libxml++2.6 libxml++2.6-dev
       - run: perl -V
       - run: cpanm --installdeps .
       - run: prove -lv t
