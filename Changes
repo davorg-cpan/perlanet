@@ -1,0 +1,738 @@
+2021-01-15  2.0.5 Dave Cross <dave@perlhacks.com>
+
+  * Added bugtracker to metadata
+  * CI improvements
+  * Code refactoring
+
+2020-09-24  2.0.4 Dave Cross <dave@perlhacks.com>
+
+  * Added missing new library to MANIFEST
+
+2020-09-24  2.0.3 Dave Cross <dave@perlhacks.com>
+
+  * Added "cutoff_duration" config option for feeds
+
+  * Fixed a long-standing bug in date cutoff
+
+2020-09-24  2.0.2 Dave Cross <dave@perlhacks.com>
+
+  * Added "max_entries" config option for feeds
+
+2020-09-22  2.0.1 Dave Cross <dave@perlhacks.com>
+
+  * Require OPML module for testing.
+
+2020-09-21  2.0.0 Dave Cross <dave@perlhacks.com>
+
+  * Catch up on a few years of packaging and CI fixes.
+
+  * Stop prepending feed name to entry titles.
+
+2018-03-04  Dave Cross <dave@dave.org.uk>
+
+  * bin/perlanet, lib/Perlanet.pm: Remove references to defunct mailing list.
+
+  * Build.PL, MANIFEST.SKIP: Fix resources listed in metadata
+
+2018-02-20  Dave Cross <dave@dave.org.uk>
+
+  * docs/style.css, in/style.css: Another tweak
+
+  * docs/style.css, in/style.css: Style tweak
+
+  * docs/index.html, in/index.html.md: Dealing with template tag idiocy.
+
+  * docs/style.css, in/style.css: Make border full-width.
+
+  * docs/style.css, in/style.css: Improve the footer.
+
+  * docs/index.html, in/index.html.md: Less shouting.
+
+  * docs/index.html, in/index.html.md, in/index.html.tt: More text.
+
+  * docs/CNAME, docs/index.html, docs/style.css: Generate the web site.
+
+  * in/CNAME, in/index.html.tt, in/style.css, layouts/page: Move the web site
+  from a branch into a directory.
+
+2018-02-16  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL: Better home page. Remove reference to long-dead mailing list.
+
+2018-02-15  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version for release.
+
+2018-01-22  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Correct TODO link
+
+2018-01-22  Mohammad S Anwar <mohammad.anwar@yahoo.com>
+
+  * lib/Perlanet.pm: - TODO link is now clickable.
+
+2017-10-03  Dave Cross <dave@dave.org.uk>
+
+  * t/01_basic.t, t/02_phases.t, t/03_noconf.t, t/04_mps.t, t/05_cache.t:
+  Switched all tests to use done_testing()
+
+2017-10-02  JJ Merelo <jjmerelo@gmail.com>
+
+  * t/01_basic.t: Adds some tests for OPML  It's not improving coverage, but at
+  least generates an object of that kind. Before I go any further, I would need
+  some help; I really can't figure out how to add feeds, for instance. Refs #4
+  Refs #3
+
+  * lib/Perlanet.pm, t/01_basic.t: Adds example to test\n\nDoes not improve
+  coverage
+
+2017-07-03  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet/Trait/Scrubber.pm: Improvements to HTML scrubbing.
+
+2017-07-02  Dave Cross <dave@dave.org.uk>
+
+  * t/06_youtube.t, t/data/youtube.xml, t/youtube2rc, t/youtuberc: Added tests
+  for new sorting functionality.
+
+  * MANIFEST, bin/perlanet, lib/Perlanet.pm: Version 1.1.0. Allow sorting by
+  issued date (as well as modified date)
+
+2017-06-23  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Typo in version number FFS!
+
+  * lib/Perlanet.pm: Bumped version for release (version 1.0.0!)
+
+  * lib/Perlanet.pm, lib/Perlanet/Trait/OPML.pm, t/02_phases.t, t/04_mps.t,
+  t/05_cache.t: Change various methods to take array refs, not lists.
+
+2017-04-01  Dave Cross <dave@dave.org.uk>
+
+  * .travis.yml: Force installation of XML::OPML::SimpleGen
+
+2017-03-29  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version for release.
+
+  * lib/Perlanet/Trait/Scrubber.pm: Remove border attributes
+
+  * lib/Perlanet/Trait/Scrubber.pm: Best to allow https images these days. 
+  Also, the idiocy of some feeds makes it well worth including width and height
+  on image tags.
+
+2015-07-19  Dave Cross <dave@dave.org.uk>
+
+  * .travis.yml, Build.PL: Another go at building HMTL::Tidy on Travis CI
+  boxes.
+
+  * .travis.yml: Ensure HTML tidy is installed
+
+2015-07-18  Dave Cross <dave@dave.org.uk>
+
+  * t/atom.xml: Added t/atom.xml
+
+  * .travis.yml, MANIFEST.SKIP: Added .travis.yml and MANIFEST.SKIP
+
+  * .gitignore: Changed .gitignore
+
+2013-04-22  Dave Cross <dave@dave.org.uk>
+
+  * examples/index.tt: Change index.tt to HTML5 and remove excess <html> tag.
+
+2013-04-22  Tom Bloor <tom.bloor@googlemail.com>
+
+  * .gitignore, lib/Perlanet/Simple.pm: POD Update  updated POD synopsis as per
+  my Blog post
+
+2012-07-27  Dave Cross <dave.cross@net-a-porter.com>
+
+  * lib/Perlanet/Trait/Scrubber.pm: Argh! Scrubbing hasn't been working for
+  about two years :/ Fixed now. Should write a test.
+
+  * Build.PL: Added missing pre-req (namespace::autoclean)
+
+2012-07-14  Dave Cross <dave@dave.org.uk>
+
+  * .gitignore: Added some more stuff to .gitignore.
+
+2012-03-17  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL, lib/Perlanet.pm: Switched from using TryCatch to Try::Tiny.
+  Bumped version for release.
+
+2012-03-14  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version number for release.
+
+  * Build.PL: Make MooseX::ConfigFromFile required for build (as it's used in
+  the tests)
+
+  * MANIFEST: Add META.json to MANIFEST.
+
+2011-02-22  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version for release.
+
+  * lib/Perlanet/Trait/OPML.pm, t/01_basic.t: Fix support for OPML generation
+  (make it _really_ optional).
+
+2010-11-04  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump to version 0.53 for release.
+
+  * t/pod_coverage.t: Added more subroutines to be skipped in the pod coverage
+  tests.
+
+2010-08-26  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet/Entry.pm, lib/Perlanet/Feed.pm, lib/Perlanet/Trait/Cache.pm,
+  lib/Perlanet/Trait/FeedFile.pm, lib/Perlanet/Trait/OPML.pm,
+  lib/Perlanet/Trait/Scrubber.pm, lib/Perlanet/Trait/TemplateToolkit.pm,
+  lib/Perlanet/Trait/Tidy.pm, lib/Perlanet/Trait/YAMLConfig.pm: Added 'use
+  strict' and 'use warnings' to all modules.
+
+2010-08-23  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version number.
+
+  * lib/Perlanet/Trait/TemplateToolkit.pm: Pass the whole Perlanet object to
+  the template in a variable called 'cfg'.
+
+  * lib/Perlanet/Feed.pm: Renamed the 'website' attribute to 'web' (in line
+  with old config files).
+
+  * lib/Perlanet.pm: Improved reporting for HTTP errors.
+
+2010-08-22  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bumped to version 0.51. Fixing more problems.
+
+  * MANIFEST: Added more data files to MANIFEST
+
+  * MANIFEST, t/04_mps.t, t/data/stevebaker.xml, t/data/talkcarswell.xml,
+  t/mprc: Added some more tests.
+
+  * lib/Perlanet/Trait/Tidy.pm: Minor reformatting.
+
+  * lib/Perlanet.pm: Refactoring clean_entries method.
+
+  * lib/Perlanet/Trait/YAMLConfig.pm: Documentation typo.
+
+  * lib/Perlanet.pm: Fixed documentation.
+
+  * lib/Perlanet/Trait/OPML.pm: Fixed broken OPML handling.
+
+  * t/testrc: Added 'entries_per_feed' config option for tests.
+
+  * lib/Perlanet.pm: Correct typo
+
+  * MANIFEST, t/02_phases.t: Added tests for individual phases of the process.
+
+2010-08-21  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Reinstating the "entries_per_feed" support. Not sure when
+  it went missing. Renaming more config settings back to what they should be.
+
+  * lib/Perlanet/Trait/OPML.pm: Fixed names of the attributes.
+
+  * t/01_basic.t: Changed calls to reflect corrected config names.
+
+  * lib/Perlanet.pm: Fix typo.
+
+  * t/testrc: Fix config format.
+
+  * lib/Perlanet/Simple.pm: Reformatting.
+
+  * lib/Perlanet.pm: Bump to version 0.50.
+
+  * lib/Perlanet/Simple.pm, lib/Perlanet/Trait/Cache.pm,
+  lib/Perlanet/Trait/FeedFile.pm, lib/Perlanet/Trait/OPML.pm,
+  lib/Perlanet/Trait/Scrubber.pm, lib/Perlanet/Trait/TemplateToolkit.pm,
+  lib/Perlanet/Trait/Tidy.pm, lib/Perlanet/Trait/YAMLConfig.pm: Minor
+  reformatting.
+
+  * lib/Perlanet.pm: Reformatting.
+
+  * lib/Perlanet.pm: Refactored the calls in the main run method. Now they seem
+  to work.
+
+  * t/testrc: Changes to reflect the new format for author details.
+
+2010-08-19  Dave Cross <dave@mag-sol.com>
+
+  * bin/perlanet, lib/Perlanet.pm, lib/Perlanet/Trait/FeedFile.pm,
+  lib/Perlanet/Trait/TemplateToolkit.pm: Attempting to get perlanet
+  comment-line program working again.
+
+2010-08-18  Dave Cross <dave@dave.org.uk>
+
+  * MANIFEST: Added missing files.
+
+  * bin/perlanet: Command line program  now uses Perlanet::Simple rather than
+  Perlanet.
+
+  * lib/Perlanet.pm: Bump to version 0.47 for release.
+
+  * lib/Perlanet/Simple.pm: Fixed called to 'agent' method. Removed nasty typo.
+
+  * lib/Perlanet.pm: Added 'agent' to list of attributes.
+
+  * t/01_basic.t: Minor reformatting.
+
+  * t/testrc: Renamed opml attribute to opml_file.
+
+  * lib/Perlanet.pm: Better error reporting on XML parsing failures.
+
+2010-07-18  Oliver Charles <oliver.g.charles@googlemail.com>
+
+  * lib/Perlanet/Simple.pm, lib/Perlanet/Trait/FeedFile.pm,
+  lib/Perlanet/Trait/Scrubber.pm, lib/Perlanet/Trait/TemplateToolkit.pm,
+  lib/Perlanet/Trait/Tidy.pm, lib/Perlanet/Trait/YAMLConfig.pm: 100% POD
+  coverage
+
+  * Build.PL: MooseX::ConfigFromFile is required for tests
+
+2010-06-08  Oliver Charles <oliver.g.charles@googlemail.com>
+
+  * lib/Perlanet.pm: Be less strict about what properties the output feed must
+  have
+
+2010-06-06  Oliver Charles <oliver.g.charles@googlemail.com>
+
+  * lib/Perlanet/Simple.pm: Fix POD syntax errors
+
+  * Build.PL: Update Build.PL with new dependencies
+
+  * lib/Perlanet.pm, lib/Perlanet/Simple.pm, lib/Perlanet/Trait/YAMLConfig.pm,
+  t/02_basic.t, t/03_noconf.t, t/04_moose_constr.t, t/05_cache.t: Pass all
+  tests  I have removed some fairly redundant tests for now. Now that Perlanet
+  is much more segmented we need to rewrite these tests to do some *real*
+  testing - but at least this gets us a green light for now.
+
+2010-06-03  Oliver Charles <oliver.g.charles@googlemail.com>
+
+  * lib/Perlanet.pm, lib/Perlanet/Trait/Scrubber.pm,
+  lib/Perlanet/Trait/Tidy.pm: Slightly change the procedure for cleaning 
+  IronMan needs the uncleaned posts and the cleaned posts. This allows us to by
+  default clean all posts, but IronMan can take out the clean_entries routine
+  and run clean_html itself
+
+  * lib/Perlanet.pm, lib/Perlanet/Simple.pm, lib/Perlanet/Trait/Cache.pm,
+  lib/Perlanet/Trait/FeedFile.pm, lib/Perlanet/Trait/OPML.pm,
+  lib/Perlanet/Trait/Scrubber.pm, lib/Perlanet/Trait/TemplateToolkit.pm,
+  lib/Perlanet/Trait/Tidy.pm, lib/Perlanet/Trait/YAMLConfig.pm, t/01_basic.t,
+  t/testrc: Split more things up into traits. Improved some docs too
+
+  * lib/Perlanet.pm: Removed any reference of cfg from core Perlanet
+
+  * lib/Perlanet.pm, lib/Perlanet/Simple.pm: Drastically simplified run in
+  Perlanet to act like a pipeline.  The process now takes a list of original
+  feeds, finds valid ones, selects entries, sorts and filters them, cleans
+  them, then renders them. The original behaviour of each of these steps has
+  moved to Perlanet::Simple
+
+  * lib/Perlanet.pm, lib/Perlanet/Simple.pm, lib/Perlanet/Trait/Cache.pm,
+  lib/Perlanet/Trait/OPML.pm, t/01_basic.t: Begin work separating Perlanet. 
+  Currently, Perlanet does too much work, which is making it hard to use for
+  other uses (ie, IronMan). I have started splitting this apart into traits
+  (OPML generation, caching) and a new Perlanet::Simple module that is mostly a
+  DWIM-from-config module to do what Perlanet currently does.  This turns the
+  main Perlanet into a pretty dumb module, that's mostly a pipeline of fetch
+  posts, clean them, and then do something with them - it's up to subclasses or
+  roles to decide what each of these steps actually means.
+
+2010-04-25  Dave Cross <dave@angel.mag-sol.com>
+
+  * lib/Perlanet.pm: Fix typo.
+
+  * lib/Perlanet.pm: Bump to version 0.46.
+
+2010-04-19  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet/Entry.pm: Add 'author' to the list of fields that
+  Perlanet::Entry delegates to XML::Feed::Entry.
+
+2010-03-05  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Removed unnecessary 'or next' logic.
+
+2010-01-05  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Fix the (horribly broken) entries_per_feed code. Bump to
+  version 0.45.
+
+  * lib/Perlanet.pm, lib/Perlanet/Entry.pm: Perlanet::Entry also delegates the
+  link method to XML::Feed::Entry. Bump version to 0.44.
+
+  * lib/Perlanet.pm: Don't ignore the sorted list of entries - it's there for a
+  reason :-/ Bumped to version 0.43.
+
+  * t/05_cache.t: Fixed the previous fix.
+
+  * Build.PL, t/05_cache.t: Add File::Path to build requirements. Ensure cache
+  is deleted at start of caching test.
+
+  * MANIFEST, lib/Perlanet.pm, t/05_cache.t, t/cacherc, t/perlanetrc: Found a
+  bug in caching support. Added a test and fixed bug. Bumped to version 0.42.
+
+2010-01-04  Dave Cross <dave@dave.org.uk>
+
+  * MANIFEST: More stuff missing from MANIFEST
+
+  * MANIFEST: Add missing tests to MANIFEST
+
+  * MANIFEST, lib/Perlanet.pm: Fixed MANIFEST. Bumped version.
+
+  * Build.PL, lib/Perlanet.pm: Pod fix
+
+  * lib/Perlanet.pm: Bump to version 0.40 (coz there are some quite big
+  changes).
+
+2009-12-24  Dave Cross <dave@dave-desktop.gumtree.com>
+
+  * lib/Perlanet.pm: Bit of code tidying (including taking some advice from
+  Perl::Critic).
+
+  * lib/Perlanet.pm: Merge documentation patches from Jess Robinson.
+
+2009-12-13  Oliver Charles <oliver.g.charles@googlemail.com>
+
+  * lib/Perlanet.pm, lib/Perlanet/Entry.pm, lib/Perlanet/Feed.pm: Pass 100% of
+  tests
+
+  * lib/Perlanet.pm, lib/Perlanet/Entry.pm, lib/Perlanet/Feed.pm: Go back to 2
+  spaces for identing, like Dave Cross
+
+  * lib/Perlanet.pm: Fixes to call to convert format
+
+  * lib/Perlanet.pm, lib/Perlanet/Feed.pm: Perlanet::Entry to represent posts,
+  with a back link to the feed
+
+  * lib/Perlanet.pm, lib/Perlanet/Entry.pm: Represent entries as
+  Perlanet::Entry objects
+
+  * lib/Perlanet.pm: Split cleaning out to work as a function
+
+  * lib/Perlanet.pm, lib/Perlanet/Feed.pm: * Introduced Perlanet::Feed object,
+  which abstracts the "feeds" configuration option * select_entries now takes a
+  list of feeds to fetch entries from
+
+  * lib/Perlanet.pm: Flexible cutoff date
+
+  * lib/Perlanet.pm: Refactor rendering and saving
+
+  * lib/Perlanet.pm: Formatting stuff
+
+  * lib/Perlanet.pm: Split out the cleaning stuff
+
+  * lib/Perlanet.pm: Done sorting/grepping entries
+
+  * lib/Perlanet.pm: Split out fetching a feed and selecting entries
+
+  * lib/Perlanet.pm: Refactor body of run loop to fetch feeds
+
+2009-11-23  Dave Cross <dave@angel.mag-sol.com>
+
+  * lib/Perlanet.pm: Bump to version 0.37.
+
+  * lib/Perlanet.pm: Add support for HTTP proxy.
+
+2009-10-28  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Version 0.34.
+
+2009-10-15  Dave Cross <dave@dave.org.uk>
+
+  * MANIFEST: Added t/data/davblog.xml to MANIFEST so the tests work as
+  expected.
+
+2009-10-14  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Oops. One too many entries.
+
+  * lib/Perlanet.pm: Sort individual feed entries before selecting ones to use.
+  Fix really stupid date sort bug. Version 0.35.
+
+2009-10-14  Dave Cross <dave@dave-desktop.gumtree.com>
+
+  * bin/perlanet, lib/Perlanet.pm: Fix former change. And document it.
+
+  * lib/Perlanet.pm: Support an 'entries_per_feed' config option.
+
+2009-10-12  Dave Cross <dave@dave-desktop.gumtree.com>
+
+  * Build.PL, lib/Perlanet.pm, t/01_basic.t, t/04_moose_constr.t: Make
+  XML::OPML::SimpleGen optional.
+
+  * lib/Perlanet.pm: Version 0.34.
+
+  * lib/Perlanet.pm: Really make CHI optional.
+
+2009-10-11  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bumped to version 0.33.
+
+  * lib/Perlanet.pm: Fixed stupid error where feeds weren't getting processed
+  if they returned a 304 status.
+
+  * lib/Perlanet.pm, t/perlanetrc, t/testrc: Couple of typos fixed. More test
+  fixes.
+
+  * t/01_basic.t, t/02_basic.t, t/03_noconf.t, t/04_moose_constr.t,
+  t/data/davblog.xml, t/perlanetrc, t/testrc: Work to improve test coverage.
+
+2009-10-10  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Bump version to 0.32
+
+  * lib/Perlanet.pm: Work around bug in POSIX::setlocale.
+
+  * lib/Perlanet.pm: Force config file to be opened as utf8
+
+  * bin/perlanet: Perltidied.
+
+  * lib/Perlanet.pm: Fixed typo
+
+  * Build.PL: Added Moose as a requirement.
+
+  * lib/Perlanet.pm: Improved error handling (used Carp).
+
+2009-10-07  Dave Cross <dave@dave-desktop.gumtree.com>
+
+  * Build.PL: Added CHI to recommended modules. Moved Compress::ZLib to
+  recommended modules.
+
+  * lib/Perlanet.pm: Sort by modified, then issued dates.
+
+2009-10-05  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Add newline to the end of 'warn' call.
+
+  * bin/perlanet: Added usage and version command line options.
+
+  * lib/Perlanet.pm: Only show LWP progress if attached to a console. Show
+  status of request for everything other than success. Bump to version 0.31.
+
+  * bin/perlanet: Add documentation of cache facility.
+
+2009-10-04  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Decided to bump to 0.30 as it's quite a big change.
+
+  * lib/Perlanet.pm: fix typo
+
+  * Build.PL, lib/Perlanet.pm: Use a number of kappa's fixes
+
+  * lib/Perlanet.pm: Bump version in preparation for next release.
+
+  * lib/Perlanet.pm: Attempted XML::Aton Unicode fix.
+
+2009-09-02  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Version 0.21.
+
+  * MANIFEST: Added t/index.tt back into MANIFEST
+
+2009-08-10  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm, t/pod_coverage.t: Initial port to Moose.
+
+2009-06-21  Shlomi Fish <shlomif@iglu.org.il>
+
+  * Build.PL: Added meta-resources and keywords.
+
+  * Build.PL: Added strict and warnings to Build.PL.
+
+2009-06-15  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Force TT output to utf8.
+
+2009-06-14  Dave Cross <dave@dave.org.uk>
+
+  * .gitignore, README, README.xml: Renamed README.xml to README.
+
+  * lib/Perlanet.pm: Bump version number for release.
+
+  * bin/perlanet, lib/Perlanet.pm: Fixed links to wiki
+
+  * bin/perlanet, lib/Perlanet.pm: Typos in documentation
+
+2009-04-28  Dave Cross <dave@dave.org.uk>
+
+  * bin/perlanet: Corrected link to trac
+
+2009-04-09  Dave Cross <dave@dave.org.uk>
+
+  * t/01_basic.t, t/testrc: (Slightly) Better tests
+
+  * .gitignore, t/index.tt: Adding .gitignore.
+
+  * lib/Perlanet.pm: Moved opml initialisation into constructor.
+
+  * lib/Perlanet.pm: Cleaned up code for dealing with extra entries.
+
+  * lib/Perlanet.pm: Moved UA initialisation into constructor.
+
+2009-04-07  Dave Cross <dave@dave.org.uk>
+
+  * lib/Perlanet.pm: Only convert feeds if necessary. Use LWP::UserAgent
+  instead of LWP::Simple.
+
+  * bin/perlanet: Documented new 'agent' configuration option.
+
+  * Build.PL: Removed unnecessary version string. Replace dependency on
+  LWP::Simple with LWP::UserAgent.
+
+  * t/testrc: Added agent string to test configuration
+
+2008-10-23  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL: Requier version 0.22 of XML::Feed.
+
+  * Build.PL: Bump version number for release
+
+  * lib/Perlanet.pm: Fixes to make use of the code fixes in the recent releases
+  of XML::Feed. This, in turn, means that we are now generating valid Atom
+  feeds. Rah!
+
+2008-09-29  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL: Bumped version number for release 0.07
+
+2008-09-28  Alex Kapranoff <kkapp@rambler.ru>
+
+  * lib/Perlanet.pm: 1. Stop htmltidy from ruining entities. 2. Add title to
+  OPML outline elements for compatibility.
+
+2008-09-21  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL: Bumped version for new release.
+
+  * MANIFEST: Added README and Changes to MANIFEST
+
+  * README.xml: Added README.xml
+
+2008-09-20  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL: Bumped version number.
+
+  * bin/perlanet: Added a lot of documentation
+
+  * lib/Perlanet.pm: Improved documentation.
+
+2008-09-19  Dave Cross <dave@dave.org.uk>
+
+  * Build.PL, MANIFEST: Bump version number (by 2). Added MANIFEST.
+
+  * t/01_basic.t, t/testrc: Added a testrc and made t/01_basic.t look in the
+  right place for it.
+
+  * index.tt, perlanetrc: Moved some files around
+
+  * examples/index.tt, examples/perlanetrc: Added examples directory
+
+  * lib/Perlanet.pm: Added pod for the methods.
+
+  * t/01_basic.t, t/pod.t, t/pod_coverage.t: Added (basic) tests
+
+  * Build.PL, Makefile.PL: Switch from Makefile.PL to Build.PL
+
+  * bin/perlanet, lib/Perlanet.pm, perlanet: First cut at separating most of
+  the code out into a module
+
+  * perlanet: Applying patches suggested by Alex Kapranoff. I think we're
+  getting closer - but it's still not quite there.
+
+  * Makefile.PL, index.tt, perlanet: Applied patch from Stephen Steneker. *
+  Added Makefile.PL * Added Pod and tweaked perlanet * Added explicit charset
+  meta element to HTML template
+
+  * perlanetrc: Some changes to sample perlnetrc (now taken from planet
+  skeptic)
+
+2008-09-17  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Remove unfinished 'decode' function.
+
+  * perlanet: Remove decode call
+
+  * perlanet: Add "use open" line to specify encoding.
+
+2008-09-01  Dave Cross <dave@dave.org.uk>
+
+  * perlanetrc: Changed author section of sample config file to reflect latest
+  version.
+
+  * perlanet: Huge bodge to work around XML::Feed's shortcomings and set the
+  author element correctly.
+
+  * perlanet: Decode the data as it comes into the program
+
+  * perlanet: Remove id attributes from spans as they are very unlikely to
+  remain unique
+
+2008-08-29  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Add the ability to generate OPML files.
+
+  * perlanet: Make previous fix into a global replacement
+
+  * perlanet: Nasty hack (which really don't like) to get round blogspot
+  problem.
+
+  * perlanet: Reverse order of HTML::Scrub and HTML::Tidy (scrub before tidy
+  now) as HTML::Scrub seems to undo some of HTML::Tidy's good work. Possibly
+  because the output I'm generating from HTML::Tidy is XHTML, not HTML.
+
+2008-07-23  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Pass $cfg to tt to enable increased cleverness in templates.
+
+  * perlanet: Tweaks to allow style attributes in HTML.
+
+2008-07-22  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Allow align tags on images.
+
+2008-04-06  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Only show entries that are dated less than a week in the future.
+
+2008-03-25  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Corrected check for content type
+
+  * perlanet: Process template in utf8 mode
+
+2008-03-24  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Added HTML::Scrubber support. Use 'min' rather than 'max' number
+  of entries (d'oh!)
+
+  * perlanet: Don't try to output more entries than you have.
+
+2008-03-22  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: HTML::Tidy support now works correctly.
+
+  * perlanet: Added support for HTML::Tidy
+
+2008-03-17  Dave Cross <dave@dave.org.uk>
+
+  * index.tt: Better HTML output.
+
+  * perlanet: Better error checking.
+
+2008-03-11  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Ignore any feeds we can't retrieve
+
+2008-03-10  Dave Cross <dave@dave.org.uk>
+
+  * perlanet: Deal with feeds with crappy dates. Actually output the feed in
+  the required format.
+
+2008-03-09  Dave Cross <dave@dave.org.uk>
+
+  * index.tt, perlanet, perlanetrc: Initial import

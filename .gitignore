@@ -1,7 +1,6 @@
 Perlanet-*.tar.gz
 ^Perlanet*/
 Build
-Changes
 META.json
 META.yml
 MYMETA.json

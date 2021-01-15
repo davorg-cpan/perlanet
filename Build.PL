@@ -53,6 +53,9 @@ my $build = Module::Build->new(
        url  => 'git://github.com/davorg/perlanet.git',
        web  => 'https://github.com/davorg/perlanet',
      },
+      bugtracker => {
+       web  => 'https://github.com/davorg/perlanet/issues',
+     },
      homepage => "http://perlanet.mag-sol.com/",
    },
    keywords => [ qw(
