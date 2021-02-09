@@ -21,13 +21,17 @@ jobs:
         perl: [ 'latest' ]
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v2
       - name: Set up perl
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-      - run: sudo apt-get update
-      - run: sudo apt-get install libtidy libtidy-dev libxml++2.6 libxml++2.6-dev
-      - run: perl -V
-      - run: cpanm --installdeps .
-      - run: prove -lv t
+      - name: Install libs
+        run: sudo apt-get update && sudo apt-get install libtidy libtidy-dev libxml++2.6 libxml++2.6-dev
+      - name: Perl version
+        run: perl -V
+      - name: Install CPAN modules
+        run: cpanm --installdeps .
+      - name: Run tests
+        run: prove -lv t
