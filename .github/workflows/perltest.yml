@@ -28,7 +28,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       - name: Install libs
-        run: sudo apt-get update && sudo apt-get install libtidy libtidy-dev libxml2 libxml2-dev
+        run: sudo apt-get update && sudo apt-get install tidy libtidy-dev libxml2 libxml2-dev
       - name: Perl version
         run: perl -V
       - name: Install CPAN modules
