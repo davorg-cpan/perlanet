@@ -23,4 +23,18 @@ is(@$cleaned, 1, 'One cleaned entry');
 my $feed = $p->build_feed($cleaned);
 isa_ok($feed, 'Perlanet::Feed', 'Got a feed');
 
+{
+    no warnings qw( redefine once );
+    local *XML::Feed::parse = sub { die "Can't parse\n" };
+    my @warnings;
+    local $SIG{__WARN__} = sub {
+        push @warnings, @_;
+    };
+    $p->fetch_feeds($p->feeds);
+
+    is(scalar @warnings, 2, 'Two warnings');
+    like($warnings[0], qr/Errors parsing/, 'Warning from Perlanet');
+    like($warnings[1], qr/Can't parse/, 'Original exception');
+}
+
 done_testing();
