@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Moose::Role;
+use Carp;
 
 sub get_config {
   my $class = shift;
