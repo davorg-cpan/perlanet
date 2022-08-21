@@ -35,3 +35,11 @@ jobs:
         run: cpanm --installdeps .
       - name: Run tests
         run: prove -lv t
+      - name: Archive CPAN logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cpan_log
+          path: .cpanm/work/*/build.log
+          retention-days: 5
+ 
