@@ -69,7 +69,7 @@ Extracts the configuration from a YAML file
 
 =cut
 
-with 'MooseX::ConfigFromFile';
+with 'MooseX::ConfigFromFile', 'Perlanet::Role::Config';
 
 use Carp qw( carp croak );
 use YAML qw( LoadFile );
@@ -78,36 +78,17 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 
 sub get_config_from_file {
   my $class = shift;
+  return $class->get_config(@_);
+}
+
+sub read_config {
+  my $class = shift;
   my ($file) = @_;
 
   open my $cfg_file, '<:encoding(UTF-8)', $file
     or croak "Cannot open file $file: $!";
 
   my $cfg = LoadFile($cfg_file);
-
-  $cfg->{feeds} = [ map {
-    Perlanet::Feed->new($_)
-  } @{ $cfg->{feeds} } ];
-
-  $cfg->{max_entries} = $cfg->{entries}
-    if $cfg->{entries};
-
-  if ($cfg->{cache_dir}) {
-    eval { require CHI; };
-
-    if ($@) {
-      carp "You need to install CHI to enable caching.\n";
-      carp "Caching disabled for this run.\n";
-      delete $cfg->{cache_dir};
-    }
-  }
-
-  $cfg->{cache_dir}
-    and $cfg->{cache} = CHI->new(
-      driver     => 'File',
-      root_dir   => delete $cfg->{cache_dir},
-      expires_in => THIRTY_DAYS,
-    );
 
   return $cfg;
 }
