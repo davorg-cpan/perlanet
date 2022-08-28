@@ -8,9 +8,9 @@ use Carp;
 
 sub get_config {
   my $class = shift;
-  my (@params) = @_;
+  my (%params) = @_;
  
-  my $cfg = $class->read_config($cfg_file);
+  my $cfg = $class->read_config(%params);
  
   $cfg->{feeds} = [ map {
     Perlanet::Feed->new($_)

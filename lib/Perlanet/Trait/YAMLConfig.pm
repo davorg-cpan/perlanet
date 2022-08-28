@@ -78,12 +78,15 @@ use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 
 sub get_config_from_file {
   my $class = shift;
-  return $class->get_config(@_);
+  return $class->get_config(config_file => $_[0]);
 }
 
 sub read_config {
   my $class = shift;
-  my ($file) = @_;
+  my (%params) = @_;
+
+  my $file = $params{config_file}
+    // croak "No config file passed to read_config().";
 
   open my $cfg_file, '<:encoding(UTF-8)', $file
     or croak "Cannot open file $file: $!";
