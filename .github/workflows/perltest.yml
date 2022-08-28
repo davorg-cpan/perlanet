@@ -32,7 +32,7 @@ jobs:
       - name: Perl version
         run: perl -V
       - name: Install CPAN modules
-        run: cpanm --installdeps .
+        run: cpanm --notest --installdeps .
       - name: Run tests
         run: prove -lv t
       - name: Archive CPAN logs
