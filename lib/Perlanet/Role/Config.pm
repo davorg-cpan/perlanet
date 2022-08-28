@@ -6,6 +6,8 @@ use warnings;
 use Moose::Role;
 use Carp;
 
+use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
+
 sub get_config {
   my $class = shift;
   my (%params) = @_;

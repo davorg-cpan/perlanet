@@ -58,11 +58,6 @@ configuration file.
 
 =head1 METHODS
 
-=head2 THIRTY_DAYS
-
-The default length of caching, if caching options are present in the
-configuration
-
 =head2 get_config_from_file
 
 Extracts the configuration from a YAML file
@@ -73,8 +68,6 @@ with 'MooseX::ConfigFromFile', 'Perlanet::Role::Config';
 
 use Carp qw( carp croak );
 use YAML qw( LoadFile );
-
-use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 
 sub get_config_from_file {
   my $class = shift;
