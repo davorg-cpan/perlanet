@@ -3,6 +3,7 @@ Build.PL
 examples/index.tt
 examples/perlanetrc
 lib/Perlanet.pm
+lib/Perlanet/Role/Config.pm
 lib/Perlanet/Entry.pm
 lib/Perlanet/Feed.pm
 lib/Perlanet/Simple.pm
