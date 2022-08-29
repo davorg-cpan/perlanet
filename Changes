@@ -1,3 +1,9 @@
+2022-08-29  2.0.6 Dave Cross <dave@perlhacks.com>
+
+  * Add config role to enable alternative storage for config
+  * CI improvements
+  * Test improvements (thanks choroba)
+
 2021-01-15  2.0.5 Dave Cross <dave@perlhacks.com>
 
   * Added bugtracker to metadata
