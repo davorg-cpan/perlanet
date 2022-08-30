@@ -74,6 +74,12 @@ sub get_config_from_file {
   return $class->get_config(config_file => $_[0]);
 }
 
+=head2 read_config
+
+Actually reads the YAML.
+
+=cut
+
 sub read_config {
   my $class = shift;
   my (%params) = @_;
