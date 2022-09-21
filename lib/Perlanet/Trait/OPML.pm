@@ -79,7 +79,7 @@ has 'opml_file' => (
 
 =head2 update_opml
 
-Updates the OPML file of all contributers to this planet. If the L<opml_file>
+Updates the OPML file of all contributors to this planet. If the L<opml_file>
 attribute does not have a value, this method does nothing, otherwise it inserts
 each author into the OPML file and saves it to disk.
 
