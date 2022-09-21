@@ -232,6 +232,6 @@ Dave Cross, <dave@perlhacks.com>
 
 Copyright (C) 2008-2018 by Magnum Solutions Ltd.
 
-This progam library is free software; you can redistribute it and/or modify
+This program library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
