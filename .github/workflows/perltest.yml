@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cpan_log
-          path: .cpanm/work/*/build.log
+          path: /home/runner/.cpanm/work/*/build.log
           retention-days: 5
  
   coverage:
