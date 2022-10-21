@@ -31,6 +31,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install tidy libtidy-dev libxml2 libxml2-dev
       - name: Perl version
         run: perl -V
+      - name: Install Test::Exception
+        run: cpanm --notest Test::Exception
       - name: Install CPAN modules
         run: cpanm --notest --installdeps .
       - name: Run tests
@@ -43,3 +45,19 @@ jobs:
           path: .cpanm/work/*/build.log
           retention-days: 5
  
+  coverage:
+    runs-on: ubuntu-latest
+    container: davorg/perl-coveralls:latest
+    name: Test coverage
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install libs
+        run: apt-get update && apt-get install tidy libtidy-dev libxml2 libxml2-dev
+      - name: Install Test::Exception
+        run: cpanm --notest Test::Exception
+      - name: Install modules
+        run: cpanm -n --installdeps .
+      - name: Coverage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cover -test -report Coveralls
