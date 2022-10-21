@@ -54,7 +54,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install libs
-        run: apt-get update && apt-get install -y tidy libtidy-dev libxml2 libxml2-dev
+        run: apt-get update && apt-get install -y libxml2 libxml2-dev
+      - name: Install Alien::Tidyp
+        run: cpanm --notest Alien::Tidyp
       - name: Install Test::Exception
         run: cpanm --notest Test::Exception
       - name: Install modules
