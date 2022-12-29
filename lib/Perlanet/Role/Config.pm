@@ -75,6 +75,8 @@ sub get_config {
  
   my $cfg = $class->read_config(%params);
  
+  $cfg->{config} = $cfg;
+
   $cfg->{feeds} = [ map {
     Perlanet::Feed->new($_)
   } @{ $cfg->{feeds} } ];

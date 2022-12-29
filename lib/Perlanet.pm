@@ -23,6 +23,11 @@ with 'MooseX::Traits';
 
 $XML::Atom::ForceUnicode = 1;
 
+has 'config' => (
+  is => 'ro',
+  isa => 'HashRef',
+);
+
 has 'ua' => (
   is         => 'rw',
   isa        => 'LWP::UserAgent',

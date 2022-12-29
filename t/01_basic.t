@@ -24,6 +24,8 @@ if (-e $p->page->{file}) {
   unlink $p->page->{file};
 }
 
+is($p->config->{google_ga}, 'HELLO_GOOGLE', 'Config is correct');
+
 $p->run;
 
 ok(-e $p->feed->{file}, 'Feed created');

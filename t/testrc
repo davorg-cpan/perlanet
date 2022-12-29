@@ -19,4 +19,5 @@ feeds:
   - url: file:data/davblog.xml
     title: davblog
     web: http://blogs.dave.org.uk/
+google_ga: HELLO_GOOGLE
 
