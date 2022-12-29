@@ -171,7 +171,7 @@ passed two variables.
     feed. See the [XML::Feed](https://metacpan.org/pod/XML::Feed) documentation for details of the data that is
     held in this object.
 
-- cfg
+- config
 
     This is the contents of the configuration file, converted to a (nested)
     Perl hash.

@@ -61,8 +61,9 @@ after 'render' => sub {
   $tt->process(
     $self->page->{template},
     {
-      feed => $feed,
-      cfg  => $self,
+      feed   => $feed,
+      cfg    => $self, # deprecated
+      config => $self->config,
     },
     $self->page->{file},
     {

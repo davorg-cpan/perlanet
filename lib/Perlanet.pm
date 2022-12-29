@@ -152,7 +152,7 @@ file.
 =item ua
 
 An instance of L<LWP::UserAgent>. Defaults to a simple agent using C<<
-$cfg->{agent} >> as the user agent name, or C< Perlanet/$VERSION >.
+$config->{agent} >> as the user agent name, or C< Perlanet/$VERSION >.
 
 =item cutoff
 
