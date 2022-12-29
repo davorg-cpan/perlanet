@@ -144,6 +144,11 @@ See L</ATTRIBUTES> below for details of the key/value pairs to pass in.
 
 =over
 
+=item config
+
+A hash reference that contains the complete contents of the configuration
+file.
+
 =item ua
 
 An instance of L<LWP::UserAgent>. Defaults to a simple agent using C<<
