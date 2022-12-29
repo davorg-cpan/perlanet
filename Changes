@@ -1,3 +1,8 @@
+2022-12-29  2.0.9 Dave Cross <dave@perlhacks.com>
+
+  * Add config attribute which gives access to the
+    configuation file
+
 2022-08-30  2.0.8 Dave Cross <dave@perlhacks.com>
 
   * Fix Pod on the new module
