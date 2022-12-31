@@ -15,6 +15,10 @@ Perlanet.
 
 package Perlanet::Types;
 
+use 5.10.0;
+use strict;
+use warnings;
+
 use Moose::Util::TypeConstraints;
 
 use DateTime;
