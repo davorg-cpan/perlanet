@@ -1,3 +1,7 @@
+2022-12-31  2.2.0 Dave Cross <dave@perlhacks.com>
+
+  * Only works on Perl >= 5.10.0
+
 2022-12-29  2.1.0 Dave Cross <dave@perlhacks.com>
 
   * Make the "config" variable available in templates
