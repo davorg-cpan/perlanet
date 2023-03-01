@@ -47,9 +47,4 @@ if (-e $p->page->{file}) {
   unlink $p->page->{file};
 }
 
-# Test OPML
-ok($p = Perlanet->new_with_traits( traits => [ 'Perlanet::Trait::OPML' ]  ), 'Object with traits created');
-isa_ok($p,'Perlanet');
-$p->run();
-
 done_testing();

@@ -47,13 +47,13 @@ configuration file.
     format: Atom
   cache_dir: /tmp/feeds
   feeds:
-    - url: http://blog.dave.org.uk/atom.xml
+    - feed: http://blog.dave.org.uk/atom.xml
       title: Dave's Blog
       web: http://blog.dave.org.uk/
-    - url: http://use.perl.org/~davorg/journal/rss
+    - feed: http://use.perl.org/~davorg/journal/rss
       title: Dave's use.perl Journal
       web: http://use.perl.org/~davorg/journal/
-    - url: http://www.oreillynet.com/pub/feed/31?au=2607
+    - feed: http://www.oreillynet.com/pub/feed/31?au=2607
       title: Dave on O'Reillynet
       web: http://www.oreillynet.com/pub/au/2607
 

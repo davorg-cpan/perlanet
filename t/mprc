@@ -16,8 +16,8 @@ feed:
   format: Atom
 feeds:
   - title: 'con: Wycombe: Steve Baker'
-    url: file:data/stevebaker.xml
+    feed: file:data/stevebaker.xml
     web: http://www.stevebaker.info/
   - title: 'co: Clacton: Douglas Carswell'
-    url: file:data/talkcarswell.xml
+    feed: file:data/talkcarswell.xml
     web: http://www.talkcarswell.com/

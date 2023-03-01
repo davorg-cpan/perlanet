@@ -97,8 +97,8 @@ sub update_opml {
     $self->opml_generator->insert_outline(
       title   => $f->title,
       text    => $f->title,
-      xmlUrl  => $f->url,
-      htmlUrl => $f->url,
+      xmlUrl  => $f->feed,
+      htmlUrl => $f->feed,
     );
   }
 
