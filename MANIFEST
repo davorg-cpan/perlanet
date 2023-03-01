@@ -27,6 +27,7 @@ t/06_youtube.t
 t/07_page.t
 t/08_opml.t
 t/09_entries.t
+t/10_rename_url.t
 t/pod.t
 t/pod_coverage.t
 t/testrc
@@ -38,6 +39,7 @@ t/youtuberc
 t/youtube2rc
 t/allentriesrc
 t/5entriesrc
+t/oldurlrc
 t/index.tt
 README
 Changes
