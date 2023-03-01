@@ -6,6 +6,7 @@ use warnings;
 
 use Moose;
 use XML::Feed;
+use Carp;
 
 =head1 NAME
 
@@ -18,9 +19,10 @@ has 'title' => (
   is => 'rw',
 );
 
-has 'url' => (
+has 'feed' => (
   isa => 'Str',
   is => 'rw',
+  required => 1,
 );
 
 has 'web' => (
@@ -76,6 +78,27 @@ has 'entries' => (
   }
 );
 
+# Handle the url -> feed renaming
+around BUILDARGS => sub {
+  my $orig  = shift;
+  my $class = shift;
+
+  my $args;
+  if (@_ == 1) {
+    $args = $_[0];
+  } else {
+    $args = { @_ };
+  }
+
+  if ($args->{url} and ! $args->{feed}) {
+    warn "Your config file uses 'url' for the URL of the feed. ",
+         "Please update that to 'feed'.\n";
+    $args->{feed} = $args->{url};
+  }
+
+  return $args;
+};
+
 =head1 METHODS
 
 =head2 as_xml
@@ -90,7 +113,7 @@ sub as_xml {
 
   my $feed = XML::Feed->new($format);
   $feed->title($self->title);
-  $feed->link($self->url);
+  $feed->link($self->feed);
   $feed->description($self->description);
   $feed->author($self->author);
   if ($format eq 'Atom') {
@@ -101,6 +124,22 @@ sub as_xml {
   $feed->id($self->id);
   $feed->add_entry($_->_entry) for @{ $self->entries };
   return $feed->as_xml;
+}
+
+=head2 url
+
+We've renamed the old 'url' attribute to 'feed'.
+
+This allows the old name to still work, but generates a warning.
+
+=cut
+
+sub url {
+  my $self = shift;
+
+  carp 'The url() method has been renamed to feed()';
+
+  return $self->feed;
 }
 
 no Moose;

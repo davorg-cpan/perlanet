@@ -203,7 +203,7 @@ sub fetch_feeds {
 
   my @valid_feeds;
   for my $feed (@$feeds) {
-    my $response = $self->fetch_page($feed->url);
+    my $response = $self->fetch_page($feed->feed);
 
     if ($response->is_error) {
       carp 'Error retrieving ' . $feed->url;
@@ -226,7 +226,7 @@ sub fetch_feeds {
       push @valid_feeds, $feed;
     }
     catch {
-      carp 'Errors parsing ' . $feed->url;
+      carp 'Errors parsing ' . $feed->feed;
       carp $_ if defined $_;
     };
   }
@@ -362,11 +362,11 @@ sub build_feed {
   my $self = shift;
   my ($entries) = @_;
 
-  my $self_url = $self->self_link;
-
-  my $f = Perlanet::Feed->new( modified    => DateTime->now );
+  my $f = Perlanet::Feed->new(
+    modified => DateTime->now,
+    feed     => $self->config->{url},
+  );
   $f->title($self->title)             if defined $self->title;
-  $f->url($self->url)                 if defined $self->url;
   $f->description($self->description) if defined $self->description;
   if (defined $self->{'author'} ) {
     $f->author($self->author->{name})   if defined $self->author->{name};
