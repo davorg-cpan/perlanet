@@ -15,7 +15,7 @@ feed:
   file: rss.xml
   format: Atom
 feeds:
-  - url: file:data/davblog.xml
+  - feed: file:data/davblog.xml
     title: davblog
     web: http://blogs.dave.org.uk/
 

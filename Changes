@@ -1,3 +1,8 @@
+2023-03-10  3.0.0 Dave Cross <dave@perlhacks.com>
+
+  * Change the name of the feed 'url' attribute to 'feed'
+    (the old name is still supported, but warns)
+
 2023-01-03  2.2.1 Dave Cross <dave@perlhacks.com>
 
   * Update the version requirement in Build.PL too

@@ -181,7 +181,7 @@ when they change.
 
 This mandatory option gives details of the web feeds to be aggregated. Each
 item on the list has one mandatory sub-option and two optional sub-options.
-The mandatory sub-option is C<url> which gives the URL of the feed. The
+The mandatory sub-option is C<feed> which gives the URL of the feed. The
 optional sub-option C<title> gives a title to the feed which can be used
 to identify the entries that originate from this feed. The optional C<web>
 sub-option gives a web site URL associated with the feed (often the address
@@ -191,6 +191,10 @@ creating an OPML file. You can also add a C<max_entries> option which will
 override the global C<entries_per_feed> setting. If this setting exists
 and is set to zero, then the output feed will contain all of the entries
 from this input feed.
+
+B<Note:> Until the release of version 3.0.0, the C<feed> sub-option was called
+C<url>. This name is still supported, but you will get a warning each time
+you parse a configuration file which uses this name.
 
 =back
 
@@ -212,13 +216,13 @@ from this input feed.
     format: Atom
   cache_dir: /tmp/feeds
   feeds:
-    - url: http://blog.dave.org.uk/atom.xml
+    - feed: http://blog.dave.org.uk/atom.xml
       title: Dave's Blog
       web: http://blog.dave.org.uk/
-    - url: http://use.perl.org/~davorg/journal/rss
+    - feed: http://use.perl.org/~davorg/journal/rss
       title: Dave's use.perl Journal
       web: http://use.perl.org/~davorg/journal/
-    - url: http://www.oreillynet.com/pub/feed/31?au=2607
+    - feed: http://www.oreillynet.com/pub/feed/31?au=2607
       title: Dave on O'Reillynet
       web: http://www.oreillynet.com/pub/au/2607
 

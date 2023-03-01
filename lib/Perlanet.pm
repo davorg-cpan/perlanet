@@ -18,7 +18,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '2.2.1';
+our $VERSION = '3.0.0';
 
 with 'MooseX::Traits';
 
@@ -206,13 +206,13 @@ sub fetch_feeds {
     my $response = $self->fetch_page($feed->feed);
 
     if ($response->is_error) {
-      carp 'Error retrieving ' . $feed->url;
+      carp 'Error retrieving ' . $feed->feed;
       carp $response->http_response->status_line;
       next;
     }
 
     unless (length $response->content) {
-      carp 'No data returned from ' . $feed->url;
+      carp 'No data returned from ' . $feed->feed;
       next;
     }
 

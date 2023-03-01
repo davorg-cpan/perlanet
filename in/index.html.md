@@ -123,7 +123,7 @@ The configuration file can contain the following options.
 
     This mandatory option gives details of the web feeds to be aggregated. Each
     item on the list has one mandatory sub-option and two optional sub-options.
-    The mandatory sub-option is `url` which gives the URL of the feed. The
+    The mandatory sub-option is `feed` which gives the URL of the feed. The
     optional sub-option `title` gives a title which will be prepended to all of
     the entry titles taken from that feed. If no title is given, then the title
     will be taken from the feed title. The optional `web` sub-option gives a
@@ -131,6 +131,10 @@ The configuration file can contain the following options.
     the feed comes from). This can be used to create a list of the aggregated
     sites. The `web` sub-option becomes mandatory if you are creating an OPML
     file.
+
+    B<Note:> Until the release of version 3.0.0, the C<feed> sub-option was called
+    C<url>. This name is still supported, but you will get a warning each time
+    you parse a configuration file which uses this name.
 
 ### Example configuration file
 
