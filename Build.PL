@@ -38,6 +38,7 @@ my $build = Module::Build->new(
     'MooseX::ConfigFromFile' => 0,
     'Alien::Tidyp'           => 0,
     'XML::OPML::SimpleGen'   => 0,
+    'Test::Warnings'         => 0,
   },
   build_recommends   => {
     'Test::Pod'              => 0,
