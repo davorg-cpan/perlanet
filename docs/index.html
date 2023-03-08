@@ -74,7 +74,7 @@
 <p><code>perlanet</code> takes one optional command line argument, which is the name of a configuration file to use. If no filename is given then the program looks for a file called <code>perlanetrc</code> in the current directory.</p>
 <h2 id="configuration-file">Configuration file</h2>
 <p><code>perlanet</code> requires a configuration file which contains details of which feeds to aggregate and what to do with the results of the aggregation. By default, <code>perlanet</code> looks for a file called <code>perlanetrc</code> in the current directory, but this name can be overridden by passing the name of a different file when calling the program.</p>
-<p>The configuration file is in YAML format. YAML is a simple text-based file format. See <a href="http://yaml.org/" class="uri">http://yaml.org/</a> for further details.</p>
+<p>The configuration file is in YAML format. YAML is a simple text-based file format. See <a href="http://yaml.org/">http://yaml.org/</a> for further details.</p>
 <h3 id="configuration-options">Configuration options</h3>
 <p>The configuration file can contain the following options.</p>
 <ul>
@@ -87,7 +87,7 @@
 <li><p>author</p>
 <p>The name and email address of the author of the aggregated content. This item has two sub-items - one each for the name and email address. This option is mandatory.</p></li>
 <li><p>agent</p>
-<p>This optional entry defines the agent string that perlanet will use when requesting data from web sites. It's the name of the program that site owners will see in their web site access logs. Although it is optional, it is strongly recommended that you give a value for this configuration option and that the value you use includes contact details so that web site owners can get in touch with you if they have any concerns about your use of their site.</p></li>
+<p>This optional entry defines the agent string that perlanet will use when requesting data from web sites. It’s the name of the program that site owners will see in their web site access logs. Although it is optional, it is strongly recommended that you give a value for this configuration option and that the value you use includes contact details so that web site owners can get in touch with you if they have any concerns about your use of their site.</p></li>
 <li><p>entries</p>
 <p>The maximum number of entries to include in the aggregated content. This option is mandatory.</p></li>
 <li><p>entries_per_feed</p>
@@ -97,13 +97,14 @@
 <li><p>opml</p>
 <p>The system can optionally create an OPML file containing details of the feeds which are being aggregated. This optional option controls whether or not this file is created. If it exists, it should be the name of the OPML file to be created. If an OPML file is being created, then the <code>feeds</code> options (described below) will all require a <code>web</code> sub-option.</p></li>
 <li><p>page</p>
-<p>This mandatory option contains the details of the web page to be created. There are two sub-options - <code>file</code> gives the name of the file to be created and <code>template</code> gives the name of a Template Toolkit template which will be processed in order to create this file. See the section <a href="#output-template">&quot;Output Template&quot;</a> for more details on this template, and the web site <a href="http://tt2.org/" class="uri">http://tt2.org/</a> for more information about the Template Toolkit.</p></li>
+<p>This mandatory option contains the details of the web page to be created. There are two sub-options - <code>file</code> gives the name of the file to be created and <code>template</code> gives the name of a Template Toolkit template which will be processed in order to create this file. See the section <a href="#output-template">“Output Template”</a> for more details on this template, and the web site <a href="http://tt2.org/">http://tt2.org/</a> for more information about the Template Toolkit.</p></li>
 <li><p>feed</p>
-<p>This mandatory option contains the details of the web feed to be created. There are two sub-options - <code>file</code> gives the name of the file to be created and <code>format</code> gives the format of the output (currently 'Atom' or 'RSS').</p></li>
+<p>This mandatory option contains the details of the web feed to be created. There are two sub-options - <code>file</code> gives the name of the file to be created and <code>format</code> gives the format of the output (currently ‘Atom’ or ‘RSS’).</p></li>
 <li><p>cache_dir</p>
 <p>This if you give a directory name in this option then perlanet will use the cache facility of URI::Fetch. This means that web feeds will only be downloaded when they change.</p></li>
 <li><p>feeds</p>
-<p>This mandatory option gives details of the web feeds to be aggregated. Each item on the list has one mandatory sub-option and two optional sub-options. The mandatory sub-option is <code>url</code> which gives the URL of the feed. The optional sub-option <code>title</code> gives a title which will be prepended to all of the entry titles taken from that feed. If no title is given, then the title will be taken from the feed title. The optional <code>web</code> sub-option gives a web site URL associated with the feed (often the address of the web site that the feed comes from). This can be used to create a list of the aggregated sites. The <code>web</code> sub-option becomes mandatory if you are creating an OPML file.</p></li>
+<p>This mandatory option gives details of the web feeds to be aggregated. Each item on the list has one mandatory sub-option and two optional sub-options. The mandatory sub-option is <code>feed</code> which gives the URL of the feed. The optional sub-option <code>title</code> gives a title which will be prepended to all of the entry titles taken from that feed. If no title is given, then the title will be taken from the feed title. The optional <code>web</code> sub-option gives a web site URL associated with the feed (often the address of the web site that the feed comes from). This can be used to create a list of the aggregated sites. The <code>web</code> sub-option becomes mandatory if you are creating an OPML file.</p>
+<p>B&lt;Note:&gt; Until the release of version 3.0.0, the C<feed> sub-option was called C<url>. This name is still supported, but you will get a warning each time you parse a configuration file which uses this name.</p></li>
 </ul>
 <h3 id="example-configuration-file">Example configuration file</h3>
 <pre><code>title: planet test
@@ -166,16 +167,19 @@ feeds:
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <p></p>
-<p>In the future, the Perlanet wiki at <a href="http://wiki.github.com/davorg/perlanet" class="uri">http://wiki.github.com/davorg/perlanet</a> will contain a cookbook of useful ideas to include in the output template.</p>
+<p>In the future, the Perlanet wiki at <a href="http://wiki.github.com/davorg/perlanet">http://wiki.github.com/davorg/perlanet</a> will contain a cookbook of useful ideas to include in the output template.</p>
 <h2 id="support">Support</h2>
-<p>To report bugs in Perlanet, please use the CPAN request tracker. You can either use the web page at <a href="http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet" class="uri">http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet</a> or send an email to bug-Perlanet@rt.cpan.org.</p>
+<p>To report bugs in Perlanet, please use its issue tracker. You can find it at:</p>
+<ul>
+<li>https://github.com/davorg/perlanet/issues</li>
+</ul>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="https://metacpan.org/pod/perlanet">perlanet</a></li>
 <li><a href="https://metacpan.org/pod/Plagger">Plagger</a></li>
 </ul>
 <h2 id="author">Author</h2>
-<p>Dave Cross, <a href="mailto:dave@perlhacks.com">dave@perlhacks.com</a></p>
+<p>Dave Cross, <a href="mailto:dave@perlhacks.com" class="email">dave@perlhacks.com</a></p>
 <h2 id="copyright-and-licence">Copyright and licence</h2>
 <p>Copyright (C) 2008-2018 by Magnum Solutions Ltd.</p>
 <p>This program library is free software; you can redistribute it and/or modify it under the same terms as Perl itself, either Perl version 5.10.0 or, at your option, any later version of Perl 5 you may have available.</p>

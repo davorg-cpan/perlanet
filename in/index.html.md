@@ -218,10 +218,9 @@ will contain a cookbook of useful ideas to include in the output template.
 
 ## Support
 
-To report bugs in Perlanet, please use the CPAN request tracker. You can
-either use the web page at
-[http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet](http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet) or send an email
-to bug-Perlanet@rt.cpan.org.
+To report bugs in Perlanet, please use its issue tracker. You can find it at:
+
+* https://github.com/davorg/perlanet/issues
 
 ## See also
 
