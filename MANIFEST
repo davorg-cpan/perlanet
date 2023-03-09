@@ -41,7 +41,7 @@ t/allentriesrc
 t/5entriesrc
 t/oldurlrc
 t/index.tt
-README
+README.md
 Changes
 t/data/davblog.xml
 t/data/stevebaker.xml
