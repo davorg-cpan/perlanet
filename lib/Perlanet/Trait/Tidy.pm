@@ -8,7 +8,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use Encode;
-use HTML::Tidy;
+use HTML::Tidy5;
 
 =head1 NAME
 
@@ -61,7 +61,7 @@ sub _build_tidy {
     show_warnings     => 0,
   );
 
-  my $tidy = HTML::Tidy->new(\%tidy);
+  my $tidy = HTML::Tidy5->new(\%tidy);
   $tidy->ignore( type => TIDY_WARNING );
 
   return $tidy;
