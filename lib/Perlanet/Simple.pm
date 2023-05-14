@@ -44,7 +44,7 @@ planet working out of the box.
 
 Perlanet::Simple takes the standard Perlanet module, and adds support for
 caching, OPML feed generation, and L<Template> rendering support. It will
-also attempt to clean each post using both L<HTML::Scrubber> and L<HTML::Tidy>.
+also attempt to clean each post using both L<HTML::Scrubber> and L<HTML::T5>.
 
 =head2 Configuration
 

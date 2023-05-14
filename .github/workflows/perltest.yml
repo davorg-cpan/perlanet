@@ -29,8 +29,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install libxml2 libxml2-dev
       - name: Perl version
         run: perl -V
-      - name: Install Alien::Tidyp
-        run: cpanm --notest Alien::Tidyp
+      - name: Install Alien::TidyHTML5
+        run: cpanm --notest Alien::TidyHTML5
       - name: Install Test::Exception
         run: cpanm --notest Test::Exception
       - name: Install CPAN modules
@@ -53,8 +53,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install libs
         run: apt-get update && apt-get install -y libxml2 libxml2-dev
-      - name: Install Alien::Tidyp
-        run: cpanm --notest Alien::Tidyp
+      - name: Install Alien::TidyHTML5
+        run: cpanm --notest Alien::TidyHTML5
       - name: Install Test::Exception
         run: cpanm --notest Test::Exception
       - name: Install modules
