@@ -1,3 +1,7 @@
+2023-05-15  3.0.2 Dave Cross <dave@perlhacks.com>
+
+  * Removed a prereq that is no longer needed
+
 2023-05-14  3.0.1 Dave Cross <dave@perlhacks.com>
 
   * Switch from using (unsupported) HTML::Tidy to HTML::T5
