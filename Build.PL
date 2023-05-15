@@ -37,7 +37,7 @@ my $build = Module::Build->new(
     'Test::More'             => 0,
     'File::Path'             => 0,
     'MooseX::ConfigFromFile' => 0,
-    'Alien::Tidyp'           => 0,
+    'Alien::TidyHTML5'       => 0,
     'XML::OPML::SimpleGen'   => 0,
     'Test::Warnings'         => 0,
   },
