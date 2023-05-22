@@ -275,15 +275,13 @@ of the aggregated feeds.
     </body>
   </html>
 
-In the future, the Perlanet wiki at L<http://wiki.github.com/davorg/perlanet>
+In the future, the Perlanet wiki at L<https://github.com/davorg/perlanet/wiki>
 will contain a cookbook of useful ideas to include in the output template.
 
 =head1 SUPPORT
 
-To report bugs in Perlanet, please use the CPAN request tracker. You can
-either use the web page at
-L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet> or send an email
-to bug-Perlanet@rt.cpan.org.
+To report bugs in Perlanet, please use the ticket queue at
+L<https://github.com/davorg/perlanet/issues>.
 
 =head1 SEE ALSO
 

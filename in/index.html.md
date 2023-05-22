@@ -213,7 +213,7 @@ of the aggregated feeds.
 
 [* TAGS template -*]
 
-In the future, the Perlanet wiki at [http://wiki.github.com/davorg/perlanet](http://wiki.github.com/davorg/perlanet)
+In the future, the Perlanet wiki at [https://github.com/davorg/perlanet/wiki](https://github.com/davorg/perlanet/wiki)
 will contain a cookbook of useful ideas to include in the output template.
 
 ## Support

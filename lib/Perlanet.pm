@@ -466,14 +466,12 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 TO DO
 
-See L<http://wiki.github.com/davorg/perlanet/issues>
+See L<https://github.com/davorg/perlanet/issues>
 
 =head1 SUPPORT
 
-To report bugs in Perlanet, please use the CPAN request tracker. You can
-either use the web page at
-L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Perlanet> or send an email
-to bug-Perlanet@rt.cpan.org.
+To report bugs in Perlanet, please use the ticket queue at
+L<https://github.com/davorg/perlanet/issues>.
 
 =head1 SEE ALSO
 
