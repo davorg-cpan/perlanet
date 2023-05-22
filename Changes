@@ -1,3 +1,7 @@
+2023-05-22  3.0.3 Dave Cross <dave@perlhacks.com>
+
+  * Fixed some old links (see https://github.com/davorg/perlanet/issues/22)
+
 2023-05-15  3.0.2 Dave Cross <dave@perlhacks.com>
 
   * Removed a prereq that is no longer needed
