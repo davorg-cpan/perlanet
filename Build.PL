@@ -52,11 +52,11 @@ my $build = Module::Build->new(
     resources => {
       repository => {
        type => 'git',
-       url  => 'git://github.com/davorg/perlanet.git',
-       web  => 'https://github.com/davorg/perlanet',
+       url  => 'git://github.com/davorg-cpan/perlanet.git',
+       web  => 'https://github.com/davorg-cpan/perlanet',
      },
       bugtracker => {
-       web  => 'https://github.com/davorg/perlanet/issues',
+       web  => 'https://github.com/davorg-cpan/perlanet/issues',
      },
      homepage => "http://perlanet.mag-sol.com/",
    },
