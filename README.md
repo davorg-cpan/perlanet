@@ -1,6 +1,8 @@
 
 # Perlanet
 
+[![Build Status](https://github.com/davorg-cpan/perlanet/actions/workflows/perltest.yml/badge.svg?branch=master)](https://github.com/davorg-cpan/perlanet/actions/workflows/perltest.yml) [![Coverage Status](https://coveralls.io/repos/github/davorg-cpan/perlanet/badge.svg?branch=master)](https://coveralls.io/github/davorg-cpan/perlanet?branch=master)
+
 ## NAME
 
 Perlanet
