@@ -1,3 +1,7 @@
+2025-02-17  3.1.1 Dave Cross <dave@perlhacks.com>
+
+  * Improve error messages (lose unhelpful stack trace)
+
 2025-02-17  3.1.0 Dave Cross <dave@perlhacks.com>
 
   * Revert to using die/warn instead of croak/carp
