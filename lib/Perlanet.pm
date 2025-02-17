@@ -7,7 +7,6 @@ use warnings;
 use Moose;
 use namespace::autoclean;
 
-use Carp;
 use DateTime::Duration;
 use DateTime;
 use Perlanet::Entry;
@@ -18,7 +17,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.0.3';
+our $VERSION = '3.1.0';
 
 with 'MooseX::Traits';
 
@@ -206,13 +205,13 @@ sub fetch_feeds {
     my $response = $self->fetch_page($feed->feed);
 
     if ($response->is_error) {
-      carp 'Error retrieving ' . $feed->feed;
-      carp $response->http_response->status_line;
+      warn 'Error retrieving ' . $feed->feed, "\n";
+      warn $response->http_response->status_line, "\n";
       next;
     }
 
     unless (length $response->content) {
-      carp 'No data returned from ' . $feed->feed;
+      warn 'No data returned from ' . $feed->feed, "\n";
       next;
     }
 
@@ -226,8 +225,8 @@ sub fetch_feeds {
       push @valid_feeds, $feed;
     }
     catch {
-      carp 'Errors parsing ' . $feed->feed;
-      carp $_ if defined $_;
+      warn 'Errors parsing ' . $feed->feed, "\n";
+      warn "$_\n" if defined $_;
     };
   }
 

@@ -1,3 +1,7 @@
+2025-02-17  3.1.0 Dave Cross <dave@perlhacks.com>
+
+  * Revert to using die/warn instead of croak/carp
+
 2023-05-22  3.0.3 Dave Cross <dave@perlhacks.com>
 
   * Fixed some old links (see https://github.com/davorg/perlanet/issues/22)

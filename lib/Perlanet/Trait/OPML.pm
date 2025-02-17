@@ -7,7 +7,6 @@ use warnings;
 use Moose::Role;
 use namespace::autoclean;
 
-use Carp qw( carp );
 use POSIX qw(setlocale LC_ALL);
 
 =head1 NAME
@@ -48,8 +47,8 @@ sub _build_opml_generator {
   eval { require XML::OPML::SimpleGen; };
 
   if ($@) {
-    carp 'You need to install XML::OPML::SimpleGen to enable OPML ' .
-          'support';
+    warn 'You need to install XML::OPML::SimpleGen to enable OPML ' .
+          "support\n";
     $self->opml_file(undef);
     return;
   }

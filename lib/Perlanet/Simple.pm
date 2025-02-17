@@ -7,7 +7,6 @@ use warnings;
 use Moose;
 use namespace::autoclean;
 
-use Carp;
 use YAML 'LoadFile';
 
 extends 'Perlanet';

@@ -36,7 +36,6 @@ The format of the XML to use - may be RSS or Atom
 
 =cut
 
-use Carp qw( croak );
 use Template;
 
 has 'feed' => (
@@ -53,7 +52,7 @@ after 'render' => sub {
   return unless $self->feed->{file};
 
   open my $feedfile, '>', $self->feed->{file}
-    or croak 'Cannot open ' . $self->feed->{file} . " for writing: $!";
+    or die 'Cannot open ' . $self->feed->{file} . " for writing: $!\n";
   print $feedfile $feed->as_xml($self->feed->{format});
   close $feedfile;
 };

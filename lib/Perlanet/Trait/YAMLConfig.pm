@@ -67,7 +67,6 @@ Extracts the configuration from a YAML file
 
 with 'MooseX::ConfigFromFile', 'Perlanet::Role::Config';
 
-use Carp qw( carp croak );
 use YAML qw( LoadFile );
 
 sub get_config_from_file {
@@ -86,10 +85,10 @@ sub read_config {
   my (%params) = @_;
 
   my $file = $params{config_file}
-    // croak "No config file passed to read_config().";
+    // die "No config file passed to read_config().\n";
 
   open my $cfg_file, '<:encoding(UTF-8)', $file
-    or croak "Cannot open file $file: $!";
+    or die "Cannot open file $file: $!\n";
 
   my $cfg = LoadFile($cfg_file);
 

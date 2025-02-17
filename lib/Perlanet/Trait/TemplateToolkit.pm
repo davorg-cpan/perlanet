@@ -45,7 +45,6 @@ A L<Perlanet::Feed> that represents the aggregation of all posts
 =cut
 
 use Template;
-use Carp;
 
 has 'page' => (
   isa       => 'HashRef',
@@ -70,7 +69,7 @@ after 'render' => sub {
     {
       binmode => ':utf8'
     }
-  ) or croak $tt->error;
+  ) or die $tt->error, "\n";
 };
 
 =head1 AUTHOR

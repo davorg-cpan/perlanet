@@ -6,7 +6,6 @@ use warnings;
 
 use Moose;
 use XML::Feed;
-use Carp;
 
 =head1 NAME
 
@@ -137,7 +136,7 @@ This allows the old name to still work, but generates a warning.
 sub url {
   my $self = shift;
 
-  carp 'The url() method has been renamed to feed()';
+  warn "The url() method has been renamed to feed()\n";
 
   return $self->feed;
 }

@@ -5,7 +5,6 @@ use strict;
 use warnings;
 
 use Moose::Role;
-use Carp;
 
 use constant THIRTY_DAYS => 30 * 24 * 60 * 60;
 
@@ -89,8 +88,8 @@ sub get_config {
     eval { require CHI; };
  
     if ($@) {
-      carp "You need to install CHI to enable caching.\n";
-      carp "Caching disabled for this run.\n";
+      warn "You need to install CHI to enable caching.\n",
+           "Caching disabled for this run.\n";
       delete $cfg->{cache_dir};
     }
   }
