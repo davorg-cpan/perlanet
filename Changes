@@ -1,3 +1,8 @@
+2025-02-18  3.1.3 Dave Cross <dave@perlhacks.com>
+
+  * Fix previous fix
+  * Timeout HTTP connections quickly
+
 2025-02-18  3.1.2 Dave Cross <dave@perlhacks.com>
 
   * More debugging information

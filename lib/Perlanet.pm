@@ -17,7 +17,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.1.2';
+our $VERSION = '3.1.3';
 
 with 'MooseX::Traits';
 
@@ -37,7 +37,8 @@ has 'ua' => (
 sub _build_ua {
   my $self = shift;
   my $ua = LWP::UserAgent->new(
-    agent => "Perlanet/$VERSION"
+    agent   => "Perlanet/$VERSION",
+    timeout => 20,
   );
   $ua->show_progress(1) if -t STDOUT;
   $ua->env_proxy;
@@ -224,7 +225,7 @@ sub fetch_feeds {
 
       unless ($xml_feed) {
         warn "Can't make an object from " . $feed->feed . "\n";
-        my $content_type = $response->header('Content_type');
+        my $content_type = $response->content_type;
         warn "Content type: $content_type\n" if $content_type;
         my $extract = substr $data, 0, 100;
         die "[$extract]\n";
