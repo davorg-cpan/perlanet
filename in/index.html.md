@@ -90,7 +90,7 @@ The configuration file can contain the following options.
     the entries in a feed. It can be one of the two values `issued` or
     `modified`. If this option is omitted, then `modified` is used.
 
-- opml
+- opml_file
 
     The system can optionally create an OPML file containing details of the
     feeds which are being aggregated. This optional option controls whether or not
@@ -145,7 +145,7 @@ The configuration file can contain the following options.
       name: Dave Cross
       email: dave@dave.org.uk
     entries: 20
-    opml: opml.xml
+    opml_file: opml.xml
     page:
       file: index.html
       template: index.tt

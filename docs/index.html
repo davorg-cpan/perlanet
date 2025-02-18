@@ -92,7 +92,7 @@
 <p>The <code>entries</code> value above defines the total number of entries in the aggregated output feed. The &lt;entries_per_feed&gt; value defines the number of entries to take from each of your source feeds. For example, if this is set to 1 then there will only be one entry from each feed in your output. If this value is 0 (or missing) then all values from all source feeds are used.</p></li>
 <li><p>entry_sort_order</p>
 <p>Entries have two dates, issued (which is the date that the item was first published) and modified (which is the date that the item was last updated). This configuration option controls which of these two dates are used to sort the entries in a feed. It can be one of the two values <code>issued</code> or <code>modified</code>. If this option is omitted, then <code>modified</code> is used.</p></li>
-<li><p>opml</p>
+<li><p>opml_file</p>
 <p>The system can optionally create an OPML file containing details of the feeds which are being aggregated. This optional option controls whether or not this file is created. If it exists, it should be the name of the OPML file to be created. If an OPML file is being created, then the <code>feeds</code> options (described below) will all require a <code>web</code> sub-option.</p></li>
 <li><p>page</p>
 <p>This mandatory option contains the details of the web page to be created. There are two sub-options - <code>file</code> gives the name of the file to be created and <code>template</code> gives the name of a Template Toolkit template which will be processed in order to create this file. See the section <a href="#output-template">“Output Template”</a> for more details on this template, and the web site <a href="http://tt2.org/">http://tt2.org/</a> for more information about the Template Toolkit.</p></li>
@@ -112,7 +112,7 @@ author:
   name: Dave Cross
   email: dave@dave.org.uk
 entries: 20
-opml: opml.xml
+opml_file: opml.xml
 page:
   file: index.html
   template: index.tt

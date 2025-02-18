@@ -8,7 +8,7 @@ author:
   email: dave@dave.org.uk
 entries: 20
 cache_dir: cache
-opml: opml.xml
+opmlfile: opml.xml
 page:
   file: index.html
   template: index.tt

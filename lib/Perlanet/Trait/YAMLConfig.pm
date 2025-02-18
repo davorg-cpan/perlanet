@@ -38,7 +38,7 @@ configuration file.
     name: Dave Cross
     email: dave@dave.org.uk
   entries: 20
-  opml: opml.xml
+  opml_file: opml.xml
   page:
     file: index.html
     template: index.tt
