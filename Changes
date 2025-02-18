@@ -1,6 +1,10 @@
-UNRELEASED
+2025-02-18  3.2.0 Dave Cross <dave@perlhacks.com>
 
   * Fix documentation of "opml_file" config option
+
+  * Make (most) objects immutable
+
+  * Make feed URL optional
 
 2025-02-18  3.1.3 Dave Cross <dave@perlhacks.com>
 
