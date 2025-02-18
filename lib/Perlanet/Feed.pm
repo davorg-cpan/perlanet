@@ -16,12 +16,12 @@ Perlanet::Feed - represents a feed
 has 'title' => (
   isa => 'Str',
   is => 'rw', # Ew!
+  required => 1,
 );
 
 has 'feed' => (
   isa => 'Str',
   is => 'ro',
-  required => 1,
 );
 
 has 'web' => (

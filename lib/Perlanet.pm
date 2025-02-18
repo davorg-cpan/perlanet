@@ -203,6 +203,8 @@ sub fetch_feeds {
 
   my @valid_feeds;
   for my $feed (@$feeds) {
+    next unless $feed->feed;
+
     my $response = $self->fetch_page($feed->feed);
 
     if ($response->is_error) {
