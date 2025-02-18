@@ -17,7 +17,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.1.1';
+our $VERSION = '3.1.2';
 
 with 'MooseX::Traits';
 
@@ -224,7 +224,10 @@ sub fetch_feeds {
 
       unless ($xml_feed) {
         warn "Can't make an object from " . $feed->feed . "\n";
-        die "[$data]\n";
+        my $content_type = $response->header('Content_type');
+        warn "Content type: $content_type\n" if $content_type;
+        my $extract = substr $data, 0, 100;
+        die "[$extract]\n";
       }
 
       $feed->_xml_feed($xml_feed);
