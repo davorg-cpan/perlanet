@@ -14,3 +14,5 @@ feed:
   format: Atom
 feeds:
   - feed: file:data/youtube.xml
+    title: Test YouTube Feed
+
