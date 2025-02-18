@@ -15,51 +15,51 @@ Perlanet::Feed - represents a feed
 
 has 'title' => (
   isa => 'Str',
-  is => 'rw',
+  is => 'rw', # Ew!
 );
 
 has 'feed' => (
   isa => 'Str',
-  is => 'rw',
+  is => 'ro',
   required => 1,
 );
 
 has 'web' => (
   isa => 'Str',
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'format' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'description' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'author' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'email' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has '_xml_feed' => (
   isa => 'XML::Feed',
-  is => 'rw',
+  is => 'rw', # Ew!
 );
 
 has 'id' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'self_link' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'modified' => (
-  is => 'rw',
+  is => 'ro',
 );
 
 has 'max_entries' => (
@@ -69,7 +69,7 @@ has 'max_entries' => (
 
 has 'entries' => (
   isa => 'ArrayRef',
-  is => 'rw',
+  is => 'ro',
   default => sub { [] },
   traits => [ 'Array' ],
   handles => {

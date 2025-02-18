@@ -48,7 +48,7 @@ use Template;
 
 has 'page' => (
   isa       => 'HashRef',
-  is        => 'rw',
+  is        => 'ro',
   default   => sub {
     { file => 'index.html', template => 'index.tt' };
   },

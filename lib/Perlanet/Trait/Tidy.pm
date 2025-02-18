@@ -42,7 +42,7 @@ before outputting. For default settings see source..
 =cut
 
 has 'tidy' => (
-  is         => 'rw',
+  is         => 'ro',
   lazy_build => 1
 );
 

@@ -33,7 +33,7 @@ The L<Chi> cache object
 =cut
 
 has 'cache'=> (
-  is => 'rw'
+  is => 'ro'
 );
 
 around 'fetch_page' => sub {

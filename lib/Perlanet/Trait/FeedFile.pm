@@ -40,7 +40,7 @@ use Template;
 
 has 'feed' => (
   isa       => 'HashRef',
-  is        => 'rw',
+  is        => 'ro',
   default   => sub {
     { file => 'atom.xml', format => 'Atom' };
   },

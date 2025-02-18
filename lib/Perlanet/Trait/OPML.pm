@@ -34,7 +34,7 @@ An L<XML::OPML::SimpleGen> object to generate the XML for the OPML file
 =cut
 
 has 'opml_generator' => (
-  is         => 'rw',
+  is         => 'ro',
   isa        => 'Maybe[XML::OPML::SimpleGen]',
   builder    => '_build_opml_generator',
   predicate  => 'has_opml',
@@ -72,7 +72,7 @@ Where to save the OPML feed when it has been created
 
 has 'opml_file' => (
   isa       => 'Maybe[Str]',
-  is        => 'rw',
+  is        => 'ro',
 );
 
 =head1 METHODS

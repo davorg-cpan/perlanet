@@ -28,7 +28,7 @@ the feed entries. For default settings see source of Perlanet.pm.
 =cut
 
 has 'scrubber' => (
-  is         => 'rw',
+  is         => 'ro',
   lazy_build => 1
 );
 

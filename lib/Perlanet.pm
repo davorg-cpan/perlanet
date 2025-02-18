@@ -29,7 +29,7 @@ has 'config' => (
 );
 
 has 'ua' => (
-  is         => 'rw',
+  is         => 'ro',
   isa        => 'LWP::UserAgent',
   lazy_build => 1
 );
@@ -48,7 +48,7 @@ sub _build_ua {
 
 has 'cutoff_duration' => (
   isa     => 'Perlanet::DateTime::Duration',
-  is      => 'rw',
+  is      => 'ro',
   lazy_build => 1,
   coerce  => 1,
 );
@@ -70,13 +70,13 @@ sub _build_cutoff {
 
 has 'entries' => (
   isa => 'Int',
-  is  => 'rw',
+  is  => 'ro',
   default => 10,
 );
 
 has 'entries_per_feed' => (
   isa => 'Int',
-  is  => 'rw',
+  is  => 'ro',
   default => 5,
 );
 
@@ -373,22 +373,33 @@ sub build_feed {
   my $self = shift;
   my ($entries) = @_;
 
-  my $f = Perlanet::Feed->new(
+  my %feed_data = (
     modified => DateTime->now,
     feed     => $self->config->{url},
   );
-  $f->title($self->title)             if defined $self->title;
-  $f->description($self->description) if defined $self->description;
-  if (defined $self->{'author'} ) {
-    $f->author($self->author->{name})   if defined $self->author->{name};
-    $f->email($self->author->{email})   if defined $self->author->{email};
-  }
-  $f->self_link($self->url)           if defined $self->url;
-  $f->id($self->url)                  if defined $self->url;
 
-  $f->add_entry($_) for @$entries;
+  for (qw[title description]) {
+    $feed_data{$_} = $self->$_ if defined $self->$_;
+  }
+
+  if (defined $self->author) {
+    $feed_data{author} = $self->author->{name}  if defined $self->author->{name};
+    $feed_data{email}  = $self->author->{email} if defined $self->author->{email};
+  }
+
+  if (defined $self->url) {
+    $feed_data{self_link} = $self->url;
+    $feed_data{id}        = $self->url
+  }
+
+  $feed_data{entries} = $entries;
+
+  my $f = Perlanet::Feed->new(
+    %feed_data,
+  );
 
   return $f;
+
 }
 
 =head2 clean_html
