@@ -21,7 +21,6 @@ my $build = Module::Build->new(
     'HTML::T5'             => 0,
     'HTML::Scrubber'       => 0,
     'Moose'                => 0,
-    'Try::Tiny'            => 0,
     'MooseX::Traits'       => 0,
     'namespace::autoclean' => 0,
     'MooseX::ConfigFromFile' => 0,

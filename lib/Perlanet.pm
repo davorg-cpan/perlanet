@@ -1,8 +1,10 @@
 package Perlanet;
 
-use 5.10.0;
+use 5.34.0;
 use strict;
 use warnings;
+
+use feature 'try';
 
 use Moose;
 use namespace::autoclean;
@@ -11,7 +13,6 @@ use DateTime::Duration;
 use DateTime;
 use Perlanet::Entry;
 use Perlanet::Feed;
-use Try::Tiny;
 use URI::Fetch;
 use XML::Feed;
 
@@ -238,10 +239,10 @@ sub fetch_feeds {
 
       push @valid_feeds, $feed;
     }
-    catch {
+    catch ($e) {
       warn 'Errors parsing ' . $feed->feed, "\n";
-      warn "$_\n" if defined $_;
-    };
+      warn "$e\n" if defined $e;
+    }
   }
 
   return \@valid_feeds;
