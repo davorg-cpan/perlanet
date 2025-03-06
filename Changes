@@ -1,3 +1,7 @@
+UNRELEASED
+
+  * Switch to using built-in 'try/catch'
+
 2025-02-18  3.2.0 Dave Cross <dave@perlhacks.com>
 
   * Fix documentation of "opml_file" config option
