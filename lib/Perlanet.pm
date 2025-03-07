@@ -281,8 +281,8 @@ sub select_entries {
       }
     }
 
-    @entries = @{ $self->sort_entries(\@entries) };
-    @entries = @{ $self->cutoff_entries(\@entries) };
+    @entries = $self->sort_entries(\@entries)->@*;
+    @entries = $self->cutoff_entries(\@entries)->@*;
 
     my $number_of_entries =
       defined $feed->max_entries ? $feed->max_entries

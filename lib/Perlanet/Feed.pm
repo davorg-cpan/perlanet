@@ -1,6 +1,6 @@
 package Perlanet::Feed;
 
-use 5.10.0;
+use 5.24.0;
 use strict;
 use warnings;
 
@@ -121,7 +121,7 @@ sub as_xml {
   $feed->modified($self->modified);
   $feed->self_link($self->self_link);
   $feed->id($self->id);
-  $feed->add_entry($_->_entry) for @{ $self->entries };
+  $feed->add_entry($_->_entry) for $self->entries->@*;
   return $feed->as_xml;
 }
 

@@ -1,6 +1,6 @@
 package Perlanet::Role::Config;
 
-use 5.10.0;
+use 5.24.0;
 use strict;
 use warnings;
 
@@ -79,7 +79,7 @@ sub get_config {
 
   $cfg->{feeds} = [ map {
     Perlanet::Feed->new($_)
-  } @{ $cfg->{feeds} } ];
+  } $cfg->{feeds}->@* ];
  
   $cfg->{max_entries} = $cfg->{entries}
     if $cfg->{entries};
