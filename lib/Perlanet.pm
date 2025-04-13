@@ -18,7 +18,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.2.0';
+our $VERSION = '3.3.0';
 
 with 'MooseX::Traits';
 
@@ -67,6 +67,22 @@ has 'cutoff' => (
 
 sub _build_cutoff {
   return DateTime->now - shift->cutoff_duration;
+}
+
+has 'spam_regex' => (
+  isa     => 'Maybe[Str]',
+  is      => 'ro',
+  lazy_build => 1,
+);
+
+sub _build_spam_regex {
+  my $self = shift;
+
+  return unless $self->config->{spam_filter};
+
+  my $re = '(' . join('|', @{$self->config->{spam_filter}}) . ')';
+
+  return $re;
 }
 
 has 'entries' => (
@@ -266,7 +282,7 @@ sub select_entries {
 
   my @feed_entries;
   for my $feed (@$feeds) {
-    my @entries = $feed->_xml_feed->entries;
+    my @entries = grep { ! $self->is_spam_entry($_) } $feed->_xml_feed->entries;
 
     for (@entries) {
       # "Fix" entries with no dates
@@ -302,6 +318,33 @@ sub select_entries {
   }
 
   return \@feed_entries;
+}
+
+=head2 is_spam_entry
+
+Called internally by L</select_entries>.
+Called for each entry in the feed to determine if it is spam.
+Takes a L<Perlanet::Entry> and returns true if the entry is spam.
+If the entry is not spam, it returns false.
+If the C<spam_regex> attribute is not set, this method will
+return false for all entries.
+
+=cut
+
+sub is_spam_entry {
+  my $self = shift;
+  my ($entry) = @_;
+
+  return unless $self->spam_regex;
+
+  my $re = $self->spam_regex;
+  my $title   = $entry->title;
+  my $content = $entry->content;
+
+  return 1 if $title   =~ /$re/;
+  return 1 if $content =~ /$re/;
+
+  return;
 }
 
 =head2 sort_entries
