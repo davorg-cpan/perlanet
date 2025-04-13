@@ -18,7 +18,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.3.0';
+our $VERSION = '3.3.1';
 
 with 'MooseX::Traits';
 

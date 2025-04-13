@@ -196,6 +196,14 @@ B<Note:> Until the release of version 3.0.0, the C<feed> sub-option was called
 C<url>. This name is still supported, but you will get a warning each time
 you parse a configuration file which uses this name.
 
+=item spam_filter
+
+This optional option allows you to specify a spam filter for the
+aggregated content. This is an array of Perl regular expressions which
+will be applied to the title and content of each entry. If either of these
+fields matches any of the regular expression then the entry will be
+excluded from the aggregated content.
+
 =back
 
 =head2 Example Configuration File
@@ -225,6 +233,9 @@ you parse a configuration file which uses this name.
     - feed: http://www.oreillynet.com/pub/feed/31?au=2607
       title: Dave on O'Reillynet
       web: http://www.oreillynet.com/pub/au/2607
+  spam_filter:
+    - spammy
+    - naughty
 
 =head2 Output Template
 

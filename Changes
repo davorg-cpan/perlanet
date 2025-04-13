@@ -1,4 +1,10 @@
-UNRELEASED
+2025-04-13  3.3.1 Dave Cross <dave@perlhacks.com>
+
+  * Document the spam filter
+
+2025-04-13  3.3.0 Dave Cross <dave@perlhacks.com>
+
+  * Add spam filter support
 
   * Switch to using built-in 'try/catch'
 
