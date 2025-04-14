@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 use feature 'try';
+no warnings 'experimental::try';
 
 use Moose;
 use namespace::autoclean;
@@ -18,7 +19,7 @@ use XML::Feed;
 
 use Perlanet::Types;
 
-our $VERSION = '3.3.1';
+our $VERSION = '3.3.2';
 
 with 'MooseX::Traits';
 

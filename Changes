@@ -1,3 +1,7 @@
+2025-04-14  3.3.2 Dave Cross <dave@perlhacks.com>
+
+  * Turn off experimental warnings for try/catch
+
 2025-04-13  3.3.1 Dave Cross <dave@perlhacks.com>
 
   * Document the spam filter
