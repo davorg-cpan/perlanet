@@ -18,6 +18,6 @@ feeds:
   - title: 'con: Wycombe: Steve Baker'
     feed: file:data/stevebaker.xml
     web: http://www.stevebaker.info/
-  - title: 'co: Clacton: Douglas Carswell'
+  - title: 'con: Clacton: Douglas Carswell'
     feed: file:data/talkcarswell.xml
     web: http://www.talkcarswell.com/

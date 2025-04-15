@@ -100,6 +100,22 @@ around BUILDARGS => sub {
 
 =head1 METHODS
 
+=head2 slug
+
+Returns the title of the feed, munged in such a way that if is suitable
+for use as an ID or classname in HTML. Or as part of a URL.
+
+=cut
+
+sub slug {
+  my $self = shift;
+
+  my $slug = lc $self->title;
+  $slug =~ s/\P{Alnum}+/-/g;
+
+  return $slug;
+}
+
 =head2 as_xml
 
 Returns a string containing the XML for this feed and all its entries

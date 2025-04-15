@@ -10,6 +10,10 @@ ok(my $p = Perlanet::Simple->new_with_config(configfile => 'mprc'),
 isa_ok($p, 'Perlanet');
 
 is(@{$p->feeds}, 2, 'Two feeds');
+
+is($p->feeds->[0]->slug, 'con-wycombe-steve-baker', 'Slug 1 is correct');
+is($p->feeds->[1]->slug, 'con-clacton-douglas-carswell', 'Slug 2 is correct');
+
 my $feeds = $p->fetch_feeds($p->feeds);
 is(@$feeds, 2, 'Two fetchable feeds');
 my $selected = $p->select_entries($feeds);

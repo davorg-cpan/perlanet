@@ -1,3 +1,7 @@
+UNRELEASED
+
+  * Add 'slug' method to Feed class
+
 2025-04-14  3.3.2 Dave Cross <dave@perlhacks.com>
 
   * Turn off experimental warnings for try/catch
