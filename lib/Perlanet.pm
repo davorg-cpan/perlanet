@@ -397,22 +397,26 @@ sub sort_entries {
   my @entries;
 
   if ($self->entry_sort_order eq 'modified') {
-    @entries = sort {
-      ($b->modified || $b->issued)
-          <=>
-      ($a->modified || $a->issued)
-    } @$entries;
+    @entries = sort _sort_by_modified $entries->@*;
   } elsif ($self->entry_sort_order eq 'issued') {
-    @entries = sort {
-      ($b->issued || $b->modified)
-          <=>
-      ($a->issued || $a->modified)
-    } @$entries;
+    @entries = sort _sort_by_issued $entries->@*;
   } else {
     die 'Invalid entry sort order: ' . $self->entry_sort_order;
   }
 
   return \@entries;
+}
+
+sub _sort_by_modified ($$) {
+  ($_[1]->modified || $_[1]->issued)
+    <=>
+  ($_[0]->modified || $_[0]->issued)
+}
+
+sub _sort_by_issued ($$) {
+  ($_[1]->issued || $_[1]->modified)
+    <=>
+  ($_[0]->issued || $_[0]->modified)
 }
 
 =head2 cutoff_entries
