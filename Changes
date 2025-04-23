@@ -1,6 +1,8 @@
-UNRELEASED
+2025-04-23  3.3.3 Dave Cross <dave@perlhacks.com>
 
   * Add 'slug' method to Feed class
+
+  * Switch to "use experimental" for try
 
 2025-04-14  3.3.2 Dave Cross <dave@perlhacks.com>
 

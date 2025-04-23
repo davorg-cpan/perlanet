@@ -4,8 +4,7 @@ use 5.34.0;
 use strict;
 use warnings;
 
-use feature 'try';
-no warnings 'experimental::try';
+use experimental 'try';
 
 use Moose;
 use namespace::autoclean;
