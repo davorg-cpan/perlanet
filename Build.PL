@@ -25,6 +25,9 @@ my $build = Module::Build->new(
     'namespace::autoclean' => 0,
     'MooseX::ConfigFromFile' => 0,
     'DateTime::Format::Strptime' => 0,
+    # I mean, it's possible to use the module without this
+    # - but it's pretty unlikely
+    'LWP::Protocol::https' => 0,
   },
   recommends         => {
     'CHI'                    => 0,
