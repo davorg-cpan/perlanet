@@ -277,47 +277,62 @@ sub select_entries {
   my $self = shift;
   my ($feeds) = @_;
 
-
-  my $date_zero = DateTime->from_epoch(epoch => 0);
-
   my @feed_entries;
   for my $feed (@$feeds) {
-    my @entries = grep { ! $self->is_spam_entry($_) } $feed->_xml_feed->entries;
-
-    for (@entries) {
-      # "Fix" entries with no dates
-      unless ($_->issued or $_->modified) {
-        $_->issued($date_zero);
-        $_->modified($date_zero);
-      }
-
-      # Problem with XML::Feed's conversion of RSS to Atom
-      if ($_->issued && ! $_->modified) {
-        $_->modified($_->issued);
-      }
-    }
-
-    @entries = $self->sort_entries(\@entries)->@*;
-    @entries = $self->cutoff_entries(\@entries)->@*;
-
-    my $number_of_entries =
-      defined $feed->max_entries ? $feed->max_entries
-                                 : $self->entries_per_feed;
-
-    if ($number_of_entries and @entries > $number_of_entries) {
-      $#entries = $number_of_entries - 1;
-    }
-
-    for (@entries) {
+    for ($self->select_feed_entries($feed)->@*) {
       push @feed_entries,
         Perlanet::Entry->new(
           _entry => $_,
-          feed => $feed
+          feed   => $feed,
         );
     }
   }
 
   return \@feed_entries;
+}
+
+=head2 select_feed_entries
+
+Called by L</select_entries> and passed one of the feeds from
+L</fetch_feeds>.
+
+Returns a list of the required entries from that feed.
+
+=cut
+
+sub select_feed_entries {
+  my $self   = shift;
+  my ($feed) = @_;
+
+  state $date_zero = DateTime->from_epoch(epoch => 0);
+
+  my @entries = grep { ! $self->is_spam_entry($_) } $feed->_xml_feed->entries;
+
+  for (@entries) {
+    # "Fix" entries with no dates
+    unless ($_->issued or $_->modified) {
+      $_->issued($date_zero);
+      $_->modified($date_zero);
+    }
+
+    # Problem with XML::Feed's conversion of RSS to Atom
+    if ($_->issued && ! $_->modified) {
+      $_->modified($_->issued);
+    }
+  }
+
+  @entries = $self->sort_entries(\@entries)->@*;
+  @entries = $self->cutoff_entries(\@entries)->@*;
+
+  my $number_of_entries =
+    defined $feed->max_entries ? $feed->max_entries
+                               : $self->entries_per_feed;
+
+  if ($number_of_entries and @entries > $number_of_entries) {
+    $#entries = $number_of_entries - 1;
+  }
+
+  return \@entries;
 }
 
 =head2 is_spam_entry
