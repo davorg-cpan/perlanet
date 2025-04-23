@@ -307,22 +307,9 @@ sub select_feed_entries {
   my $self   = shift;
   my ($feed) = @_;
 
-  state $date_zero = DateTime->from_epoch(epoch => 0);
-
   my @entries = grep { ! $self->is_spam_entry($_) } $feed->_xml_feed->entries;
 
-  for (@entries) {
-    # "Fix" entries with no dates
-    unless ($_->issued or $_->modified) {
-      $_->issued($date_zero);
-      $_->modified($date_zero);
-    }
-
-    # Problem with XML::Feed's conversion of RSS to Atom
-    if ($_->issued && ! $_->modified) {
-      $_->modified($_->issued);
-    }
-  }
+  $self->fixup_entry($_) for @entries;
 
   @entries = $self->sort_entries(\@entries)->@*;
   @entries = $self->cutoff_entries(\@entries)->@*;
@@ -336,6 +323,32 @@ sub select_feed_entries {
   }
 
   return \@entries;
+}
+
+=head2 fixup_entry
+
+Apply a couple of standard fix-ups to a feed entry.
+
+=cut
+
+sub fixup_entry {
+  my $self    = shift;
+  my ($entry) = @_;
+
+  state $date_zero = DateTime->from_epoch(epoch => 0);
+
+  # "Fix" entries with no dates
+  unless ($entry->issued or $entry->modified) {
+    $entry->issued($date_zero);
+    $entry->modified($date_zero);
+  }
+
+  # Problem with XML::Feed's conversion of RSS to Atom
+  if ($entry->issued && ! $entry->modified) {
+    $entry->modified($_->issued);
+  }
+
+  return $entry;
 }
 
 =head2 is_spam_entry
