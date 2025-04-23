@@ -36,7 +36,7 @@ has 'cache'=> (
   is => 'ro'
 );
 
-around 'fetch_page' => sub {
+around 'fetch_feed' => sub {
   my $orig = shift;
   my $self = shift;
   my ($url) = @_;

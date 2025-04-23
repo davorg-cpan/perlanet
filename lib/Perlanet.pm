@@ -186,20 +186,35 @@ collect data from.
 
 =head1 METHODS
 
-=head2 fetch_page
+=head2 fetch_feed
 
-Attempt to fetch a web page and a returns a L<URI::Fetch::Response> object.
+Attempt to fetch a web feed. Returns the response object
+(or "undef").
 
 =cut
 
-sub fetch_page {
+sub fetch_feed {
   my $self = shift;
   my ($url) = @_;
-  return URI::Fetch->fetch(
+
+  my $response = URI::Fetch->fetch(
     $url,
     UserAgent     => $self->ua,
     ForceResponse => 1,
   );
+
+  if ($response->is_error) {
+    warn "Error retrieving $url\n";
+    warn $response->http_response->status_line, "\n";
+    return;
+  }
+
+  unless (length $response->content) {
+    warn "No data returned from $url\n";
+    return;
+  }
+
+  return $response;
 }
 
 =head2 fetch_feeds
@@ -222,20 +237,8 @@ sub fetch_feeds {
   for my $feed (@$feeds) {
     next unless $feed->feed;
 
-    my $response = $self->fetch_page($feed->feed);
-
-    if ($response->is_error) {
-      warn 'Error retrieving ' . $feed->feed, "\n";
-      warn $response->http_response->status_line, "\n";
-      next;
-    }
-
-    unless (length $response->content) {
-      warn 'No data returned from ' . $feed->feed, "\n";
-      next;
-    }
-
     try {
+      my $response = $self->fetch_feed($feed->feed);
       my $data = $response->content;
 
       die 'No data from ' . $feed->feed . "\n" unless $data;
