@@ -1,4 +1,6 @@
-UNRELEASED
+2025-04-29  3.3.3 Dave Cross <dave@perlhacks.com>
+
+  * Fix spam regex check for entry content
 
   * Add 'slug' method to Feed class
 
