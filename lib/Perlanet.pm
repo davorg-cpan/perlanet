@@ -370,9 +370,12 @@ sub is_spam_entry {
 
   my $re = $self->spam_regex;
   my $title   = $entry->title;
-  my $content = $entry->content->{body};
+  my $content = $entry->content->{body} // $entry->summary->{body};
 
   return 1 if $title   =~ /$re/;
+
+  return unless defined $content;
+
   return 1 if $content =~ /$re/;
 
   return;
