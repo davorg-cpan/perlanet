@@ -6,9 +6,10 @@ cd "$(dirname "$0")"
 ver=`perl -nE '/\@v([\d\.]+)/ and print $1 and exit' Dockerfile`
 echo Building version $ver
 docker build -t davorg/perl-perlanet:latest -t davorg/perl-perlanet:perlanet_$ver .
+build_status=$?
 
 # Only push if the build succeeded
-if [ $? -eq 0 ]; then
+if [ $build_status -eq 0 ]; then
     docker push -a docker.io/davorg/perl-perlanet
 else
     echo "Docker build failed, skipping push"
