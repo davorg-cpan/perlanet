@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 use experimental 'try';
+no warnings 'experimental::try';
 
 use Moose;
 use namespace::autoclean;
