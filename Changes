@@ -1,3 +1,7 @@
+2025-10-20  3.3.4 Dave Cross <dave@perlhack.com>
+
+  * Stop using "use experimental" to load "try"
+
 2025-04-29  3.3.3 Dave Cross <dave@perlhacks.com>
 
   * Fix spam regex check for entry content
