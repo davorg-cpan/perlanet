@@ -4,7 +4,7 @@ use 5.34.0;
 use strict;
 use warnings;
 
-use experimental 'try';
+use feature 'try';
 no warnings 'experimental::try';
 
 use Moose;
