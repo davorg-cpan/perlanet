@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use feature 'try';
-no if $? < 5.040 'warnings', 'experimental::try';
+no if $? < 5.040, 'warnings', 'experimental::try';
 
 use Moose;
 use namespace::autoclean;
