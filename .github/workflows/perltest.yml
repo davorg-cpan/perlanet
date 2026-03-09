@@ -15,7 +15,7 @@ jobs:
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up perl
         uses: shogo82148/actions-setup-perl@v1
         with:
@@ -45,7 +45,7 @@ jobs:
     container: davorg/perl-coveralls:latest
     name: Test coverage
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install libs
         run: apt-get update && apt-get install -y libxml2 libxml2-dev
       - name: Install Alien::TidyHTML5
