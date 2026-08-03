@@ -5,10 +5,12 @@ use strict;
 use warnings;
 
 use feature 'try';
-no warnings 'experimental::try';
 
 use Moose;
 use namespace::autoclean;
+
+# After Moose because Moose turns on warnings
+no warnings 'experimental::try';
 
 use DateTime::Duration;
 use DateTime;
