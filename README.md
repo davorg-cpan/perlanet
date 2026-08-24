@@ -3,65 +3,57 @@
 
 [![Build Status](https://github.com/davorg-cpan/perlanet/actions/workflows/perltest.yml/badge.svg?branch=master)](https://github.com/davorg-cpan/perlanet/actions/workflows/perltest.yml) [![Coverage Status](https://coveralls.io/repos/github/davorg-cpan/perlanet/badge.svg?branch=master)](https://coveralls.io/github/davorg-cpan/perlanet?branch=master)
 
-## NAME
+## What is Perlanet?
 
-Perlanet
+Perlanet is a Perl tool for building **planet sites** — aggregated pages that
+pull together blog posts and articles from multiple web feeds into one place.
 
-## DESCRIPTION
+If you run a community, team, or project and want to showcase what your members
+are writing about, Perlanet makes it easy. Point it at a list of Atom or RSS
+feeds, and it will generate a combined web page and/or feed with the latest
+content from all of them. It's the glue that turns a collection of individual
+voices into a shared hub.
 
-### WHAT IS Perlanet?
+## Installation
 
-Perlanet is a Perl module for aggregating web feeds.
+The easiest way to install Perlanet is with
+[`cpanm`](https://metacpan.org/pod/App::cpanminus):
 
-It allows you to aggregate a number of web feeds (both Atom and RSS) and
-to publish a web page and another web feed containing the aggregated
-content.
+```sh
+cpanm Perlanet
+```
 
-### HOW DO I INSTALL IT?
+Alternatively, you can use the traditional `cpan` client:
 
-Perlanet uses the standard Perl module architecture and can therefore by
-installed using the standard Perl method which, in brief, goes something
-like this:
+```sh
+cpan Perlanet
+```
 
-    gzip -cd Perlanet-X.XX.tar.gz | tar xvf -
-    cd Perlanet-X.XX
-    perl Build.PL
-    ./Build
-    ./Build test
-    ./Build install
+The latest released version is always available on
+[CPAN](https://metacpan.org/dist/Perlanet).
 
-Where X.XX is the version number of the module which you are installing.
+## Documentation
 
-You can also install it using either the 'cpan' or 'cpanm' command line
-programs.
+Full documentation is included with the distribution in POD format. After
+installing, you can read it with:
 
-### WHERE IS THE DOCUMENTATION?
+```sh
+perldoc perlanet
+```
 
-All of the documentation is in POD format. The most useful documentation
-is included with the 'perlanet' program that is part of this
-distributions. If you install the module using the standard method you
-should be able to read it by typing
+## Getting Help / Reporting Bugs
 
-    perldoc perlanet
+Found a bug or have a feature request? Please open an issue on the
+[GitHub issue tracker](https://github.com/davorg-cpan/perlanet/issues).
 
-at a comand prompt.
+## Author
 
-### LATEST VERSION
+Dave Cross
 
-The latest version of this module will always be available from CPAN.
+## Copyright
 
-## COPYRIGHT
-
-Copyright (C) 2008, Magnum Solutions Ltd.  All Rights Reserved.
+Copyright (C) 2008, Magnum Solutions Ltd. All Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
-## ANYTHING ELSE?
-
-If you have any further questions, please contact the author.
-
-## AUTHOR
-
-Dave Cross <dave@perlhacks.com>
 
